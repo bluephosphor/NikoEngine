@@ -1,9 +1,7 @@
 require "entity"
 
-function Actor(x,y)
-  local _actor = Entity(x,y)
+function NewActor(x,y)
+  local _actor = NewEntity(x,y)
   
-  
-
   return _actor
 end
