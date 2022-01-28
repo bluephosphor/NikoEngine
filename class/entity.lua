@@ -6,12 +6,17 @@ function NewEntity(x,y)
     y = y,
     width = 32,
     height = 32,
-
+    
     direction = nil,
     dirRad = nil,
     distance = 0;
-
+    
     vec = nil,
+    
+    sprite = nil,
+    scale = 2,
+    angle = 0,
+    facing = 1,
 
     hsp = 0,
     vsp = 0,
@@ -21,6 +26,13 @@ function NewEntity(x,y)
 
     inf = { x = 0, y = 0 }
   }
+
+  _e.setSprite = function(path)
+    _e.sprite = Sprite(path)
+    _e.width = _e.sprite.width * _e.scale
+    _e.height = _e.sprite.height * _e.scale
+  end
+
   _e.step = function()
     _e.vec = nil
     
@@ -53,8 +65,28 @@ function NewEntity(x,y)
   end
 
   _e.draw = function()
+    if _e.sprite ~= nil then
+      _e.sprite.draw(
+        _e.x - (_e.width / 2) * _e.facing,
+        _e.y - (_e.height / 2),
+        _e.angle,
+        _e.scale * _e.facing,
+        _e.scale
+      )
+    else
+      love.graphics.rectangle(
+        'fill',
+        _e.x - (_e.width / 2),
+        _e.y - (_e.height / 2),
+        _e.width,
+        _e.height
+      )
+    end
+  end
+
+  _e.drawBbox = function()
     love.graphics.rectangle(
-      'fill',
+      'line',
       _e.x - (_e.width / 2),
       _e.y - (_e.height / 2),
       _e.width,

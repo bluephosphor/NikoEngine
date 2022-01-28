@@ -3,4 +3,5 @@ function NewBoundary(a,b)
     a = a,
     b = b,
   }
+  return _b
 end

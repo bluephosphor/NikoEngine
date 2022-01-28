@@ -13,5 +13,6 @@ end
 function love.draw()
   love.graphics.setFont(Font.default)
   Player.draw()
-  Player.drawDebug(8,8)
+  -- Player.drawBbox()
+  -- Player.drawDebug(8,8)
 end
