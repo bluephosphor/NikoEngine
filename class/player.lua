@@ -1,5 +1,5 @@
 require "lib.math"
-require "actor"
+require "class.actor"
 
 function NewPlayer(x,y)
   local _player = NewActor(x,y)

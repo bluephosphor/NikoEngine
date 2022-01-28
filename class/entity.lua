@@ -62,19 +62,19 @@ function NewEntity(x,y)
     )
   end
 
-  _e.drawDebug = function()
-    local _y = 0;
-    love.graphics.print('hsp:   ' .. _e.hsp,0,_y);       _y = _y + 12
-    love.graphics.print('vsp:   ' .. _e.vsp,0,_y);       _y = _y + 12
-    love.graphics.print('inf.x: ' .. _e.inf.x,0,_y);     _y = _y + 12
-    love.graphics.print('inf.y: ' .. _e.inf.y,0,_y);     _y = _y + 24
+  _e.drawDebug = function(x,y)
+    local _y = 0; local _unit = 16
+    love.graphics.print('hsp:   ' .. _e.hsp,   x, y + _y);  _y = _y + _unit
+    love.graphics.print('vsp:   ' .. _e.vsp,   x, y + _y);  _y = _y + _unit
+    love.graphics.print('inf.x: ' .. _e.inf.x, x, y + _y);  _y = _y + _unit
+    love.graphics.print('inf.y: ' .. _e.inf.y, x, y + _y);  _y = _y + _unit * 2
     if _e.vec ~= nil then
-      love.graphics.print('vector: ',0,_y);                            _y = _y + 12
-      love.graphics.print('direction: '   .. _e.vec.direction,16,_y);  _y = _y + 12
-      love.graphics.print('radian: '      .. _e.vec.dirRad,16,_y);     _y = _y + 12
-      love.graphics.print('distance: '    .. _e.vec.distance,16,_y);   _y = _y + 12
-      love.graphics.print('xComponent: '  .. _e.vec.a,16,_y);          _y = _y + 12
-      love.graphics.print('yComponent: '  .. _e.vec.b,16,_y);          _y = _y + 12
+      love.graphics.print('vector: ', x, _y);                                    _y = _y + _unit
+      love.graphics.print('direction: '   .. _e.vec.direction, x + 16, y + _y);  _y = _y + _unit
+      love.graphics.print('radian: '      .. _e.vec.dirRad,    x + 16, y + _y);  _y = _y + _unit
+      love.graphics.print('distance: '    .. _e.vec.distance,  x + 16, y + _y);  _y = _y + _unit
+      love.graphics.print('xComponent: '  .. _e.vec.a,         x + 16, y + _y);  _y = _y + _unit
+      love.graphics.print('yComponent: '  .. _e.vec.b,         x + 16, y + _y);  _y = _y + _unit
 
       love.graphics.setColor(1,0,0)
       love.graphics.line(

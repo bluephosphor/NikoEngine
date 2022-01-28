@@ -1,6 +1,8 @@
-require "player"
+require "init"
+require "class.player"
 
 function love.load()
+  Initialize()
   Player = NewPlayer(300,300)
 end
 
@@ -9,6 +11,7 @@ function love.update()
 end
 
 function love.draw()
+  love.graphics.setFont(Font.default)
   Player.draw()
-  Player.drawDebug()
+  Player.drawDebug(8,8)
 end
