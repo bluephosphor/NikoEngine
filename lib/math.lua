@@ -1,3 +1,4 @@
+---@diagnostic disable: lowercase-global
 function lerp(a, b, t)
 	local _v = a + (b - a) * t
   return math.abs(_v) > 0.1 and _v or b
@@ -21,14 +22,18 @@ function lengthdir_y(dist, angle)
 end
 
 
-function Vector(x1,y1,x2,y2)
+function MovementVector(x1,y1,x2,y2)
   local _v = {
+    x1 = x1,
+    y1 = y1,
+    x2 = x2,
+    y2 = y2,
     a = x1-x2,
     b = y1-y2,
   }
-  _v.dirRad = math.atan2(_v.b, _v.a)
-  _v.direction = math.deg(-_v.dirRad) + 180 % 360
-  _v.distance  = math.sqrt(_v.a*_v.a + _v.b*_v.b)
+  _v.dirRad     = floorToPrecision(math.atan2(_v.b, _v.a), 2)
+  _v.direction  = floorToPrecision(math.deg(-_v.dirRad) + 180)
+  _v.distance   = floorToPrecision(math.sqrt(_v.a*_v.a + _v.b*_v.b))
 
   return _v
 end
