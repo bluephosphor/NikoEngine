@@ -10,6 +10,11 @@ end
 
 function InitFonts()
   Font = {}
-  Font.default = love.graphics.newFont("lib/font/ChevyRay - Softsquare Wide.ttf", 9)
+  Font.default = love.graphics.newImageFont(
+    "asset/spriteFont/1.png",
+    " abcdefghijklmnopqrstuvwxyz" ..
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ0" ..
+    "123456789.,!?-+/():;%&`'*#=[]\""
+  )
 end
 

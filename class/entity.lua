@@ -6,13 +6,13 @@ function NewEntity(x,y)
     y = y,
     width = 32,
     height = 32,
-    
+
     direction = nil,
     dirRad = nil,
     distance = 0;
-    
+
     vec = nil,
-    
+
     sprite = nil,
     scale = 2,
     angle = 0,
@@ -27,10 +27,17 @@ function NewEntity(x,y)
     inf = { x = 0, y = 0 }
   }
 
-  _e.setSprite = function(path)
-    _e.sprite = Sprite(path)
-    _e.width = _e.sprite.width * _e.scale
-    _e.height = _e.sprite.height * _e.scale
+  _e.setSprite = function(path, anims)
+    _e.sprite       = Sprite(path)
+    _e.width        = _e.sprite.width * _e.scale
+    _e.height       = _e.sprite.height * _e.scale
+
+    if anims then
+      for key, value in pairs(anims) do
+        _e.sprite.animation[key] = value
+      end
+      print(_e.sprite.animation)
+    end
   end
 
   _e.step = function()
@@ -61,6 +68,10 @@ function NewEntity(x,y)
 
     _e.x = _e.x + _e.hsp
     _e.y = _e.y + _e.vsp
+
+    if _e.sprite ~= nil then
+      _e.sprite.animate()
+    end
 
   end
 
