@@ -1,3 +1,5 @@
+require "class.meta.controller"
+
 Game = {
   Paused      = false,
   Debug       = true,
@@ -15,21 +17,10 @@ Game.Initialize = function()
   StepOrder = CallStack('step')
   DrawOrder = {
     background  = CallStack('draw'),
-    main        = CallStack('draw'),
+    world       = CallStack('draw'),
     UI          = CallStack('draw')
   }
 end
-
-Game.Loop = function()
-  if not Game.Paused then StepOrder.eval() end
-end
-
-Game.Render = function()
-  DrawOrder.background.eval()
-  DrawOrder.main.eval()
-  DrawOrder.UI.eval()
-end
-
 
 function InitWindow()
   love.graphics.setDefaultFilter("nearest", "nearest", 0);
@@ -65,21 +56,19 @@ function CallStack(type)
     table.insert(_c.list, who.id)
   end
 
-  _c.remove = function(who)
+  _c.remove = function(id)
     for index, value in ipairs(_c.list) do
-      if value == who.id then
+      if value == id then
         table.remove(_c.list, index)
       end
     end
   end
 
   _c.eval = function()
-  
     for index, value in ipairs(_c.list) do
       local _inst = Instance.lookupTable[value]
-      _inst[type]()
+      if _inst then _inst[type]() end
     end
-  
   end
   
   return _c

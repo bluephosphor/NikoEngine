@@ -17,3 +17,22 @@ function approach(a, b, increment)
   end
   return a
 end
+
+
+function wrap(val,min,max)
+  if val > max then
+    return min
+  elseif val < min then
+    return max
+  end
+  return val
+end
+
+function clamp(val,min,max)
+  if val > max then
+    return max
+  elseif val < min then
+    return min
+  end
+  return val
+end

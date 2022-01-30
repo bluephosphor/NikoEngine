@@ -140,7 +140,7 @@ function NewEntity(x,y)
 
   Instance.assign(_e)
   StepOrder.add(_e)
-  DrawOrder.main.add(_e)
+  DrawOrder.world.add(_e)
 
   return _e
 end
