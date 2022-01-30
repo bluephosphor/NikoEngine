@@ -21,7 +21,6 @@ function lengthdir_y(dist, angle)
   return dist * -math.sin(angle)
 end
 
-
 function MovementVector(x1,y1,x2,y2)
   local _v = {
     x1 = x1,

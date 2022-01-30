@@ -1,3 +1,4 @@
+---@diagnostic disable: lowercase-global
 function Vec2(x,y)
   return { x = x, y = y }
 end
@@ -16,4 +17,3 @@ function approach(a, b, increment)
   end
   return a
 end
-

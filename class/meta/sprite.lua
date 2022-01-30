@@ -1,11 +1,10 @@
-function Sprite(path, defaultAnim)
+function Sprite(path)
   local _s = {
     img        = love.graphics.newImage(path),
     framedata  = {},
     frame      = 1,
     animation  = {
-      current = {},
-      main    = {},
+      frames  = {},
       index   = 1,
       timer   = 4,
       speed   = 4,
@@ -31,18 +30,18 @@ function Sprite(path, defaultAnim)
       _s.height,
       _s.img:getDimensions()
     )
-    _s.animation.main[i] = i
+    _s.animation.frames[i] = i
   end
 
   _s.setAnimation = function(anim)
-    if anim == _s.animation.current then return end
-    _s.animation.current = {}
+    _s.animation.frames = anim.frames
     _s.animation.index = 1
-    _s.animation.timer = _s.animation.speed
-    for index, value in ipairs(anim) do
-      _s.animation.current[index] = value
+    _s.animation.timer = 1
+    for index, value in ipairs(anim.frames) do
+      _s.animation.frames[index] = value
       _s.animation.length = index
     end
+    _s.frame = anim.frames[1]
   end
 
   _s.animate = function()
@@ -52,10 +51,11 @@ function Sprite(path, defaultAnim)
     if _s.animation.timer > 0 then
       return
     else
-      _s.frame = _s.frame + 1
-      if _s.frame > _s.animation.length then
-        _s.frame = 1
+      _s.animation.index = _s.animation.index + 1
+      if _s.animation.index > _s.animation.length then
+        _s.animation.index = 1
       end
+      _s.frame = _s.animation.frames[_s.animation.index]
       _s.animation.timer = _s.animation.speed
     end
   end
@@ -63,9 +63,6 @@ function Sprite(path, defaultAnim)
   _s.draw = function(x, y, r, sx, sy)
     love.graphics.draw(_s.img, _s.framedata[_s.frame], x, y, r, sx, sy)
   end
-
-  local _a = defaultAnim or _s.animation.main
-  _s.setAnimation(_a)
 
   return _s
 end

@@ -1,18 +1,16 @@
-require "init"
-require "class.player"
+require "game"
+require "class.world.player"
 
 function love.load()
-  Initialize()
+  Game.Initialize()
   Player = NewPlayer(300,300)
+  Player2 = NewPlayer(600,300)
 end
 
 function love.update()
-  Player.step()
+  Game.Loop()
 end
 
 function love.draw()
-  love.graphics.setFont(Font.default)
-  Player.draw()
-  -- Player.drawBbox()
-  Player.drawDebug(8,8)
+  Game.Render()
 end
