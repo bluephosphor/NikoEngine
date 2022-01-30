@@ -19,12 +19,14 @@ function love.keypressed(key, scancode, isrepeat)
   if key == "k" then
     if Instance.exists(Menu) then
       Instance.destroy(Menu.id)
-    else
+      love.graphics.setBackgroundColor(0,0,0)
+    elseif Menu == nil then
       Menu = UI.List(64,8,{
-        {option = 'Hello',      callback = nil},
-        {option = 'Pick',       callback = nil},
-        {option = 'An',         callback = nil},
-        {option = 'Option :)',  callback = nil},
+        {option = 'Help',      callback = nil},
+        {option = 'why',       callback = nil},
+        {option = 'is',         callback = nil},
+        {option = 'this',  callback = nil},
+        {option = 'happening',  callback = nil},
       })
     end
   end

@@ -1,5 +1,5 @@
 Instance = {
-  counter = 0,
+  counter = 1,
   lookupTable = {}
 }
 
@@ -16,7 +16,7 @@ end
 
 Instance.destroy = function(id)
   --remove form lookup table
-  local _inst = table.remove(Instance.lookupTable, id)
+  table.remove(Instance.lookupTable, id)
 
   --remove from steporder
   StepOrder.remove(id)
@@ -25,6 +25,4 @@ Instance.destroy = function(id)
   for key, t in pairs(DrawOrder) do
     t.remove(id)
   end
-
-  _inst = nil
 end
