@@ -2,6 +2,8 @@ UI = {}
 
 UI.Element = function(x, y, static)
   local _u = {
+    name = 'UI Element',
+    
     x = x,
     y = y,
     static = static or true,

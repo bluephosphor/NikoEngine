@@ -60,8 +60,10 @@ function CallStack(type)
     for index, value in ipairs(_c.list) do
       if value == id then
         table.remove(_c.list, index)
+        return true
       end
     end
+    return false
   end
 
   _c.eval = function()

@@ -3,6 +3,8 @@ require "lib.math"
 
 function NewEntity(x,y)
   local _e = {
+    name = 'entity',
+    
     x = x,
     y = y,
     width = 32,

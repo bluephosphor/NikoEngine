@@ -33,4 +33,6 @@ UI.List = function(x,y,data)
       love.graphics.setColor(1,1,1)
     end
   end
+
+  return _l
 end
