@@ -1,8 +1,4 @@
-require "class.UI.element"
-require "class.meta.controller"
-require "lib.core"
-
-UI.List = function(x,y,data)
+UI.List = function(x,y,data,options)
   local _l  = UI.Element(x,y)
   _l.data   = data
   _l.index  = 1
@@ -22,6 +18,11 @@ UI.List = function(x,y,data)
       end
     else
       _l.inputbuffer = 1
+    end
+
+    if Controller.key[Input.key.action] then
+      _l.data[_l.index].callback()
+      if options and options.destroyOnConfirm then Instance.destroy(_l) end
     end
   end
 

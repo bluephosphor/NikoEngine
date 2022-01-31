@@ -3,31 +3,33 @@ Instance = {
   lookupTable = {}
 }
 
-Instance.assign = function(inst)
-  inst.id = Instance.counter
-
-  table.insert(Instance.lookupTable, inst.id, inst)
+Instance.create = function(obj, drawOrder)
+  obj.id = 'inst_' .. Instance.counter
+  obj.myDrawOrder = drawOrder
   Instance.counter = Instance.counter + 1
+
+  Instance.lookupTable[obj.id] = obj
+  StepOrder.add(obj)
+  drawOrder.add(obj)
+  return obj
 end
 
 Instance.exists = function(who)
   return who and Instance.lookupTable[who.id] and true or false
 end
 
-Instance.destroy = function(id)
+Instance.destroy = function(who)
 
   --remove from steporder
-  StepOrder.remove(id)
+  StepOrder.remove(who.id)
   
   --remove from draworder
-  local _flag = false
-  for key, t in pairs(DrawOrder) do
-    _flag = t.remove(id)
-    if _flag then break end
-  end
+  who.myDrawOrder.remove(who.id)
   
   --remove form lookup table
-  table.remove(Instance.lookupTable, id)
+  Instance.lookupTable[who.id] = nil
+
+  who = nil
 end
 
 Instance.list = function()

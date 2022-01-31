@@ -1,7 +1,3 @@
-require "class.world.actor"
-require "class.meta.sprite"
-require "class.meta.controller"
-
 function NewPlayer(x,y)
   local _p = NewActor(x,y)
   local _step_inherited = _p.step

@@ -33,6 +33,4 @@ end
 
 function love.keypressed(key, scancode, isrepeat)
   table.insert(Input.queue, key)
-  print(key .. ' inserted into input queue')
-  print('queue size: ' .. table.maxn(Input.queue))
 end

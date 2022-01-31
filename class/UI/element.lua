@@ -1,7 +1,7 @@
 UI = {}
 
 UI.Element = function(x, y, static)
-  local _u = {
+  local _u = Instance.create({
     name = 'UI Element',
     
     x = x,
@@ -11,7 +11,7 @@ UI.Element = function(x, y, static)
     width = 16,
     height = 16,
     padding = 8
-  }
+  }, DrawOrder.UI)
 
   _u.drawBox = function()
     love.graphics.setColor(1,1,1,0.2)
@@ -19,10 +19,6 @@ UI.Element = function(x, y, static)
     love.graphics.setColor(1,1,1)
     love.graphics.rectangle('line',_u.x,_u.y,_u.width,_u.height)
   end
-  
-  Instance.assign(_u)
-  StepOrder.add(_u)
-  DrawOrder.UI.add(_u)
 
   return _u
 end

@@ -1,8 +1,5 @@
-require "class.meta.instance"
-require "lib.math"
-
 function NewEntity(x,y)
-  local _e = {
+  local _e = Instance.create({
     name = 'entity',
     
     x = x,
@@ -28,7 +25,7 @@ function NewEntity(x,y)
     fric = 0.2,
 
     inf = { x = 0, y = 0 }
-  }
+  }, DrawOrder.world)
 
   _e.setSprite = function(path)
     _e.sprite  = Sprite(path)
@@ -87,14 +84,12 @@ function NewEntity(x,y)
         _e.scale * _e.facing,
         _e.scale
       )
-    else
-      love.graphics.rectangle(
-        'fill',
-        _e.x - (_e.width / 2),
-        _e.y - (_e.height / 2),
-        _e.width,
-        _e.height
-      )
+    end
+    if Game.ShowBoxes or _e.sprite == nil then
+      _e.drawBox()
+    end
+    if Game.debug then
+      _e.drawDebug(_e.x, _e.y)
     end
   end
 
@@ -139,10 +134,6 @@ function NewEntity(x,y)
       love.graphics.setColor(1,1,1)
     end
   end
-
-  Instance.assign(_e)
-  StepOrder.add(_e)
-  DrawOrder.world.add(_e)
 
   return _e
 end

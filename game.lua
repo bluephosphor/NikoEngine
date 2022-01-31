@@ -1,5 +1,3 @@
-require "class.meta.controller"
-
 Game = {
   Paused      = false,
   Debug       = true,
@@ -11,20 +9,29 @@ Game = {
 }
 
 Game.Initialize = function()
+  require "lib.core"
+  require "lib.math"
+  
+  require "class.meta.controller"
+  require "class.meta.callstack"
+  require "class.meta.instance"
+  require "class.meta.sprite"
+
+  require "class.UI.element"
+  require "class.UI.list"
+
+  require "class.world.entity"
+  require "class.world.actor"
+  require "class.world.player"
+
   InitWindow()
   InitFonts()
-
-  StepOrder = CallStack('step')
-  DrawOrder = {
-    background  = CallStack('draw'),
-    world       = CallStack('draw'),
-    UI          = CallStack('draw')
-  }
+  InitEventOrder()
 end
 
 function InitWindow()
   love.graphics.setDefaultFilter("nearest", "nearest", 0);
-  love.graphics.setBackgroundColor(0.3,0.5,0.3)
+  love.graphics.setBackgroundColor(0.5,1,1)
   love.window.setMode(
     Game.Resolution.width,
     Game.Resolution.height,
@@ -46,32 +53,11 @@ function InitFonts()
   love.graphics.setFont(Font.default)
 end
 
-function CallStack(type)
-  local _c = {
-    list = {},
-    idcounter = 0
+function InitEventOrder()
+  StepOrder = CallStack('step')
+  DrawOrder = {
+    background  = CallStack('draw'),
+    world       = CallStack('draw'),
+    UI          = CallStack('draw')
   }
-
-  _c.add = function(who)
-    table.insert(_c.list, who.id)
-  end
-
-  _c.remove = function(id)
-    for index, value in ipairs(_c.list) do
-      if value == id then
-        table.remove(_c.list, index)
-        return true
-      end
-    end
-    return false
-  end
-
-  _c.eval = function()
-    for index, value in ipairs(_c.list) do
-      local _inst = Instance.lookupTable[value]
-      if _inst then _inst[type]() end
-    end
-  end
-  
-  return _c
 end

@@ -1,5 +1,3 @@
-require "class.world.entity"
-
 function NewActor(x,y)
   local _a = NewEntity(x,y)
   
