@@ -1,7 +1,6 @@
 Game = {
   Paused      = false,
-  Debug       = true,
-  ShowBoxes   = false,
+  Debug       = false,
   Resolution  = {
     width   = 854,
     height  = 480
@@ -16,8 +15,10 @@ Game.Initialize = function()
   require "class.meta.callstack"
   require "class.meta.instance"
   require "class.meta.sprite"
+  require "class.meta.debug"
 
   require "class.UI.element"
+  require "class.UI.typography"
   require "class.UI.list"
 
   require "class.world.entity"

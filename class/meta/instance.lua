@@ -6,6 +6,7 @@ Instance = {
 Instance.create = function(obj, drawOrder)
   obj.id = 'inst_' .. Instance.counter
   obj.myDrawOrder = drawOrder
+  obj.children = {}
   Instance.counter = Instance.counter + 1
 
   Instance.lookupTable[obj.id] = obj
@@ -29,14 +30,18 @@ Instance.destroy = function(who)
   --remove form lookup table
   Instance.lookupTable[who.id] = nil
 
+  --remove children
+  for index, value in ipairs(who.children) do
+    Instance.destroy(value)
+  end
+
   who = nil
 end
 
 Instance.list = function()
-
+  print('---ACTIVE INSTANCES---')
   for key, value in pairs(Instance.lookupTable) do
-    print(key, ': ', value.name, value)
-    print('id: ', value.id)
+    print(key .. ': ' .. value.name)
   end
-
+  print('---')
 end

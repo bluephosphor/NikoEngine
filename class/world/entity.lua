@@ -1,6 +1,6 @@
 function NewEntity(x,y)
   local _e = Instance.create({
-    name = 'entity',
+    name = 'Entity',
     
     x = x,
     y = y,
@@ -85,15 +85,16 @@ function NewEntity(x,y)
         _e.scale
       )
     end
-    if Game.ShowBoxes or _e.sprite == nil then
-      _e.drawBox()
+    if Debug.ShowBoxes or _e.sprite == nil then
+      _e.drawBbox()
     end
-    if Game.debug then
+    if Debug.ShowEntityInfo then
       _e.drawDebug(_e.x, _e.y)
     end
   end
 
   _e.drawBbox = function()
+    love.graphics.setColor(1,0,0)
     love.graphics.rectangle(
       'line',
       _e.x - (_e.width / 2),
@@ -101,6 +102,7 @@ function NewEntity(x,y)
       _e.width,
       _e.height
     )
+    love.graphics.setColor(1,1,1)
   end
 
   _e.drawDebug = function(x,y)
@@ -110,10 +112,10 @@ function NewEntity(x,y)
     love.graphics.print('inf.x: ' .. _e.inf.x, x, y + _y);  _y = _y + _unit
     love.graphics.print('inf.y: ' .. _e.inf.y, x, y + _y);  _y = _y + _unit * 2
     if _e.vec ~= nil then
-      love.graphics.print('vector: ', x, _y);                                    _y = _y + _unit
-      love.graphics.print('direction: '   .. _e.vec.direction, x + 16, y + _y);  _y = _y + _unit
-      love.graphics.print('radian: '      .. _e.vec.dirRad,    x + 16, y + _y);  _y = _y + _unit
-      love.graphics.print('distance: '    .. _e.vec.distance,  x + 16, y + _y);  _y = _y + _unit
+      love.graphics.print('vector: ', x, y + _y);                                _y = _y + _unit
+      love.graphics.print('direction:  '  .. _e.vec.direction, x + 16, y + _y);  _y = _y + _unit
+      love.graphics.print('radian:     '  .. _e.vec.dirRad,    x + 16, y + _y);  _y = _y + _unit
+      love.graphics.print('distance:   '  .. _e.vec.distance,  x + 16, y + _y);  _y = _y + _unit
       love.graphics.print('xComponent: '  .. _e.vec.a,         x + 16, y + _y);  _y = _y + _unit
       love.graphics.print('yComponent: '  .. _e.vec.b,         x + 16, y + _y);  _y = _y + _unit
 

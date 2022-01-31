@@ -1,5 +1,6 @@
 function NewPlayer(x,y)
   local _p = NewActor(x,y)
+  _p.name = _p.name .. "-> Player"
   local _step_inherited = _p.step
 
   _p.setSprite('asset/sprite/kitty.png')

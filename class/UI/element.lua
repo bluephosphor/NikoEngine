@@ -1,12 +1,12 @@
 UI = {}
 
-UI.Element = function(x, y, static)
+UI.Element = function(x, y)
   local _u = Instance.create({
     name = 'UI Element',
     
     x = x,
     y = y,
-    static = static or true,
+    static = true,
     
     width = 16,
     height = 16,
@@ -18,6 +18,11 @@ UI.Element = function(x, y, static)
     love.graphics.rectangle('fill',_u.x,_u.y,_u.width,_u.height)
     love.graphics.setColor(1,1,1)
     love.graphics.rectangle('line',_u.x,_u.y,_u.width,_u.height)
+  end
+
+  
+  _u.draw = function ()
+    
   end
 
   return _u
