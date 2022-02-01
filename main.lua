@@ -3,6 +3,13 @@ require "game"
 function love.load()
   Game.Initialize()
   Player = NewPlayer(300,300)
+  TestBox = UI.Textbox(200,200,{
+    {text = "Hello, World!"},
+    {text = "Nice to meet you."},
+    {text = "How are we feeling?"},
+    {text = "Stupid?"},
+    {text = "Me too!"},
+  })
 end
 
 function love.update()

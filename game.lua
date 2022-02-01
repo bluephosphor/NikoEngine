@@ -21,6 +21,7 @@ Game.Initialize = function()
   require "class.UI.element"
   require "class.UI.typography"
   require "class.UI.list"
+  require "class.UI.textbox"
 
   require "class.world.entity"
   require "class.world.actor"

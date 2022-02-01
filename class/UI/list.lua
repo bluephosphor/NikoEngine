@@ -20,16 +20,7 @@ UI.List = function(x,y,data,options)
   end
 
   _l.step = function()
-    if Controller.direction.y ~= 0 then
-      if _l.inputbuffer <= 0 then
-        _l.index = wrap(_l.index + Controller.direction.y, 1, _l.size)
-        _l.inputbuffer = 10
-      else
-        _l.inputbuffer = _l.inputbuffer - 1
-      end
-    else
-      _l.inputbuffer = 1
-    end
+    _l.index = _l.navigate(_l.index)
 
     if Controller.key[Input.key.action] then
       if _l.data[_l.index].callback then 
