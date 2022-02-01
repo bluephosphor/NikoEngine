@@ -11,19 +11,16 @@ UI.Element = function(x, y)
     width = 16,
     height = 16,
     padding = 8
-  }, DrawOrder.UI)
+  }, StepOrder.UI, DrawOrder.UI)
 
   _u.drawBox = function()
-    love.graphics.setColor(1,1,1,0.2)
+    Color.set(Color.menuBack)
     love.graphics.rectangle('fill',_u.x,_u.y,_u.width,_u.height)
-    love.graphics.setColor(1,1,1)
+    Color.set(Color.menuOutline)
     love.graphics.rectangle('line',_u.x,_u.y,_u.width,_u.height)
   end
 
-  
-  _u.draw = function ()
-    
-  end
+  _u.draw = function() end
 
   return _u
 end

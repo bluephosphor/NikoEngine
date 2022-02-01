@@ -1,4 +1,5 @@
 ---@diagnostic disable: lowercase-global
+
 function lerp(a, b, t)
 	local _v = a + (b - a) * t
   return math.abs(_v) > 0.1 and _v or b

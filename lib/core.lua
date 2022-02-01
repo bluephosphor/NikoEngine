@@ -36,3 +36,15 @@ function clamp(val,min,max)
   end
   return val
 end
+
+function enum(tbl)
+-- assumes the tbl is an array, i.e., all the keys are
+-- successive integers - otherwise #tbl will fail
+  local length = #tbl
+  for i = 1, length do
+      local v = tbl[i]
+      tbl[v] = i
+  end
+
+  return tbl
+end

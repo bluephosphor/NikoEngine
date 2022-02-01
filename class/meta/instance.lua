@@ -3,14 +3,15 @@ Instance = {
   lookupTable = {}
 }
 
-Instance.create = function(obj, drawOrder)
+Instance.create = function(obj, stepOrder, drawOrder)
   obj.id = 'inst_' .. Instance.counter
+  obj.myStepOrder = stepOrder
   obj.myDrawOrder = drawOrder
   obj.children = {}
   Instance.counter = Instance.counter + 1
 
   Instance.lookupTable[obj.id] = obj
-  StepOrder.add(obj)
+  stepOrder.add(obj)
   drawOrder.add(obj)
   return obj
 end
@@ -22,7 +23,7 @@ end
 Instance.destroy = function(who)
 
   --remove from steporder
-  StepOrder.remove(who.id)
+  who.myStepOrder.remove(who.id)
   
   --remove from draworder
   who.myDrawOrder.remove(who.id)

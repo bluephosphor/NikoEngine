@@ -1,15 +1,16 @@
 Game = {
-  Paused      = false,
-  Debug       = false,
-  Resolution  = {
-    width   = 854,
-    height  = 480
+  Debug = false,
+  Resolution = {
+    width  = 854,
+    height = 480
   }
 }
 
 Game.Initialize = function()
   require "lib.core"
   require "lib.math"
+  require "lib.color"
+  require "lib.state"
   
   require "class.meta.controller"
   require "class.meta.callstack"
@@ -28,6 +29,8 @@ Game.Initialize = function()
   InitWindow()
   InitFonts()
   InitEventOrder()
+
+  GlobalState = State.GAME
 end
 
 function InitWindow()
@@ -55,7 +58,10 @@ function InitFonts()
 end
 
 function InitEventOrder()
-  StepOrder = CallStack('step')
+  StepOrder = {
+    world = CallStack('step'),
+    UI    = CallStack('step')
+  }
   DrawOrder = {
     background  = CallStack('draw'),
     world       = CallStack('draw'),

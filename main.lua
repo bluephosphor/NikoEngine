@@ -7,8 +7,14 @@ end
 
 function love.update()
   Controller.getInputState()
+
   if Controller.key['d'] then Debug.toggle() end
-  if not Game.Paused then StepOrder.eval() end
+
+  if GlobalState ~= State.PAUSE then
+    StepOrder.world.eval()
+  end
+
+  StepOrder.UI.eval()
 end
 
 function love.draw()

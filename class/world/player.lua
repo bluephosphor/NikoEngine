@@ -19,17 +19,16 @@ function NewPlayer(x,y)
 
   _p.step = function()
     _p.inf = Controller.direction
-
+    
     if _p.inf.x ~= 0 or _p.inf.y ~= 0 then
       _p.setAnimation(_p.animations.walk)
     else
       _p.setAnimation(_p.animations.idle)
     end
-
+    
     if _p.facing == -_p.inf.x then
       _p.facing = _p.inf.x
     end
-
     _step_inherited()
   end
 

@@ -25,7 +25,7 @@ function NewEntity(x,y)
     fric = 0.2,
 
     inf = { x = 0, y = 0 }
-  }, DrawOrder.world)
+  }, StepOrder.world, DrawOrder.world)
 
   _e.setSprite = function(path)
     _e.sprite  = Sprite(path)
