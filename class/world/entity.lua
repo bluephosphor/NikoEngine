@@ -27,17 +27,10 @@ function NewEntity(x,y)
     inf = { x = 0, y = 0 }
   }, StepOrder.world, DrawOrder.world)
 
-  _e.setSprite = function(path)
-    _e.sprite  = Sprite(path)
+  _e.setSprite = function(path, frameWidth)
+    _e.sprite  = Sprite(path, frameWidth)
     _e.width   = _e.sprite.width  * _e.scale
     _e.height  = _e.sprite.height * _e.scale
-  end
-
-  _e.defineAnimation = function(name, anim)
-    if _e.animations == nil then
-      _e.animations = {}
-    end
-    _e.animations[name] = anim;
   end
 
   _e.step = function()
@@ -135,6 +128,10 @@ function NewEntity(x,y)
       )
       love.graphics.setColor(1,1,1)
     end
+  end
+
+  _e.preDestroy = function()
+    _e.sprite.free()
   end
 
   return _e

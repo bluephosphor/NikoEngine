@@ -3,6 +3,7 @@
 - shell?
 - collisions
 - actors and flesh out state mechanics
+- rooms
 - cutscenes
 - ???
 - make ghost story?
