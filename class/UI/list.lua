@@ -1,4 +1,6 @@
 UI.List = function(x,y,data,options)
+  GlobalState = State.MENU
+
   local _l       = UI.Element(x,y)
   _l.name        = _l.name .. "-> List"
   _l.data        = {}
@@ -38,6 +40,10 @@ UI.List = function(x,y,data,options)
       love.graphics.draw(value.option.text, value.option.x, value.option.y)
       love.graphics.setColor(1,1,1)
     end
+  end
+
+  _l.preDestroy = function ()
+    GlobalState = State.GAME
   end
 
   return _l

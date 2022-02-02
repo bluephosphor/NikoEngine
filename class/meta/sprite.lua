@@ -14,14 +14,16 @@ function Sprite(path, frameWidth)
     }
   }
 
-  local _atlasHeight = _s.img:getHeight()
-  local _atlasWidth  = _s.img:getWidth()
+  local _atlasHeight = math.ceil(_s.img:getHeight())
+  local _atlasWidth  = math.ceil(_s.img:getWidth())
   local _atlasMargin = 1
 
   _s.totalFrames  = math.floor(_atlasWidth / (frameWidth + _atlasMargin))
   _s.width        = ((_atlasWidth / _s.totalFrames) - (_atlasMargin * 2))
   _s.height       = (_atlasHeight - (_atlasMargin * 2))
 
+  print(_atlasWidth )
+  print(_atlasHeight)
   print(_s.width)
   print(_s.height)
 
@@ -33,7 +35,8 @@ function Sprite(path, frameWidth)
       _atlasMargin,
       _s.width,
       _s.height,
-      _s.img:getDimensions()
+      _atlasWidth,
+      _atlasHeight
     )
     _s.animation.frames[i] = i
   end

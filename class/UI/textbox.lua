@@ -1,4 +1,6 @@
 UI.Textbox = function(data, x, y)
+  GlobalState = State.DIALOGUE
+  
   local _t    = UI.Element(x,y)
   _t.name     = '-> Textbox'
   _t.data     = {}
@@ -16,7 +18,6 @@ UI.Textbox = function(data, x, y)
     frames = range(8,14),
     speed = 4
   })
-  _t.nextSprite.setAnimation(_t.nextSprite.animations.nextPage)
 
   for index, value in ipairs(data) do
     local _item = UI.Typography(x,y, value.text)  
@@ -37,16 +38,28 @@ UI.Textbox = function(data, x, y)
     if _t.finished then
       _t.nextSprite.visible = true
       _t.nextSprite.animate()
+      
+      _t.index = _t.index + bin(Controller.key[Input.key.action])
+      if _t.index > _t.size then
+        Instance.destroy(_t)
+        return
+      end
+
       _t.index = _t.navigate(_t.index, clamp)
+      if _t.index == _t.size then
+        _t.nextSprite.setAnimation(_t.nextSprite.animations.lastPage)
+      else
+        _t.nextSprite.setAnimation(_t.nextSprite.animations.nextPage)
+      end
     end
   end
 
   _t.draw = function()
     _t:drawBox()
     _t.nextSprite.draw(
-      _t.x + (_t.width/2) - (_t.nextSprite.width/2),
-      _t.y +_t.height + 2,
-      0, 3, 3
+      math.floor(_t.x + (_t.width/2) - (_t.nextSprite.width/2)),
+      math.floor(_t.y +_t.height + 2),
+      0,1,1
     )
     love.graphics.draw(
       _t.data[_t.index].text,
@@ -56,6 +69,7 @@ UI.Textbox = function(data, x, y)
 
   _t.preDestroy = function()
     _t.nextSprite:free()
+    GlobalState = State.GAME
   end
 
   return _t

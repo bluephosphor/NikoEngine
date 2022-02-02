@@ -17,8 +17,12 @@ function NewPlayer(x,y)
 
   _p.sprite.setAnimation(_p.sprite.animations.idle)
 
-  _p.step = function()
+  _p.getInput = function()
     _p.inf = Controller.direction
+  end
+
+  _p.step = function()
+    if GlobalState == State.GAME then _p.getInput() end
     
     if _p.inf.x ~= 0 or _p.inf.y ~= 0 then
       _p.sprite.setAnimation(_p.sprite.animations.walk)
