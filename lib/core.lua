@@ -37,6 +37,16 @@ function clamp(val,min,max)
   return val
 end
 
+function range(min, max)
+-- returns an array of successive integers within a range
+-- useful for setting sprite animations
+  local _table = {}
+  for num = min, max, 1 do
+    table.insert(_table, num)
+  end
+  return _table
+end
+
 function enum(tbl)
 -- assumes the tbl is an array, i.e., all the keys are
 -- successive integers - otherwise #tbl will fail

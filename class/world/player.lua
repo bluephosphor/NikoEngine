@@ -1,29 +1,29 @@
 function NewPlayer(x,y)
   local _p = NewActor(x,y)
-  _p.name = _p.name .. "-> Player"
   local _step_inherited = _p.step
+  _p.name = _p.name .. "-> Player"
 
-  _p.setSprite('asset/sprite/kitty.png')
+  _p.setSprite('asset/sprite/kitty.png', 32)
 
-  _p.defineAnimation('idle', {
-    frames = {1,2,3,4,5,6,7},
+  _p.sprite.defineAnimation('idle', {
+    frames = range(1,7),
     speed = 6
   })
 
-  _p.defineAnimation('walk',{
-    frames = {8,9,10,11},
+  _p.sprite.defineAnimation('walk',{
+    frames = range(8,11),
     speed = 5
   })
 
-  _p.setAnimation(_p.animations.idle)
+  _p.sprite.setAnimation(_p.sprite.animations.idle)
 
   _p.step = function()
     _p.inf = Controller.direction
     
     if _p.inf.x ~= 0 or _p.inf.y ~= 0 then
-      _p.setAnimation(_p.animations.walk)
+      _p.sprite.setAnimation(_p.sprite.animations.walk)
     else
-      _p.setAnimation(_p.animations.idle)
+      _p.sprite.setAnimation(_p.sprite.animations.idle)
     end
     
     if _p.facing == -_p.inf.x then

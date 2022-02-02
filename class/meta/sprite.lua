@@ -1,9 +1,10 @@
 function Sprite(path, frameWidth)
   local _s = {
     img        = love.graphics.newImage(path),
+    visible    = true,
     framedata  = {},
     frame      = 1,
-    frameWidth = frameWidth and frameWidth or 32,
+    frameWidth = frameWidth,
     animation  = {
       frames  = {},
       index   = 1,
@@ -18,8 +19,11 @@ function Sprite(path, frameWidth)
   local _atlasMargin = 1
 
   _s.totalFrames  = math.floor(_atlasWidth / (frameWidth + _atlasMargin))
-  _s.height       = _atlasHeight - (_atlasMargin * 2)
-  _s.width        = (_atlasWidth / _s.totalFrames) - (_atlasMargin * 2)
+  _s.width        = ((_atlasWidth / _s.totalFrames) - (_atlasMargin * 2))
+  _s.height       = (_atlasHeight - (_atlasMargin * 2))
+
+  print(_s.width)
+  print(_s.height)
 
   --initialize framedata and default animation
   for i = 1, _s.totalFrames do
@@ -34,7 +38,17 @@ function Sprite(path, frameWidth)
     _s.animation.frames[i] = i
   end
 
+  _s.defineAnimation = function(name, anim)
+    if _s.animations == nil then
+      _s.animations = {}
+    end
+    _s.animations[name] = anim;
+  end
+
   _s.setAnimation = function(anim)
+    if _s.animations.current == anim then return end
+    _s.animations.current = anim
+    
     _s.animation.frames = anim.frames
     _s.animation.index = 1
     _s.animation.timer = 1
@@ -62,7 +76,16 @@ function Sprite(path, frameWidth)
   end
 
   _s.draw = function(x, y, r, sx, sy)
+    if not _s.visible then return end
     love.graphics.draw(_s.img, _s.framedata[_s.frame], x, y, r, sx, sy)
+  end
+
+  _s.free = function()
+    _s.img:release()
+    for index, frame in ipairs(_s.framedata) do
+      frame:release()
+    end
+    _s = nil
   end
 
   return _s

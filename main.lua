@@ -2,7 +2,7 @@ require "game"
 
 function love.load()
   Game.Initialize()
-  --Player = NewPlayer(300,300)
+  Player = NewPlayer(300,300)
   TestBox = UI.Textbox({
     {text = "Hello, World!"},
     {text = "Nice to meet you."},
