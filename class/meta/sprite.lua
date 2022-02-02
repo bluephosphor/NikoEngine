@@ -1,8 +1,9 @@
-function Sprite(path)
+function Sprite(path, frameWidth)
   local _s = {
     img        = love.graphics.newImage(path),
     framedata  = {},
     frame      = 1,
+    frameWidth = frameWidth and frameWidth or 32,
     animation  = {
       frames  = {},
       index   = 1,
@@ -16,7 +17,7 @@ function Sprite(path)
   local _atlasWidth  = _s.img:getWidth()
   local _atlasMargin = 1
 
-  _s.totalFrames  = math.floor(_atlasWidth / (32 + _atlasMargin))
+  _s.totalFrames  = math.floor(_atlasWidth / (frameWidth + _atlasMargin))
   _s.height       = _atlasHeight - (_atlasMargin * 2)
   _s.width        = (_atlasWidth / _s.totalFrames) - (_atlasMargin * 2)
 

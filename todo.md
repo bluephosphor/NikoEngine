@@ -1,0 +1,8 @@
+- make sprite an instance, and make them children of their parent objects
+- finish textboxes
+- shell?
+- collisions
+- actors and flesh out state mechanics
+- cutscenes
+- ???
+- make ghost story?

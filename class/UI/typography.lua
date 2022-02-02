@@ -7,12 +7,13 @@ UI.Typography = function(x,y,str)
   _t.height = _t.text:getHeight()
   _t.len    = string.len(str)
   _t.index  = 1
+  _t.speed  = 0.5
 
   _t.typewriter = function()
     if _t.index > _t.len then return true end
 
-    _t.text:set(string.sub(_t.str,1, _t.index))
-    _t.index = _t.index + 1
+    _t.text:set(string.sub(_t.str,1, math.ceil(_t.index)))
+    _t.index = _t.index + _t.speed
     return false
   end
   return _t

@@ -4,8 +4,8 @@ UI.Element = function(x, y)
   local _u = Instance.create({
     name = 'UI Element',
 
-    x = x,
-    y = y,
+    x = x and x or 0,
+    y = y and y or 0,
     static = true,
     inputbuffer = 1,
 
@@ -22,10 +22,10 @@ UI.Element = function(x, y)
     love.graphics.rectangle('line',_u.x,_u.y,_u.width,_u.height)
   end
 
-  _u.navigate = function(value)
+  _u.navigate = function(value, method)
     if Controller.direction.y ~= 0 then
       if _u.inputbuffer <= 0 then
-        value = wrap(value + Controller.direction.y, 1, _u.size)
+        value = method(value + Controller.direction.y, 1, _u.size)
         _u.inputbuffer = 10
       else
         _u.inputbuffer = _u.inputbuffer - 1

@@ -1,9 +1,10 @@
-UI.Textbox = function(x, y, data)
-  local _t = UI.Element(x,y)
-  _t.data = {}
-  _t.index = 1
-  _t.length = 0;
-  _t.size = table.maxn(data)
+UI.Textbox = function(data, x, y)
+  local _t    = UI.Element(x,y)
+  _t.name     = '-> Textbox'
+  _t.data     = {}
+  _t.index    = 1
+  _t.length   = 0;
+  _t.size     = table.maxn(data)
   _t.finished = false
 
   for index, value in ipairs(data) do
@@ -16,16 +17,23 @@ UI.Textbox = function(x, y, data)
     table.insert(_t.children, _item)
   end
 
+  if not x then _t.x = Game.Resolution.width/2 - _t.width/2 end
+  if not y then _t.y = Game.Resolution.height/2 - _t.height/2 end
+
+
   _t.step = function()
     _t.finished = _t.data[_t.index].typewriter()
     if _t.finished then
-      _t.index = _t.navigate(_t.index)
+      _t.index = _t.navigate(_t.index, clamp)
     end
   end
 
   _t.draw = function()
     _t.drawBox()
-    love.graphics.draw(_t.data[_t.index].text, _t.x + _t.padding, _t.y + _t.padding)
+    love.graphics.draw(
+      _t.data[_t.index].text,
+      _t.x + _t.padding, _t.y + _t.padding
+    )
   end
 
   return _t

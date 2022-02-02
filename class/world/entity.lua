@@ -42,13 +42,13 @@ function NewEntity(x,y)
 
   _e.step = function()
     _e.vec = nil
-    
+
     if _e.inf.x ~= 0 or _e.inf.y ~= 0 then
       _e.hsp = _e.hsp + (_e.inf.x * (_e.accel))
       _e.vsp = _e.vsp + (_e.inf.y * (_e.accel))
-    
+
       _e.vec = MovementVector(0,0, _e.hsp,_e.vsp)
-  
+
       if _e.vec.distance >= _e.maxSpeed then
         _e.hsp = lengthdir_x(_e.maxSpeed, _e.vec.dirRad)
         _e.vsp = lengthdir_y(_e.maxSpeed, _e.vec.dirRad)

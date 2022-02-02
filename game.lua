@@ -11,7 +11,7 @@ Game.Initialize = function()
   require "lib.math"
   require "lib.color"
   require "lib.state"
-  
+
   require "class.meta.controller"
   require "class.meta.callstack"
   require "class.meta.instance"
@@ -36,7 +36,7 @@ end
 
 function InitWindow()
   love.graphics.setDefaultFilter("nearest", "nearest", 0);
-  love.graphics.setBackgroundColor(0.5,1,1)
+  --love.graphics.setBackgroundColor(0.5,1,1)
   love.window.setMode(
     Game.Resolution.width,
     Game.Resolution.height,

@@ -1,10 +1,10 @@
-# <span style="color: #94f ">NikoEngine.lua
+# <span style="color: #94f">NikoEngine.lua</span>
 
 Creating an ~Engine~ that can serve as a starting point for future game projects.
 
 The goal is to have something organized exactly how I want, since I've been getting more picky with game engines by the minute
 
-![Example GIF](example.gif)
+![Example GIF](asset/example.gif)
 
 Q: Why Lua?
 
