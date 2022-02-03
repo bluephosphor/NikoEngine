@@ -2,7 +2,7 @@ State = enum{
   "GAME",
   "MENU",
   "DIALOGUE",
-  "CONSOLE",
+  "SHELL",
   "PAUSE",
 }
 

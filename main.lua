@@ -9,18 +9,6 @@ end
 function love.update()
   Controller.getInputState()
 
-  if Controller.key['t'] and not Instance.exists(Testbox) then
-    TestBox = UI.Textbox({
-      {text = "Hello, World!"},
-      {text = "Nice to meet you."},
-      {text = "How are we feeling?"},
-      {text = "Stupid?"},
-      {text = "Me too!"},
-    })
-  end
-
-  if Controller.key['d'] then Debug.toggle() end
-
   if GlobalState ~= State.PAUSE then
     StepOrder.world.eval()
   end
