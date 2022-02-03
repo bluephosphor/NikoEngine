@@ -14,8 +14,8 @@ function Sprite(path, frameWidth)
     }
   }
 
-  local _atlasHeight = math.ceil(_s.img:getHeight())
-  local _atlasWidth  = math.ceil(_s.img:getWidth())
+  local _atlasHeight = _s.img:getHeight()
+  local _atlasWidth  = _s.img:getWidth()
   local _atlasMargin = 1
 
   _s.totalFrames  = math.floor(_atlasWidth / (frameWidth + _atlasMargin))
@@ -51,10 +51,11 @@ function Sprite(path, frameWidth)
   _s.setAnimation = function(anim)
     if _s.animations.current == anim then return end
     _s.animations.current = anim
-    
+
     _s.animation.frames = anim.frames
-    _s.animation.index = 1
-    _s.animation.timer = 1
+    _s.animation.speed  = anim.speed
+    _s.animation.index  = 1
+    _s.animation.timer  = 1
     for index, value in ipairs(anim.frames) do
       _s.animation.frames[index] = value
       _s.animation.length = index
@@ -80,7 +81,14 @@ function Sprite(path, frameWidth)
 
   _s.draw = function(x, y, r, sx, sy)
     if not _s.visible then return end
-    love.graphics.draw(_s.img, _s.framedata[_s.frame], x, y, r, sx, sy)
+    love.graphics.draw(
+      _s.img, _s.framedata[_s.frame],
+      math.floor(x),
+      math.floor(y),
+      r,
+      sx,
+      sy
+    )
   end
 
   _s.free = function()

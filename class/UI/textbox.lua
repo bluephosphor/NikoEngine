@@ -1,6 +1,6 @@
 UI.Textbox = function(data, x, y)
   GlobalState = State.DIALOGUE
-  
+
   local _t    = UI.Element(x,y)
   _t.name     = '-> Textbox'
   _t.data     = {}
@@ -8,15 +8,17 @@ UI.Textbox = function(data, x, y)
   _t.length   = 0
   _t.size     = table.maxn(data)
   _t.finished = false
-  
+
   _t.nextSprite = Sprite('asset/sprite/pagemarker.png', 16)
+
   _t.nextSprite.defineAnimation('nextPage', {
     frames = range(1,7),
     speed = 4
   })
+
   _t.nextSprite.defineAnimation('lastPage', {
     frames = range(8,14),
-    speed = 4
+    speed = 6
   })
 
   for index, value in ipairs(data) do
@@ -38,7 +40,7 @@ UI.Textbox = function(data, x, y)
     if _t.finished then
       _t.nextSprite.visible = true
       _t.nextSprite.animate()
-      
+
       _t.index = _t.index + bin(Controller.key[Input.key.action])
       if _t.index > _t.size then
         Instance.destroy(_t)
@@ -57,9 +59,8 @@ UI.Textbox = function(data, x, y)
   _t.draw = function()
     _t:drawBox()
     _t.nextSprite.draw(
-      math.floor(_t.x + (_t.width/2) - (_t.nextSprite.width/2)),
-      math.floor(_t.y +_t.height + 2),
-      0,1,1
+      _t.x + (_t.width/2) - (_t.nextSprite.width/2),
+      _t.y +_t.height + 2
     )
     love.graphics.draw(
       _t.data[_t.index].text,

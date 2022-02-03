@@ -20,12 +20,11 @@ function love.update()
   end
 
   if Controller.key['d'] then Debug.toggle() end
-  
+
   if GlobalState ~= State.PAUSE then
     StepOrder.world.eval()
   end
 
-  
   StepOrder.UI.eval()
 end
 
