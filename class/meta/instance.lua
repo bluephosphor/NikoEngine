@@ -20,7 +20,9 @@ Instance.create = function(obj, stepOrder, drawOrder)
 end
 
 Instance.exists = function(who)
-  return who and Instance.lookupTable[who.id] and true or false
+  local _v = who and Instance.lookupTable[who.id] and true or false
+  Shell.log(_v and 'true' or 'false')
+  return _v
 end
 
 Instance.destroy = function(who)
@@ -45,9 +47,9 @@ Instance.destroy = function(who)
 end
 
 Instance.list = function()
-  print('---ACTIVE INSTANCES---')
+  Shell.log('---ACTIVE INSTANCES---')
   for key, value in pairs(Instance.lookupTable) do
-    print(key .. ': ' .. value.name)
+    Shell.log(key .. ': ' .. value.name)
   end
-  print('---')
+  Shell.log('---')
 end

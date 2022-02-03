@@ -18,7 +18,6 @@ function approach(a, b, increment)
   return a
 end
 
-
 function wrap(val,min,max)
   if val > max then
     return min

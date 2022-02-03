@@ -10,13 +10,14 @@ Game.Initialize = function()
   require "lib.core"
   require "lib.math"
   require "lib.color"
-  require "lib.state"
+  require "lib.definitions"
 
   require "class.meta.controller"
   require "class.meta.callstack"
   require "class.meta.instance"
   require "class.meta.sprite"
   require "class.meta.debug"
+  require "class.meta.shell"
 
   require "class.UI.element"
   require "class.UI.typography"
@@ -30,6 +31,7 @@ Game.Initialize = function()
   InitWindow()
   InitFonts()
   InitEventOrder()
+  InitShell()
 
   GlobalState = State.GAME
 end

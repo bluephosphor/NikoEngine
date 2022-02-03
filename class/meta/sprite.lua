@@ -22,11 +22,6 @@ function Sprite(path, frameWidth)
   _s.width        = ((_atlasWidth / _s.totalFrames) - (_atlasMargin * 2))
   _s.height       = (_atlasHeight - (_atlasMargin * 2))
 
-  print(_atlasWidth )
-  print(_atlasHeight)
-  print(_s.width)
-  print(_s.height)
-
   --initialize framedata and default animation
   for i = 1, _s.totalFrames do
     local _atlasXIndex = (_s.width + (_atlasMargin * 2)) * (i-1)

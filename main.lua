@@ -9,7 +9,7 @@ end
 function love.update()
   Controller.getInputState()
 
-  if Controller.key['t'] and not Testbox then
+  if Controller.key['t'] and not Instance.exists(Testbox) then
     TestBox = UI.Textbox({
       {text = "Hello, World!"},
       {text = "Nice to meet you."},

@@ -1,5 +1,4 @@
-- make sprite an instance, and make them children of their parent objects
-- finish textboxes
+- fix state issue
 - shell?
 - collisions
 - actors and flesh out state mechanics
