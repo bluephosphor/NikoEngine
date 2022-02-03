@@ -55,7 +55,8 @@ function InitFonts()
     "ABCDEFGHIJKLMNOPQRSTUVWXYZ0" ..
     "123456789.,!?-+/():;%&`'*#=[]\""
   )
-  love.graphics.setFont(Font.default)
+  Font.terminal = love.graphics.newFont("asset/font/softsquare.fnt")
+  love.graphics.setFont(Font.terminal)
 end
 
 function InitEventOrder()
