@@ -46,6 +46,16 @@ InitShell = function()
     Shell.inputString = Shell.inputString .. str
   end
 
+  Shell.call = function()
+    local _data = strsplit(Shell.inputString)
+
+    if pcall(function() Command[_data[1]](_data) end) then
+
+    else
+      Shell.log('error running command')
+    end
+  end
+
   Shell.step = function()
     if Game.State == 'SHELL' then
       Shell.blinkTimer = wrap(Shell.blinkTimer - 1, 0, 32)
@@ -54,6 +64,7 @@ InitShell = function()
         Game.State = 'GAMEPLAY'
       end
       if Controller.key['return'] and Shell.inputString ~= '' then
+        Shell.call()
         Shell.log('> ' .. Shell.inputString)
         Shell.inputString = ''
       end
