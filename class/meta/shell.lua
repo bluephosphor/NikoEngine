@@ -46,13 +46,13 @@ InitShell = function()
     Shell.inputString = Shell.inputString .. str
   end
 
-  Shell.call = function()
-    local _data = strsplit(Shell.inputString)
+  Shell.call = function(str)
+    local _data = strsplit(str)
 
     if pcall(function() Command[_data[1]](_data) end) then
 
     else
-      Shell.log('error running command')
+      Shell.log('error running command "' .. str .. '"')
     end
   end
 
@@ -64,8 +64,8 @@ InitShell = function()
         Game.State = 'GAMEPLAY'
       end
       if Controller.key['return'] and Shell.inputString ~= '' then
-        Shell.call()
         Shell.log('> ' .. Shell.inputString)
+        Shell.call(Shell.inputString)
         Shell.inputString = ''
       end
       if Controller.key['backspace'] then
