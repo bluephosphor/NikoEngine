@@ -1,5 +1,5 @@
 Game = {
-  Debug = false,
+  State = "GAMEPLAY",
   Resolution = {
     width  = 854,
     height = 480
@@ -32,8 +32,6 @@ Game.Initialize = function()
   InitFonts()
   InitEventOrder()
   InitShell()
-
-  GlobalState = State.GAME
 end
 
 function InitWindow()

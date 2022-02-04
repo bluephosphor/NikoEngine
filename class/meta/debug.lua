@@ -1,7 +1,7 @@
 Debug = {
   menu = nil,
   ShowBoxes = false,
-  ShowEntityInfo = false
+  ShowEntityInfo = true
 }
 
 Debug.toggle = function()

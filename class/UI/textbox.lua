@@ -1,5 +1,5 @@
 UI.Textbox = function(data, x, y)
-  GlobalState = State.DIALOGUE
+  Game.State = 'DIALOGUE'
 
   local _t    = UI.Element(x,y)
   _t.name     = '-> Textbox'
@@ -70,7 +70,7 @@ UI.Textbox = function(data, x, y)
 
   _t.preDestroy = function()
     _t.nextSprite:free()
-    GlobalState = State.GAME
+    Game.State = 'GAMEPLAY'
   end
 
   return _t

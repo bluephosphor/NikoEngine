@@ -3,13 +3,12 @@ require "game"
 function love.load()
   Game.Initialize()
   Player = NewPlayer(300,300)
-  Testbox = nil
 end
 
 function love.update()
   Controller.getInputState()
 
-  if GlobalState ~= State.PAUSE then
+  if Game.State ~= "PAUSED" then
     StepOrder.world.eval()
   end
 

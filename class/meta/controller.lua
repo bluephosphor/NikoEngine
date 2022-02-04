@@ -37,7 +37,7 @@ function love.keypressed(key, scancode, isrepeat)
 end
 
 function love.textinput(char)
-  if GlobalState == State.SHELL then
+  if Game.State == "SHELL" then
     Shell.input(char)
   end
 end
