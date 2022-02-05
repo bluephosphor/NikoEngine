@@ -51,9 +51,6 @@ end
 function Init3D()
   G3D = require('g3d')
   require('class.world.camera')
-  trans3d = function(val)
-    return val/40
-  end
 end
 
 function InitFonts()

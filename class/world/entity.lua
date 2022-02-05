@@ -44,6 +44,7 @@ function NewEntity(x,y)
   end
 
   _e.step = function()
+    local dt = love.timer.getDelta()
     _e.vec = nil
 
     if _e.inf.x ~= 0 or _e.inf.y ~= 0 then
@@ -69,15 +70,15 @@ function NewEntity(x,y)
     _e.hsp = floorToPrecision(_e.hsp, 2)
     _e.vsp = floorToPrecision(_e.vsp, 2)
 
-    _e.x = _e.x + _e.hsp
-    _e.y = _e.y + _e.vsp
+    _e.x = _e.x + (_e.hsp*dt)
+    _e.y = _e.y + (_e.vsp*dt)
 
     if _e.sprite ~= nil then
       _e.sprite.animate()
     end
 
     if _e.model ~= nil then
-      _e.model.translation = {trans3d(_e.x), trans3d(-_e.y), 0}
+      _e.model.translation = {_e.x, -_e.y, 0}
       _e.model:updateMatrix()
     end
 

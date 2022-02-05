@@ -14,8 +14,8 @@ end
 
 Color.red     = Color.define(1,0,0,1)
 Color.white   = Color.define(1,1,1,1)
-Color.black   = Color.define(0,0,0,0)
-Color.green   = Color.define(0,1,0,0)
+Color.black   = Color.define(0,0,0,1)
+Color.green   = Color.define(0,1,0,1)
 Color.blue    = Color.define(0,0,1,1)
 Color.yellow  = Color.define(1,1,0,1)
 Color.purple  = Color.define(1,0,1,1)

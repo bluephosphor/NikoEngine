@@ -78,7 +78,7 @@ InitShell = function()
 
   Shell.draw = function()
     if Game.State ~= 'SHELL' then return end
-    Color.set(Color.black)
+    Color.set(Color.menuBack)
     love.graphics.rectangle(
       "fill",
       Shell.x + Shell.margin,
@@ -86,7 +86,7 @@ InitShell = function()
       Shell.width - (Shell.margin*2),
       Shell.height - (Shell.margin*2)
     )
-    Color.set(Color.white)
+    Color.set(Color.menuOutline)
     love.graphics.rectangle(
       "line",
       Shell.x + Shell.margin,
