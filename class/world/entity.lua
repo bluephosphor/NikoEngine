@@ -36,7 +36,7 @@ function NewEntity(x,y)
   _e.setModel = function(path)
     _e.model = G3D.newModel(
       path,
-      nil, --_e.sprite.framedata[_e.sprite.frame]
+      nil,
       {0,0,0},
       {math.pi/2,-1.56,0}
     )
