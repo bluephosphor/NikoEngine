@@ -4,6 +4,7 @@ function NewPlayer(x,y)
   _p.name = _p.name .. "-> Player"
 
   _p.setSprite('asset/sprite/kitty.png', 32)
+  _p.setModel('asset/model/plane.obj')
 
   _p.sprite.defineAnimation('idle', {
     frames = range(1,7),

@@ -30,13 +30,14 @@ Game.Initialize = function()
 
   InitWindow()
   InitFonts()
+  Init3D()
   InitEventOrder()
   InitShell()
 end
 
 function InitWindow()
   love.graphics.setDefaultFilter("nearest", "nearest", 0);
-  --love.graphics.setBackgroundColor(0.5,1,1)
+  love.graphics.setBackgroundColor(0.5,0.4,0.7)
   love.window.setMode(
     Game.Resolution.width,
     Game.Resolution.height,
@@ -45,6 +46,14 @@ function InitWindow()
     --usedpiscale = false
     }
   )
+end
+
+function Init3D()
+  G3D = require('g3d')
+  require('class.world.camera')
+  trans3d = function(val)
+    return val/40
+  end
 end
 
 function InitFonts()
@@ -66,6 +75,7 @@ function InitEventOrder()
   }
   DrawOrder = {
     background  = CallStack('draw'),
+    world3D     = CallStack('draw'),
     world       = CallStack('draw'),
     UI          = CallStack('draw')
   }

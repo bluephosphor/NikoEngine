@@ -33,6 +33,16 @@ function NewEntity(x,y)
     _e.height  = _e.sprite.height * _e.scale
   end
 
+  _e.setModel = function(path)
+    _e.model = G3D.newModel(
+      path,
+      nil, --_e.sprite.framedata[_e.sprite.frame]
+      {0,0,0},
+      {math.pi/2,-1.56,0}
+    )
+    _e.model.surface = love.graphics.newCanvas(_e.width, _e.height)
+  end
+
   _e.step = function()
     _e.vec = nil
 
@@ -66,10 +76,28 @@ function NewEntity(x,y)
       _e.sprite.animate()
     end
 
+    if _e.model ~= nil then
+      _e.model.translation = {trans3d(_e.x), trans3d(-_e.y), 0}
+      _e.model:updateMatrix()
+    end
+
   end
 
   _e.draw = function()
-    if _e.sprite ~= nil then
+    if _e.model ~= nil then
+      love.graphics.setCanvas(_e.model.surface)
+      love.graphics.clear()
+      _e.sprite.draw(
+        _e.facing == 1 and _e.width or 0,
+        0,
+        _e.angle,
+        _e.scale * -_e.facing,
+        _e.scale
+      )
+      love.graphics.setCanvas()
+      _e.model.mesh:setTexture(_e.model.surface)
+      _e.model:draw()
+    elseif _e.sprite ~= nil then
       _e.sprite.draw(
         _e.x - (_e.width / 2) * _e.facing,
         _e.y - (_e.height / 2),
