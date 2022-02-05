@@ -18,7 +18,7 @@ The goal is to have something organized exactly how I want, since I've been gett
 
   ```lua
   Player = NewActor(16,16)
-  Player.setSprite('cat.png')
+  Player.setSprite('cat.png', 32)
   Player.sprite.defineAnimation('idle', {
     frames = range(1,7),
     speed = 6
@@ -35,7 +35,7 @@ The goal is to have something organized exactly how I want, since I've been gett
   })
   
   local _t = UI.Textbox({
-    {text= "I don't know what 'foo' is and at this point I'm afraid to ask."}
+    {text = "I don't know what 'foo' is and at this point I'm afraid to ask."}
   })
   ```
 
