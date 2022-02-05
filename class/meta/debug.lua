@@ -29,7 +29,9 @@ Command = {
   end,
   toggle = function(args)
     if args[2] == 'boxes' then
-      Debug.ShowBoxes =  not Debug.ShowBoxes
+      Debug.ShowBoxes = not Debug.ShowBoxes
+    elseif args[2] == 'freecam' then
+      Camera.mode = Camera.mode == view.player and view.free or view.player
     end
-  end
+  end,
 }
