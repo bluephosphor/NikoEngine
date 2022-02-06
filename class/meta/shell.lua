@@ -60,9 +60,6 @@ InitShell = function()
     if Game.State == 'SHELL' then
       Shell.blinkTimer = wrap(Shell.blinkTimer - 1, 0, 32)
       Shell.cursor = Shell.blinkTimer < 16 and '|' or ''
-      if Controller.key['escape'] then
-        Game.State = 'GAMEPLAY'
-      end
       if Controller.key['return'] and Shell.inputString ~= '' then
         Shell.log('> ' .. Shell.inputString)
         Shell.call(Shell.inputString)

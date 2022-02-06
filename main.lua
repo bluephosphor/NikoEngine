@@ -10,11 +10,11 @@ function love.update()
   Controller.getInputState()
 
   if Game.State ~= "PAUSED" then
-    Camera.update()
     StepOrder.world.eval()
   end
 
   StepOrder.UI.eval()
+  Game.Update()
 end
 
 function love.draw()

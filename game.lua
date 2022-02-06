@@ -35,6 +35,21 @@ Game.Initialize = function()
   InitShell()
 end
 
+Game.Update = function()
+  Camera.update()
+  if Controller.key['escape'] then
+    if Game.State ~= "GAMEPLAY" then
+      Game.State = 'GAMEPLAY'
+      return
+    end
+    if Camera.mode == view.free then
+      Camera.mode = view.player
+      return
+    end
+    love.event.push "quit"
+  end
+end
+
 function InitWindow()
   love.graphics.setDefaultFilter("nearest", "nearest", 0);
   love.graphics.setBackgroundColor(0.5,0.4,0.7)

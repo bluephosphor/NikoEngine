@@ -23,9 +23,6 @@ Camera.update = function()
     G3D.camera.updateViewMatrix()
   elseif Camera.mode == view.free then
     G3D.camera.firstPersonMovement(love.timer.getDelta())
-    if love.keyboard.isDown "escape" then
-      love.event.push "quit"
-    end
   end
 end
 

@@ -12,6 +12,7 @@ Input = {
 
 Controller = {
   key = {},
+  buffer = {},
   direction = {x = 0, y = 0}
 }
 
@@ -27,13 +28,24 @@ Controller.reset = function()
   Controller.direction.x  = 0
   Controller.direction.y  = 0
   for button, value in pairs(Controller.key) do
-    Controller.key[button] = false
+    if Controller.key[button] then
+      Controller.key[button] = false
+    end
+    if Controller.buffer[button] > 0 then
+      Controller.buffer[button] = Controller.buffer[button] - 1
+    end
   end
   Input.queue = {}
 end
 
 function love.keypressed(key, scancode, isrepeat)
-  table.insert(Input.queue, key)
+  if Controller.buffer[key] == nil then
+    Controller.buffer[key] = 0
+  end
+  if Controller.buffer[key] <= 0 then
+    Controller.buffer[key] = 1
+    table.insert(Input.queue, key)
+  end
 end
 
 function love.textinput(char)
