@@ -79,7 +79,7 @@ function NewEntity(x,y)
 
     if _e.model ~= nil then
       
-      _e.model.translation = {_e.x, -_e.y, 0}
+      _e.model.translation = {_e.x, -_e.y, 0.85}
       _e.model.rotation[1] = lerp(
         _e.model.rotation[1],
         math.pi + ((math.pi/2) * _e.facing),

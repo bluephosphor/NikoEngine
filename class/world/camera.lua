@@ -1,4 +1,4 @@
-G3D.camera.fov = 1
+G3D.camera.fov = 3
 
 view = enum{
   'player',
@@ -19,7 +19,7 @@ Camera.update = function()
     Camera.y = lerp(Camera.y, -Player.y - 3, Camera.speed)
 
     G3D.camera.target = {Player.x, -Player.y, 0}
-    G3D.camera.position = {Camera.x, Camera.y, 1}
+    G3D.camera.position = {Camera.x, Camera.y, 1.5}
     G3D.camera.updateViewMatrix()
   elseif Camera.mode == view.free then
     G3D.camera.firstPersonMovement(love.timer.getDelta())

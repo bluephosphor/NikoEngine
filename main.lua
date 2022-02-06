@@ -3,7 +3,7 @@ require "game"
 function love.load()
   Game.Initialize()
   Player = NewPlayer(0,0)
-  Floor = G3D.newModel('asset/model/plane.obj', 'asset/sprite/starfield.png', {0,0,-1}, {0,0,0}, {25,50,25})
+  Floor = G3D.newModel('asset/room/test.obj', 'asset/room/texture_0.png', nil, {math.pi/2,0,0})
 end
 
 function love.update()

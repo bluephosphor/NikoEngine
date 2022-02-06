@@ -52,7 +52,7 @@ end
 
 function InitWindow()
   love.graphics.setDefaultFilter("nearest", "nearest", 0);
-  love.graphics.setBackgroundColor(0.5,0.4,0.7)
+  love.graphics.setBackgroundColor(0.3,0.2,0.5)
   love.window.setMode(
     Game.Resolution.width,
     Game.Resolution.height,
