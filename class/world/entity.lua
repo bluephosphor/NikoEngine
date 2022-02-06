@@ -78,7 +78,13 @@ function NewEntity(x,y)
     end
 
     if _e.model ~= nil then
+      
       _e.model.translation = {_e.x, -_e.y, 0}
+      _e.model.rotation[1] = lerp(
+        _e.model.rotation[1],
+        math.pi + ((math.pi/2) * _e.facing),
+        0.15
+      )
       _e.model:updateMatrix()
     end
 
@@ -89,10 +95,10 @@ function NewEntity(x,y)
       love.graphics.setCanvas(_e.model.surface)
       love.graphics.clear()
       _e.sprite.draw(
-        _e.facing == 1 and _e.width or 0,
+        0, --_e.facing == 1 and _e.width or 0,
         0,
         _e.angle,
-        _e.scale * -_e.facing,
+        _e.scale, -- * -_e.facing,
         _e.scale
       )
       love.graphics.setCanvas()
