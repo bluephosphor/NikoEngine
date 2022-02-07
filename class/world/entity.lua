@@ -40,7 +40,11 @@ function NewEntity(x,y)
       {0,0,0},
       {math.pi/2,-1.56,0}
     )
-    _e.model.surface = love.graphics.newCanvas(_e.width, _e.height)
+    _e.model.surface = {
+      love.graphics.newCanvas(_e.width, _e.height),
+      depth = true,
+      stencil = true
+    }
   end
 
   _e.step = function()
@@ -93,7 +97,7 @@ function NewEntity(x,y)
   _e.draw = function()
     if _e.model ~= nil then
       love.graphics.setCanvas(_e.model.surface)
-      love.graphics.clear()
+      love.graphics.clear(0,0,0,0)
       _e.sprite.draw(
         0, --_e.facing == 1 and _e.width or 0,
         0,
@@ -101,9 +105,10 @@ function NewEntity(x,y)
         _e.scale, -- * -_e.facing,
         _e.scale
       )
-      love.graphics.setCanvas()
-      _e.model.mesh:setTexture(_e.model.surface)
-      _e.model:draw()
+      love.graphics.setCanvas(WorldSurface)
+      --love.graphics.clear()
+      _e.model.mesh:setTexture(_e.model.surface[1])
+      --_e.model:draw()
     elseif _e.sprite ~= nil then
       _e.sprite.draw(
         _e.x - (_e.width / 2) * _e.facing,
