@@ -68,3 +68,22 @@ function strsplit (inputstr, sep)
   end
   return t
 end
+
+function reverse(t)
+  local n = #t
+  local i = 1
+  for i = 1, n do
+    t[i],t[n] = t[n],t[i]
+
+    n = n - 1
+  end
+end
+
+function ReverseTable(t)
+  local reversedTable = {}
+  local itemCount = #t
+  for k, v in ipairs(t) do
+      reversedTable[itemCount + 1 - k] = v
+  end
+  return reversedTable
+end

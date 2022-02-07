@@ -53,6 +53,8 @@ return function (path)
         end
     end
 
+    
+
     -- put it all together in the right order
     for _, face in pairs(faces) do
         for i=1, 3 do
@@ -62,6 +64,5 @@ return function (path)
             table.insert(model, vert)
         end
     end
-
     return model
 end
