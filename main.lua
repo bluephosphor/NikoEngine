@@ -3,14 +3,7 @@ require "game"
 function love.load()
   Game.Initialize()
   Player = NewPlayer(0,0)
-  Floor = G3D.newModel('asset/room/test.obj', 'asset/room/texture_0.png', nil, {math.pi/2,0,0})
-  WorldSurface = {
-    love.graphics.newCanvas(
-      Game.Resolution.width,
-      Game.Resolution.height
-    ),
-    depth = true,
-  }
+  Floor = G3D.newModel('asset/room/test2.obj', 'asset/room/texture_0.png', nil, {math.pi/2,0,0})
 end
 
 function love.update()
@@ -19,7 +12,7 @@ function love.update()
   if Game.State ~= "PAUSED" then
     StepOrder.world.eval()
   end
-  
+
   StepOrder.UI.eval()
   Game.Update()
 end

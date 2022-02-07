@@ -66,6 +66,13 @@ end
 function Init3D()
   G3D = require('g3d')
   require('class.world.camera')
+  WorldSurface = {
+    love.graphics.newCanvas(
+      Game.Resolution.width,
+      Game.Resolution.height
+    ),
+    depth = true,
+  }
 end
 
 function InitFonts()

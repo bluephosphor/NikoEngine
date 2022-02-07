@@ -10,7 +10,7 @@ local g3d = g3d -- save a reference to g3d in case the user makes it non-global
 ----------------------------------------------------------------------------------------------------
 
 local camera = {
-    fov = math.pi/2,
+    fov = 1, --math.pi/2,
     nearClip = 0.01,
     farClip = 1000,
     aspectRatio = love.graphics.getWidth()/love.graphics.getHeight(),
