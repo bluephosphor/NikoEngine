@@ -1,15 +1,16 @@
 require "game"
+local room = 'field'
 
 function love.load()
   Game.Initialize()
   Player = NewPlayer(0,0)
-  Floor = G3D.newModel('asset/room/test/mesh.obj', 'asset/room/test/test_0.png', nil, {math.pi/2,0,0})
+  Floor = G3D.newModel('asset/room/'.. room ..'/mesh.obj', 'asset/room/'.. room .. '/test_1.png', nil, {math.pi/2,0,0})
   Floor:makeNormals(false)
 end
 
 function love.update()
   Controller.getInputState()
-
+ 
   if Game.State ~= "PAUSED" then
     StepOrder.world.eval()
   end
@@ -19,9 +20,8 @@ function love.update()
 end
 
 function love.draw()
-  love.graphics.setCanvas(WorldSurface)
-
   DrawOrder.world.eval()
+  love.graphics.setCanvas(WorldSurface)
   love.graphics.clear()
   --love.graphics.setWireframe(true)
   Floor:draw()
@@ -30,4 +30,5 @@ function love.draw()
   love.graphics.setCanvas()
   love.graphics.draw(WorldSurface[1])
   DrawOrder.UI.eval()
+  Controller.reset()
 end

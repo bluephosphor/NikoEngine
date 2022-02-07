@@ -22,13 +22,13 @@ varying vec4 vertexColor;
 vec4 position(mat4 transformProjection, vec4 vertexPosition) {
     // calculate the positions of the transformed coordinates on the screen
     // save each step of the process, as these are often useful when writing custom fragment shaders
-    worldPosition = modelMatrix * vertexPosition;
-    viewPosition = viewMatrix * worldPosition;
-    screenPosition = projectionMatrix * viewPosition;
+    worldPosition   = modelMatrix      * vertexPosition;
+    viewPosition    = viewMatrix       * worldPosition;
+    screenPosition  = projectionMatrix * viewPosition;
 
     // save some data from this vertex for use in fragment shaders
     vertexNormal = VertexNormal;
-    vertexColor = VertexColor;
+    vertexColor  = VertexColor;
 
     // for some reason models are flipped vertically when rendering to a canvas
     // so we need to detect when this is being rendered to a canvas, and flip it back

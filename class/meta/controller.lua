@@ -17,7 +17,6 @@ Controller = {
 }
 
 Controller.getInputState = function()
-  Controller.reset()
   Controller.direction.x  = bin(love.keyboard.isDown(Input.key.right)) - bin(love.keyboard.isDown(Input.key.left))
   Controller.direction.y  = bin(love.keyboard.isDown(Input.key.down))  - bin(love.keyboard.isDown(Input.key.up))
   for index, value in ipairs(Input.queue) do
