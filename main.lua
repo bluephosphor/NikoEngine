@@ -10,7 +10,6 @@ function love.load()
       Game.Resolution.height
     ),
     depth = true,
-    stencil = true
   }
 end
 
@@ -20,18 +19,20 @@ function love.update()
   if Game.State ~= "PAUSED" then
     StepOrder.world.eval()
   end
-
+  
   StepOrder.UI.eval()
   Game.Update()
 end
 
 function love.draw()
   love.graphics.setCanvas(WorldSurface)
-  DrawOrder.background.eval()
+
   DrawOrder.world.eval()
   love.graphics.clear()
+
   Floor:draw()
-  Player.model:draw()
+  DrawOrder.world3D.eval()
+
   love.graphics.setCanvas()
   love.graphics.draw(WorldSurface[1])
   DrawOrder.UI.eval()

@@ -21,9 +21,15 @@ function CallStack(type)
   _c.eval = function()
     for index, value in ipairs(_c.list) do
       local _inst = Instance.lookupTable[value]
-      if _inst and _inst[type] then _inst[type]() end
+      if _inst then
+        if string.find(value, "_MODEL") then
+          _inst:draw()
+        else
+          if _inst[type] then _inst[type]() end
+        end
+      end
     end
   end
-  
+
   return _c
 end

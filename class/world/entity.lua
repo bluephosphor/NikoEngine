@@ -40,11 +40,11 @@ function NewEntity(x,y)
       {0,0,0},
       {math.pi/2,-1.56,0}
     )
-    _e.model.surface = {
-      love.graphics.newCanvas(_e.width, _e.height),
-      depth = true,
-      stencil = true
-    }
+    _e.model.surface = love.graphics.newCanvas(_e.width, _e.height)
+    _e.model.id = _e.id .. '_MODEL'
+    _e.model.myDrawOrder = DrawOrder.world3D
+    _e.model.myDrawOrder.add(_e.model)
+    Instance.lookupTable[_e.model.id] = _e.model
   end
 
   _e.step = function()
@@ -90,12 +90,14 @@ function NewEntity(x,y)
         0.15
       )
       _e.model:updateMatrix()
+
     end
 
   end
 
   _e.draw = function()
     if _e.model ~= nil then
+
       love.graphics.setCanvas(_e.model.surface)
       love.graphics.clear(0,0,0,0)
       _e.sprite.draw(
@@ -106,9 +108,7 @@ function NewEntity(x,y)
         _e.scale
       )
       love.graphics.setCanvas(WorldSurface)
-      --love.graphics.clear()
-      _e.model.mesh:setTexture(_e.model.surface[1])
-      --_e.model:draw()
+      _e.model.mesh:setTexture(_e.model.surface)
     elseif _e.sprite ~= nil then
       _e.sprite.draw(
         _e.x - (_e.width / 2) * _e.facing,
