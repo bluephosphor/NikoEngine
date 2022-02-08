@@ -75,6 +75,7 @@ function NewEntity(x,y,z)
 
     _e.hsp = floorToPrecision(_e.hsp, 2)
     _e.vsp = floorToPrecision(_e.vsp, 2)
+    _e.zsp = floorToPrecision(_e.zsp, 2)
 
     _e.x = _e.x + (_e.hsp*dt)
     _e.y = _e.y + (_e.vsp*dt)
