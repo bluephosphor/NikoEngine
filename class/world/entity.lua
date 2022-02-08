@@ -1,9 +1,10 @@
-function NewEntity(x,y)
+function NewEntity(x,y,z)
   local _e = Instance.create({
     name = 'Entity',
     
     x = x,
     y = y,
+    z = z and z or 0.85,
     width = 32,
     height = 32,
 
@@ -83,7 +84,7 @@ function NewEntity(x,y)
 
     if _e.model ~= nil then
       
-      _e.model.translation = {_e.x, -_e.y, 0.85}
+      _e.model.translation = {_e.x, -_e.y, _e.z}
       _e.model.rotation[1] = lerp(
         _e.model.rotation[1],
         math.pi + ((math.pi/2) * _e.facing),

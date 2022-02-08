@@ -1,5 +1,6 @@
 Game = {
   State = "GAMEPLAY",
+  Fullscreen = false,
   Resolution = {
     width  = 854,
     height = 480
@@ -24,6 +25,7 @@ Game.Initialize = function()
   require "class.UI.list"
   require "class.UI.textbox"
 
+  require "class.world.room"
   require "class.world.entity"
   require "class.world.actor"
   require "class.world.player"
@@ -73,6 +75,19 @@ function Init3D()
     ),
     depth = true,
   }
+end
+
+function Render3D()
+  love.graphics.setCanvas(WorldSurface)
+  love.graphics.clear()
+  love.graphics.setWireframe(Debug.ShowWire)
+  if Room.current then
+    Room.current.model:draw()
+  end
+  love.graphics.setWireframe(false)
+  DrawOrder.world3D.eval()
+  love.graphics.setCanvas()
+  love.graphics.draw(WorldSurface[1])
 end
 
 function InitFonts()

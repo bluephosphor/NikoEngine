@@ -1,6 +1,7 @@
 Debug = {
   menu = nil,
   ShowBoxes = false,
+  ShowWire = false,
   ShowEntityInfo = false
 }
 
@@ -28,10 +29,29 @@ Command = {
     end
   end,
   toggle = function(args)
-    if args[2] == 'boxes' then
+    if     args[2] == 'boxes' then
       Debug.ShowBoxes = not Debug.ShowBoxes
+
     elseif args[2] == 'freecam' then
       Camera.mode = Camera.mode == view.player and view.free or view.player
+
+    elseif args[2] == 'wireframe' then
+      Debug.ShowWire = not Debug.ShowWire
+
+    elseif args[2] == 'fs' then
+      Game.Fullscreen = not Game.Fullscreen
+      love.window.setFullscreen(Game.Fullscreen)
+      local width, height, flags = love.window.getMode()
+      Game.Resolution.width = width
+      Game.Resolution.height = height
+      WorldSurface[1]:release()
+      WorldSurface = {
+        love.graphics.newCanvas(
+          width,
+          height
+        ),
+        depth = true,
+      }
     end
   end,
 }
