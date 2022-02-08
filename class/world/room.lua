@@ -7,7 +7,7 @@ DefineRoom = function(folder)
       'asset/room/'.. folder .. '/mesh.obj',
       nil,
       nil,
-      {math.pi/2,0,0}
+      nil
     )
   }, StepOrder.world, DrawOrder.world)
   --get image

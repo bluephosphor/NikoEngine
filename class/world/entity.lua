@@ -4,7 +4,7 @@ function NewEntity(x,y,z)
     
     x = x,
     y = y,
-    z = z and z or 0.85,
+    z = z and z or 0,
     width = 32,
     height = 32,
 
@@ -21,6 +21,7 @@ function NewEntity(x,y,z)
 
     hsp = 0,
     vsp = 0,
+    zsp = 0,
     maxSpeed = 5,
     accel = 2,
     fric = 0.2,
@@ -54,7 +55,7 @@ function NewEntity(x,y,z)
 
     if _e.inf.x ~= 0 or _e.inf.y ~= 0 then
       _e.hsp = _e.hsp + (_e.inf.x * (_e.accel))
-      _e.vsp = _e.vsp + (_e.inf.y * (_e.accel))
+      _e.vsp = _e.vsp + (-_e.inf.y * (_e.accel))
 
       _e.vec = MovementVector(0,0, _e.hsp,_e.vsp)
 
@@ -77,6 +78,7 @@ function NewEntity(x,y,z)
 
     _e.x = _e.x + (_e.hsp*dt)
     _e.y = _e.y + (_e.vsp*dt)
+    _e.z = _e.z + (_e.zsp*dt)
 
     if _e.sprite ~= nil then
       _e.sprite.animate()
@@ -84,7 +86,7 @@ function NewEntity(x,y,z)
 
     if _e.model ~= nil then
       
-      _e.model.translation = {_e.x, -_e.y, _e.z}
+      _e.model.translation = {_e.x, _e.y, _e.z}
       _e.model.rotation[1] = lerp(
         _e.model.rotation[1],
         math.pi + ((math.pi/2) * _e.facing),

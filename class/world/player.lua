@@ -2,25 +2,25 @@ function NewPlayer(x,y)
   local _p = NewActor(x,y)
   local _step_inherited = _p.step
   _p.name = _p.name .. "-> Player"
-
+  
   _p.setSprite('asset/sprite/kitty.png', 32)
   _p.setModel('asset/model/plane.obj')
-
+  
   _p.sprite.defineAnimation('idle', {
     frames = range(1,7),
     speed = 6
   })
-
+  
   _p.sprite.defineAnimation('walk',{
     frames = range(8,11),
     speed = 5
   })
-
+  
   _p.sprite.setAnimation(_p.sprite.animations.idle)
-
+  
   _p.step = function()
     _step_inherited()
-
+    
     if Game.State ~= 'GAMEPLAY' then
       _p.inf.x = 0
       _p.inf.y = 0
