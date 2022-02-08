@@ -52,6 +52,7 @@ Command = {
         ),
         depth = true,
       }
+      Shell.align()
     end
   end,
 }

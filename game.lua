@@ -40,6 +40,10 @@ end
 Game.Update = function()
   Camera.update()
   if Controller.key['escape'] then
+    if Shell.open then
+      Shell.open = false
+      return
+    end
     if Game.State ~= "GAMEPLAY" then
       Game.State = 'GAMEPLAY'
       return

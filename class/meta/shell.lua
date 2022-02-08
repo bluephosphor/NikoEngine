@@ -1,6 +1,7 @@
 InitShell = function()
   Shell = Instance.create({
     name        = '-> Shell',
+    open        = false,
     data        = {},
     anchor      = Direction.LEFT,
     width       = 300,
@@ -10,36 +11,52 @@ InitShell = function()
     inputString = '',
     cursor      = '',
     blinkTimer  = 32,
+    logBuffer   = 0,
     lineHeight  = 16,
   }, StepOrder.UI, DrawOrder.UI)
 
-  -- initialize surface
-  Shell.surface = love.graphics.newCanvas(Shell.width,Shell.height)
-  love.graphics.setCanvas(Shell.surface)
-  love.graphics.setCanvas()
+  -- initialize surfaces
+  Shell.surface  = love.graphics.newCanvas(Shell.width,Shell.height)
+  Shell.surface2 = love.graphics.newCanvas(Shell.width, Shell.height)
 
-  Shell.x = Game.Resolution.width - Shell.width
-  Shell.y = 0
-  Shell.origin = {
-    x = Shell.margin + Shell.padding,
-    y = Shell.height - Shell.lineHeight - Shell.margin
-  }
+  Shell.align = function()
+    Shell.x = Game.Resolution.width - Shell.width
+    Shell.y = 0
+    Shell.origin = {
+      x = Shell.margin + Shell.padding,
+      y = Shell.height - Shell.lineHeight - Shell.margin
+    }
+  end
+  Shell.align()
 
   Shell.log = function(str)
-    -- we draw a copy of our shell surface at an offset on a new temporary surface
-    local _surfaceCopy = love.graphics.newCanvas(Shell.width, Shell.height)
-    love.graphics.setCanvas(_surfaceCopy)
+    if Shell.logBuffer > 0 then return end
+
+    -- we draw a copy of our shell surface at an offset on the secondary surface
+    love.graphics.setCanvas(Shell.surface2)
+    love.graphics.clear()
     love.graphics.draw(Shell.surface,0, -12)
 
     -- we then draw our new string to the bottom of this copy
     love.graphics.print(str, Shell.origin.x, Shell.origin.y)
+
+    -- then we draw the copy on our main surface
+    love.graphics.setCanvas(Shell.surface)
+    love.graphics.clear()
+    love.graphics.draw(Shell.surface2,0, 0)
+
     love.graphics.setCanvas()
-
-    -- then we save the copy as our main surface
-    Shell.surface = _surfaceCopy
-
     table.insert(Shell.data,str)
-    print(str)
+    --print(str)
+  end
+
+  Shell.clear = function ()
+    if Shell.logBuffer > 0 then return end
+    local _surf = love.graphics.getCanvas()
+    love.graphics.setCanvas(Shell.surface)
+    love.graphics.clear()
+    love.graphics.setCanvas(_surf)
+    Shell.data  = {}
   end
 
   Shell.input = function(str)
@@ -57,7 +74,8 @@ InitShell = function()
   end
 
   Shell.step = function()
-    if Game.State == 'SHELL' then
+    Shell.logBuffer = approach(Shell.logBuffer, 0, 1)
+    if Shell.open then
       Shell.blinkTimer = wrap(Shell.blinkTimer - 1, 0, 32)
       Shell.cursor = Shell.blinkTimer < 16 and '|' or ''
       if Controller.key['return'] and Shell.inputString ~= '' then
@@ -69,13 +87,13 @@ InitShell = function()
         Shell.inputString = string.sub(Shell.inputString, 1, string.len(Shell.inputString)-1)
       end
     else
-      if Controller.key[Input.key.shell] then Game.State = 'SHELL' end
+      if Controller.key[Input.key.shell] then Shell.open = true end
     end
   end
 
   Shell.draw = function()
-    if Game.State ~= 'SHELL' then return end
-    Color.set(Color.menuBack)
+    if not Shell.open then return end
+    love.graphics.setColor(0,0,0,0.5)
     love.graphics.rectangle(
       "fill",
       Shell.x + Shell.margin,
