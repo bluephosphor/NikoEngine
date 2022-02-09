@@ -3,7 +3,7 @@ vec4 TexColor;
 
 float depth;
 float near = 0.1; 
-float far  = 25.0;
+float far  = 50;
 float lightOffset = 1.5;
 float z;
   
