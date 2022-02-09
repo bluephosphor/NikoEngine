@@ -1,0 +1,134 @@
+local function move_commit(_e)
+    _e.vec = nil
+
+    local dt = love.timer.getDelta()
+
+    if _e.inf.x ~= 0 or _e.inf.y ~= 0 then
+      _e.hsp = _e.hsp + (_e.inf.x * (_e.accel))
+      _e.vsp = _e.vsp + (-_e.inf.y * (_e.accel))
+
+      _e.vec = MovementVector(0,0, _e.hsp,_e.vsp)
+
+      if _e.vec.distance >= _e.maxSpeed then
+        _e.hsp = lengthdir_x(_e.maxSpeed, _e.vec.dirRad)
+        _e.vsp = lengthdir_y(_e.maxSpeed, _e.vec.dirRad)
+      end
+    end
+
+    if _e.inf.x == 0 then
+      _e.hsp = lerp(_e.hsp, 0, _e.fric)
+    end
+
+    if _e.inf.y == 0 then
+      _e.vsp = lerp(_e.vsp, 0, _e.fric)
+    end
+
+    _e.zsp = math.max(_e.zsp - _e.grav, -_e.maxSpeed)
+
+    _e.hsp = floorToPrecision(_e.hsp, 2)
+    _e.vsp = floorToPrecision(_e.vsp, 2)
+    _e.zsp = floorToPrecision(_e.zsp, 2)
+
+    return _e.hsp*dt, _e.vsp*dt, _e.zsp*dt
+end
+
+local function collision_test(_e, mx,my,mz)
+  local bestLength, bx,by,bz, bnx,bny,bnz
+
+  for _,model in ipairs(_e.collisionModels) do
+      local len, x,y,z, nx,ny,nz = model:capsuleIntersection(
+          _e.x + mx,
+          _e.y + my,
+          _e.z + mz - 0.1,
+          _e.x + mx,
+          _e.y + my,
+          _e.z + mz - 0.85,
+          0.2
+      )
+
+      if len and (not bestLength or len < bestLength) then
+          bestLength, bx,by,bz, bnx,bny,bnz = len, x,y,z, nx,ny,nz
+          Shell.clear()
+          Shell.log('---LAST COLLISSION---')
+          Shell.log('bestLength: ' .. bestLength)
+          Shell.log('x: '  .. bx  .. ' y: '  .. by  .. ' z: '  .. bz)
+          Shell.log('nx: ' .. bnx .. ' ny: ' .. bny .. ' nz: ' .. bnz)
+      end
+  end
+
+  return bestLength, bx,by,bz, bnx,bny,bnz
+end
+
+local function slide_collision(_e, mx,my,mz)
+  local len,x,y,z,nx,ny,nz = collision_test(_e,mx,my,mz)
+
+  _e.x = _e.x + mx
+  _e.y = _e.y + my
+  _e.z = _e.z + mz
+
+  local ignoreSlopes = nz and nz < -0.7
+
+  if len then
+      local speedLength = math.sqrt(mx^2 + my^2 + mz^2)
+
+      if speedLength > 0 then
+          local xNorm, yNorm, zNorm = mx / speedLength, my / speedLength, mz / speedLength
+          local dot = xNorm*nx + yNorm*ny + zNorm*nz
+          local xPush, yPush, zPush = nx * dot, ny * dot, nz * dot
+
+          -- modify output vector based on normal
+          mz = -(zNorm - zPush) * speedLength
+          if ignoreSlopes then mz = 0 end
+
+          if not ignoreSlopes then
+              mx = (xNorm - xPush) * speedLength
+              my = (yNorm - yPush) * speedLength
+          end
+      end
+
+      -- rejections
+      _e.z = _e.z - nz * (len - _e.radius)
+
+      if not ignoreSlopes then
+          _e.x = _e.x - nx * (len - _e.radius)
+          _e.y = _e.y - ny * (len - _e.radius)
+      end
+  end
+
+  if nz then
+    Shell.log('-------')
+    Shell.log('mx: ' .. mx .. ' my: ' .. my .. ' mz: ' .. mz)
+    Shell.log('nx: ' .. nx .. ' ny: ' .. ny .. ' nz: ' .. nz)
+    if Shell.logBuffer <= 0 then
+      Shell.logBuffer = 5
+    end
+  end
+
+  return mx, my, mz, nx, ny, nz
+end
+
+local function step(_e)
+
+  local mx, my, mz = move_commit(_e)
+  local fx, fy, fz, nx, ny, nz = slide_collision(_e, mx, my, mz)
+  
+
+  _e.onGround = nz and nz > -0.7
+
+  if _e.sprite ~= nil then
+    _e.sprite.animate()
+  end
+
+  if _e.model ~= nil then
+    _e.model.translation = {_e.x, _e.y, _e.z}
+    _e.model.rotation[1] = lerp(
+      _e.model.rotation[1],
+      math.pi + ((math.pi/2) * _e.facing),
+      0.15
+    )
+    _e.model:updateMatrix()
+
+  end
+end
+
+return step
