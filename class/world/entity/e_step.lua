@@ -1,7 +1,5 @@
-local function move_commit(_e)
+local function move_commit(_e, dt)
     _e.vec = nil
-
-    local dt = love.timer.getDelta()
 
     if _e.inf.x ~= 0 or _e.inf.y ~= 0 then
       _e.hsp = _e.hsp + (_e.inf.x * (_e.accel))
@@ -23,11 +21,11 @@ local function move_commit(_e)
       _e.vsp = lerp(_e.vsp, 0, _e.fric)
     end
 
-    _e.zsp = math.max(_e.zsp - _e.grav, -_e.maxSpeed)
+    _e.zsp = math.max(_e.zsp - _e.grav, -_e.maxFallSpeed)
 
     _e.hsp = floorToPrecision(_e.hsp, 2)
     _e.vsp = floorToPrecision(_e.vsp, 2)
-    _e.zsp = floorToPrecision(_e.zsp, 2)
+    --_e.zsp = floorToPrecision(_e.zsp, 2)
 
     return _e.hsp*dt, _e.vsp*dt, _e.zsp*dt
 end
@@ -48,11 +46,13 @@ local function collision_test(_e, mx,my,mz)
 
       if len and (not bestLength or len < bestLength) then
           bestLength, bx,by,bz, bnx,bny,bnz = len, x,y,z, nx,ny,nz
-          Shell.clear()
-          Shell.log('---LAST COLLISSION---')
-          Shell.log('bestLength: ' .. bestLength)
-          Shell.log('x: '  .. bx  .. ' y: '  .. by  .. ' z: '  .. bz)
-          Shell.log('nx: ' .. bnx .. ' ny: ' .. bny .. ' nz: ' .. bnz)
+          if Debug.showCollisionData then
+            Shell.clear()
+            Shell.log('---LAST COLLISSION---')
+            Shell.log('bestLength: ' .. bestLength)
+            Shell.log('x: '  .. bx  .. ' y: '  .. by  .. ' z: '  .. bz)
+            Shell.log('nx: ' .. bnx .. ' ny: ' .. bny .. ' nz: ' .. bnz)
+          end
       end
   end
 
@@ -66,7 +66,7 @@ local function slide_collision(_e, mx,my,mz)
   _e.y = _e.y + my
   _e.z = _e.z + mz
 
-  local ignoreSlopes = nz and nz < -0.7
+  local ignoreSlopes = nz and nz > 0.7
 
   if len then
       local speedLength = math.sqrt(mx^2 + my^2 + mz^2)
@@ -95,10 +95,11 @@ local function slide_collision(_e, mx,my,mz)
       end
   end
 
-  if nz then
+  if Debug.showCollisionData and nz then
     Shell.log('-------')
     Shell.log('mx: ' .. mx .. ' my: ' .. my .. ' mz: ' .. mz)
     Shell.log('nx: ' .. nx .. ' ny: ' .. ny .. ' nz: ' .. nz)
+    Shell.log(_e.onGround and 'true' or 'false')
     if Shell.logBuffer <= 0 then
       Shell.logBuffer = 5
     end
@@ -108,12 +109,47 @@ local function slide_collision(_e, mx,my,mz)
 end
 
 local function step(_e)
+  local dt = love.timer.getDelta()
+  local mx, my, mz = move_commit(_e, dt)
 
-  local mx, my, mz = move_commit(_e)
-  local fx, fy, fz, nx, ny, nz = slide_collision(_e, mx, my, mz)
-  
+  --vertical movement and collision
+  local fx, fy, fz, nx, ny, nz = slide_collision(_e, 0, 0, mz)
+  _e.zsp = fz/dt
 
+  -- ground check
+  local wasOnGround = _e.onGround
   _e.onGround = nz and nz > -0.7
+
+  -- smoothly walk down slopes
+  local stepDownSize = -0.075
+
+  if not _e.onGround and wasOnGround and _e.zsp < 0 then
+    local len,x,y,z,nx,ny,nz = collision_test(_e,0,0,stepDownSize)
+    local mx, my, mz = 0,0,stepDownSize
+    if len then
+      -- do the position change only if a collision was actually detected
+      _e.z = _e.z + mz
+
+      local speedLength = math.sqrt(mx^2 + my^2 + mz^2)
+
+      if speedLength > 0 then
+        local xNorm, yNorm, zNorm = mx / speedLength, my / speedLength, mz / speedLength
+        local dot = xNorm*nx + yNorm*ny + zNorm*nz
+        local xPush, yPush, zPush = nx * dot, ny * dot, nz * dot
+
+        -- modify output vector based on normal
+        mz = (zNorm - zPush) * speedLength
+      end
+
+      -- rejections
+      _e.z = _e.z - nz * (len - _e.radius)
+      _e.zsp = 0
+      _e.onGround = true
+    end
+  end
+  -- x/y collisions
+  local mx, my = slide_collision(_e, mx, my, 0)
+  _e.hsp, _e.vsp = mx/dt, my/dt
 
   if _e.sprite ~= nil then
     _e.sprite.animate()

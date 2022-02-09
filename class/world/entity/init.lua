@@ -27,9 +27,10 @@ function NewEntity(x,y,z)
     vsp = 0,
     zsp = 0,
     maxSpeed = 5,
+    maxFallSpeed = 10,
     accel = 2,
     fric = 0.2,
-    grav = 0.01,
+    grav = 0.5,
 
     onGround = false,
 
@@ -66,7 +67,6 @@ function NewEntity(x,y,z)
 
   _e.draw = function()
     _draw(_e)
-    love.graphics.print(_e.onGround and 'grounded' or 'ungrounded')
   end
 
   _e.preDestroy = function()
