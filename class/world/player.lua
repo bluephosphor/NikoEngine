@@ -29,6 +29,9 @@ function NewPlayer(x,y)
 
     _p.inf.x = Controller.direction.x
     _p.inf.y = Controller.direction.y
+    if Controller.key['space'] and _p.onGround then
+      _p.zsp = 10
+    end
 
     if _p.inf.x ~= 0 or _p.inf.y ~= 0 then
       _p.sprite.setAnimation(_p.sprite.animations.walk)

@@ -1,33 +1,33 @@
 local function move_commit(_e, dt)
-    _e.vec = nil
+  _e.vec = nil
 
-    if _e.inf.x ~= 0 or _e.inf.y ~= 0 then
-      _e.hsp = _e.hsp + (_e.inf.x * (_e.accel))
-      _e.vsp = _e.vsp + (-_e.inf.y * (_e.accel))
+  if _e.inf.x ~= 0 or _e.inf.y ~= 0 then
+    _e.hsp = _e.hsp + (_e.inf.x * (_e.accel))
+    _e.vsp = _e.vsp + (-_e.inf.y * (_e.accel))
 
-      _e.vec = MovementVector(0,0, _e.hsp,_e.vsp)
+    _e.vec = MovementVector(0,0, _e.hsp,_e.vsp)
 
-      if _e.vec.distance >= _e.maxSpeed then
-        _e.hsp = lengthdir_x(_e.maxSpeed, _e.vec.dirRad)
-        _e.vsp = lengthdir_y(_e.maxSpeed, _e.vec.dirRad)
-      end
+    if _e.vec.distance >= _e.maxSpeed then
+      _e.hsp = lengthdir_x(_e.maxSpeed, _e.vec.dirRad)
+      _e.vsp = lengthdir_y(_e.maxSpeed, _e.vec.dirRad)
     end
+  end
 
-    if _e.inf.x == 0 then
-      _e.hsp = lerp(_e.hsp, 0, _e.fric)
-    end
+  if _e.inf.x == 0 then
+    _e.hsp = lerp(_e.hsp, 0, _e.fric)
+  end
 
-    if _e.inf.y == 0 then
-      _e.vsp = lerp(_e.vsp, 0, _e.fric)
-    end
+  if _e.inf.y == 0 then
+    _e.vsp = lerp(_e.vsp, 0, _e.fric)
+  end
 
-    _e.zsp = math.max(_e.zsp - _e.grav, -_e.maxFallSpeed)
+  _e.zsp = math.max(_e.zsp - _e.grav, -_e.maxFallSpeed)
 
-    _e.hsp = floorToPrecision(_e.hsp, 2)
-    _e.vsp = floorToPrecision(_e.vsp, 2)
-    --_e.zsp = floorToPrecision(_e.zsp, 2)
+  _e.hsp = floorToPrecision(_e.hsp, 2)
+  _e.vsp = floorToPrecision(_e.vsp, 2)
+  --_e.zsp = floorToPrecision(_e.zsp, 2)
 
-    return _e.hsp*dt, _e.vsp*dt, _e.zsp*dt
+  return _e.hsp*dt, _e.vsp*dt, _e.zsp*dt
 end
 
 local function collision_test(_e, mx,my,mz)
