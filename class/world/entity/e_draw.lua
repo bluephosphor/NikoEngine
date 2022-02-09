@@ -11,34 +11,21 @@ local function drawBbox(_e)
 end
 
 local function drawDebug(_e,x,y)
-  local _y = 0; local _unit = 16
-  love.graphics.print('hsp:   ' .. _e.hsp,   x, y + _y);  _y = _y + _unit
-  love.graphics.print('vsp:   ' .. _e.vsp,   x, y + _y);  _y = _y + _unit
-  love.graphics.print('inf.x: ' .. _e.inf.x, x, y + _y);  _y = _y + _unit
-  love.graphics.print('inf.y: ' .. _e.inf.y, x, y + _y);  _y = _y + _unit * 2
+  Shell.clear()
+  Shell.log('hsp:   ' .. _e.hsp )
+  Shell.log('vsp:   ' .. _e.vsp )
+  Shell.log('inf.x: ' .. _e.inf.x)
+  Shell.log('inf.y: ' .. _e.inf.y)
   if _e.vec ~= nil then
-    love.graphics.print('vector: ', x, y + _y);                                _y = _y + _unit
-    love.graphics.print('direction:  '  .. _e.vec.direction, x + 16, y + _y);  _y = _y + _unit
-    love.graphics.print('radian:     '  .. _e.vec.dirRad,    x + 16, y + _y);  _y = _y + _unit
-    love.graphics.print('distance:   '  .. _e.vec.distance,  x + 16, y + _y);  _y = _y + _unit
-    love.graphics.print('xComponent: '  .. _e.vec.a,         x + 16, y + _y);  _y = _y + _unit
-    love.graphics.print('yComponent: '  .. _e.vec.b,         x + 16, y + _y);  _y = _y + _unit
-
-    love.graphics.setColor(1,0,0)
-    love.graphics.line(
-      _e.x,
-      _e.y,
-      _e.x + _e.vec.x2 * 16,
-      _e.y + _e.vec.y2 * 16
-    )
-    love.graphics.setColor(0,0,1)
-    love.graphics.line(
-      _e.x,
-      _e.y,
-      _e.x + lengthdir_x(_e.vec.distance, _e.vec.dirRad) * 16,
-      _e.y + lengthdir_y(_e.vec.distance, _e.vec.dirRad) * 16
-    )
-    love.graphics.setColor(1,1,1)
+    Shell.log('vector: ')
+    Shell.log('direction:  '  .. _e.vec.direction)
+    Shell.log('radian:     '  .. _e.vec.dirRad)
+    Shell.log('distance:   '  .. _e.vec.distance)
+    Shell.log('xComponent: '  .. _e.vec.a)
+    Shell.log('yComponent: '  .. _e.vec.b)
+  end
+  if Shell.logBuffer <= 0 then
+    Shell.logBuffer = 5
   end
 end
 

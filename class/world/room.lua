@@ -3,13 +3,9 @@ Room = {
 }
 DefineRoom = function(folder)
   local _r = Instance.create({
-    model = G3D.newModel(
-      'asset/room/'.. folder .. '/mesh.obj',
-      nil,
-      nil,
-      nil
-    )
+    model = G3D.newModel('asset/room/'.. folder .. '/mesh.obj')
   }, StepOrder.world, DrawOrder.world)
+
   --get image
   _r.texture = love.graphics.newImage('asset/room/'.. folder .. '/texture_0.png')
   local width, height = _r.texture:getDimensions()

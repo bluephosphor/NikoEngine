@@ -2,9 +2,8 @@ require "game"
 
 function love.load()
   Game.Initialize()
-  TestArea = DefineRoom('test')
-  Meadow = DefineRoom('field')
-  Room.current = TestArea
+  Meadow = DefineRoom('arena')
+  Room.current = Meadow
   Player = NewPlayer(0,0)
 end
 

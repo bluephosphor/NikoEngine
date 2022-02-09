@@ -2,7 +2,8 @@ Debug = {
   menu = nil,
   ShowBoxes = false,
   ShowWire = false,
-  ShowEntityInfo = false
+  ShowEntityInfo = false,
+  ShowCollisionData = false
 }
 
 Command = {
@@ -53,6 +54,15 @@ Command = {
         depth = true,
       }
       Shell.align()
+    elseif args[2] == 'col' then
+      Debug.ShowCollisionData = not Debug.ShowCollisionData
     end
   end,
+  player = function(args)
+    if args[2] == 'respawn' then
+      Player.x,   Player.y,   Player.z,
+      Player.hsp, Player.vsp, Player.zsp
+      = 0,0,1, 0,0,0
+    end
+  end
 }

@@ -1,10 +1,13 @@
 local function move_commit(_e, dt)
+  --reset movement vector
   _e.vec = nil
 
   if _e.inf.x ~= 0 or _e.inf.y ~= 0 then
+    --apply initial speed
     _e.hsp = _e.hsp + (_e.inf.x * (_e.accel))
     _e.vsp = _e.vsp + (-_e.inf.y * (_e.accel))
 
+    --do math so we don't go faster diagonally
     _e.vec = MovementVector(0,0, _e.hsp,_e.vsp)
 
     if _e.vec.distance >= _e.maxSpeed then
@@ -13,6 +16,7 @@ local function move_commit(_e, dt)
     end
   end
 
+  --friction
   if _e.inf.x == 0 then
     _e.hsp = lerp(_e.hsp, 0, _e.fric)
   end
@@ -21,11 +25,13 @@ local function move_commit(_e, dt)
     _e.vsp = lerp(_e.vsp, 0, _e.fric)
   end
 
+  --gravity
   _e.zsp = math.max(_e.zsp - _e.grav, -_e.maxFallSpeed)
 
+  --rounding
   _e.hsp = floorToPrecision(_e.hsp, 2)
   _e.vsp = floorToPrecision(_e.vsp, 2)
-  --_e.zsp = floorToPrecision(_e.zsp, 2)
+  _e.zsp = floorToPrecision(_e.zsp, 2)
 
   return _e.hsp*dt, _e.vsp*dt, _e.zsp*dt
 end
@@ -34,26 +40,26 @@ local function collision_test(_e, mx,my,mz)
   local bestLength, bx,by,bz, bnx,bny,bnz
 
   for _,model in ipairs(_e.collisionModels) do
-      local len, x,y,z, nx,ny,nz = model:capsuleIntersection(
-          _e.x + mx,
-          _e.y + my,
-          _e.z + mz - 0.1,
-          _e.x + mx,
-          _e.y + my,
-          _e.z + mz - 0.85,
-          0.2
-      )
+    local len, x,y,z, nx,ny,nz = model:capsuleIntersection(
+      _e.x + mx,
+      _e.y + my,
+      _e.z + mz - 0.1,
+      _e.x + mx,
+      _e.y + my,
+      _e.z + mz - 0.85,
+      0.2
+    )
 
-      if len and (not bestLength or len < bestLength) then
-          bestLength, bx,by,bz, bnx,bny,bnz = len, x,y,z, nx,ny,nz
-          if Debug.showCollisionData then
-            Shell.clear()
-            Shell.log('---LAST COLLISSION---')
-            Shell.log('bestLength: ' .. bestLength)
-            Shell.log('x: '  .. bx  .. ' y: '  .. by  .. ' z: '  .. bz)
-            Shell.log('nx: ' .. bnx .. ' ny: ' .. bny .. ' nz: ' .. bnz)
-          end
+    if len and (not bestLength or len < bestLength) then
+      bestLength, bx,by,bz, bnx,bny,bnz = len, x,y,z, nx,ny,nz
+      if Debug.ShowCollisionData then
+        Shell.clear()
+        Shell.log('---LAST COLLISSION---')
+        Shell.log('bestLength: ' .. bestLength)
+        Shell.log('x: '  .. bx  .. ' y: '  .. by  .. ' z: '  .. bz)
+        Shell.log('nx: ' .. bnx .. ' ny: ' .. bny .. ' nz: ' .. bnz)
       end
+    end
   end
 
   return bestLength, bx,by,bz, bnx,bny,bnz
@@ -69,33 +75,33 @@ local function slide_collision(_e, mx,my,mz)
   local ignoreSlopes = nz and nz > 0.7
 
   if len then
-      local speedLength = math.sqrt(mx^2 + my^2 + mz^2)
+    local speedLength = math.sqrt(mx^2 + my^2 + mz^2)
 
-      if speedLength > 0 then
-          local xNorm, yNorm, zNorm = mx / speedLength, my / speedLength, mz / speedLength
-          local dot = xNorm*nx + yNorm*ny + zNorm*nz
-          local xPush, yPush, zPush = nx * dot, ny * dot, nz * dot
+    if speedLength > 0 then
+      local xNorm, yNorm, zNorm = mx / speedLength, my / speedLength, mz / speedLength
+      local dot = xNorm*nx + yNorm*ny + zNorm*nz
+      local xPush, yPush, zPush = nx * dot, ny * dot, nz * dot
 
-          -- modify output vector based on normal
-          mz = -(zNorm - zPush) * speedLength
-          if ignoreSlopes then mz = 0 end
-
-          if not ignoreSlopes then
-              mx = (xNorm - xPush) * speedLength
-              my = (yNorm - yPush) * speedLength
-          end
-      end
-
-      -- rejections
-      _e.z = _e.z - nz * (len - _e.radius)
+      -- modify output vector based on normal
+      mz = -(zNorm - zPush) * speedLength
+      if ignoreSlopes then mz = 0 end
 
       if not ignoreSlopes then
-          _e.x = _e.x - nx * (len - _e.radius)
-          _e.y = _e.y - ny * (len - _e.radius)
+        mx = (xNorm - xPush) * speedLength
+        my = (yNorm - yPush) * speedLength
       end
+    end
+
+    -- rejections
+    _e.z = _e.z - nz * (len - _e.radius)
+
+    if not ignoreSlopes then
+      _e.x = _e.x - nx * (len - _e.radius)
+      _e.y = _e.y - ny * (len - _e.radius)
+    end
   end
 
-  if Debug.showCollisionData and nz then
+  if Debug.ShowCollisionData and nz then
     Shell.log('-------')
     Shell.log('mx: ' .. mx .. ' my: ' .. my .. ' mz: ' .. mz)
     Shell.log('nx: ' .. nx .. ' ny: ' .. ny .. ' nz: ' .. nz)
