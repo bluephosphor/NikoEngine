@@ -44,5 +44,6 @@ function NewPlayer(x,y)
     end
   end
 
+  Player = _p
   return _p
 end

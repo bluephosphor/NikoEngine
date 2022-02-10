@@ -10,6 +10,7 @@ Camera = {
   z = 0,
   speed = .6,
   mode = view.player,
+  target = nil
 }
 
 Camera.update = function()

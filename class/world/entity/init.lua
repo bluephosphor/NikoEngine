@@ -5,8 +5,8 @@ function NewEntity(x,y,z)
   local _e = Instance.create({
     name = 'Entity',
 
-    x = x,
-    y = y,
+    x = x and x or 0,
+    y = y and y or 0,
     z = z and z or 0.95,
     width = 32,
     height = 32,
@@ -33,10 +33,7 @@ function NewEntity(x,y,z)
     grav = 0.5,
 
     onGround = false,
-
-    collisionModels = {
-      Room.current.model
-    },
+    collisionModels = {},
 
     inf = { x = 0, y = 0 }
   }, StepOrder.world, DrawOrder.world)

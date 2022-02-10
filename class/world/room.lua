@@ -42,3 +42,15 @@ DefineRoom = function(folder)
 
   return _r
 end
+
+Room.spawn = function(entity, x, y, z)
+  entity.x = x and x or 0
+  entity.y = y and y or 0
+  entity.x = z and z or 0
+
+  table.insert(Room.current.children, entity)
+  table.insert(entity.collisionModels, Room.current.model)
+  for i, obj in ipairs(Room.current.obj) do
+    table.insert(entity.collisionModels, obj)
+  end
+end
