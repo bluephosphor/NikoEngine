@@ -1,8 +1,10 @@
 function NewPlayer(x,y)
   local _p = NewActor(x,y)
   local _step_inherited = _p.step
+  _p.lastSpeed = {}
   _p.name = _p.name .. "-> Player"
   _p.states = require('class.world.player.states')
+  _p.jump = 8
 
   _p.maxSpinDuration  = 30
   _p.spinTimer        = 30
@@ -27,8 +29,8 @@ function NewPlayer(x,y)
 
   _p.currentState = _p.states.normal.set
 
-  _p.step = function()
-    _p.currentState(_p, _step_inherited)
+  _p.step = function(dt)
+    _p.currentState(_p, _step_inherited, dt)
     if Game.State ~= 'GAMEPLAY' then
       _p.inf.x = 0
       _p.inf.y = 0

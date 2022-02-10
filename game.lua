@@ -37,8 +37,8 @@ Game.Initialize = function()
   InitShell()
 end
 
-Game.Update = function()
-  Camera.update()
+Game.Update = function(dt)
+  Camera.update(dt)
   if Controller.key['escape'] then
     if Shell.open then
       Shell.open = false

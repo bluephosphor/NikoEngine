@@ -1,8 +1,12 @@
 ---@diagnostic disable: lowercase-global
 
-function lerp(a, b, t)
-	local _v = a + (b - a) * t
-  return math.abs(_v) > 0.1 and _v or b
+function lerp(a, b, t, nosnap)
+  local _v = a + (b - a) * t
+  if nosnap then
+    return _v
+  else
+    return math.abs(_v) > 0.01 and _v or b
+  end
 end
 
 function bin(var)

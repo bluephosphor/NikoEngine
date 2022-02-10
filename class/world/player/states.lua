@@ -1,6 +1,6 @@
 local _state = {
   normal = {
-    set  = function(_p, _)
+    set  = function(_p, _, _)
       _p.maxSpeed = 5
       _p.maxFallSpeed = 10
       _p.accel = 2
@@ -10,14 +10,14 @@ local _state = {
 
       _p.currentState = _p.states.normal.step
     end,
-    step = function(_p, _inherited)
-      _inherited()
+    step = function(_p, _inherited, dt)
+      _inherited(dt)
 
       if Game.State == 'GAMEPLAY' then
         _p.inf.x = Controller.direction.x
         _p.inf.y = Controller.direction.y
         if Controller.key['x'] and _p.onGround then
-          _p.zsp = 10
+          _p.zsp = _p.jump
         end
         if Controller.key['z'] then
           _p.currentState = _p.states.spin.set
@@ -36,7 +36,7 @@ local _state = {
     end,
   },
   spin = {
-    set = function(_p, _)
+    set = function(_p, _, _)
       _p.maxSpeed = 15
       _p.maxFallSpeed = 7
       _p.accel = 0.5
@@ -44,17 +44,21 @@ local _state = {
       _p.grav = 0.4
       _p.sprite.setAnimation(_p.sprite.animations.spin)
       _p.spinTimer = _p.maxSpinDuration
+      if not _p.onGround then 
+        _p.zsp = _p.zsp + _p.jump/2
+        _p.maxSpeed = 10
+      end
 
       _p.currentState = _p.states.spin.step
     end,
-    step = function(_p, _inherited)
-      _inherited()
+    step = function(_p, _inherited, dt)
+      _inherited(dt)
 
       if Game.State == 'GAMEPLAY' then
         _p.inf.x = Controller.direction.x
         _p.inf.y = Controller.direction.y
         if Controller.key['x'] and _p.onGround then
-          _p.zsp = 10
+          _p.zsp = _p.jump
         end
         if Controller.key['z'] then
           _p.currentState = _p.states.normal.set

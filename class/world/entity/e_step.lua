@@ -38,11 +38,11 @@ local function move_commit(_e, dt)
   _e.zsp = math.max(_e.zsp - _e.grav, -_e.trueMaxFallSpeed)
 
   --rounding
-  _e.hsp = floorToPrecision(_e.hsp, 2)
-  _e.vsp = floorToPrecision(_e.vsp, 2)
-  _e.zsp = floorToPrecision(_e.zsp, 2)
+  --_e.hsp = floorToPrecision(_e.hsp, 2)
+  --_e.vsp = floorToPrecision(_e.vsp, 2)
+  --_e.zsp = floorToPrecision(_e.zsp, 2)
 
-  return _e.hsp*dt, _e.vsp*dt, _e.zsp*dt
+  return _e.hsp*dt, _e.vsp*dt, _e.zsp*dt, dt
 end
 
 local function collision_test(_e, mx,my,mz)
@@ -123,13 +123,12 @@ local function slide_collision(_e, mx,my,mz)
   return mx, my, mz, nx, ny, nz
 end
 
-local function step(_e)
-  local dt = love.timer.getDelta()
-  local mx, my, mz = move_commit(_e, dt)
+local function step(_e, dt)
+  local mx, my, mz, div = move_commit(_e, dt)
 
   --vertical movement and collision
   local fx, fy, fz, nx, ny, nz = slide_collision(_e, 0, 0, mz)
-  _e.zsp = fz/dt
+  _e.zsp = fz/div
 
   -- ground check
   local wasOnGround = _e.onGround
@@ -164,18 +163,23 @@ local function step(_e)
   end
   -- x/y collisions
   local mx, my = slide_collision(_e, mx, my, 0)
-  _e.hsp, _e.vsp = mx/dt, my/dt
+  _e.hsp, _e.vsp = mx/div, my/div
 
   if _e.sprite ~= nil then
     _e.sprite.animate()
   end
 
   if _e.model ~= nil then
-    _e.model.translation = {_e.x, _e.y, _e.z}
+    _e.model.translation = {
+      _e.x,
+      _e.y,
+      _e.z
+    }
     _e.model.rotation[1] = lerp(
       _e.model.rotation[1],
       math.pi + ((math.pi/2) * _e.facing),
-      0.15
+      0.15,
+      true
     )
     _e.model:updateMatrix()
 

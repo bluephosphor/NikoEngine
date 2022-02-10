@@ -18,14 +18,14 @@ function CallStack(type)
     return false
   end
 
-  _c.eval = function()
+  _c.eval = function(dt)
     for index, value in ipairs(_c.list) do
       local _inst = Instance.lookupTable[value]
       if _inst then
         if string.find(value, "_MODEL") then
           _inst:draw(_inst.spshader and _inst.spshader or nil)
         else
-          if _inst[type] then _inst[type]() end
+          if _inst[type] then _inst[type](dt and dt or nil) end
         end
       end
     end

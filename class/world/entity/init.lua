@@ -61,8 +61,8 @@ function NewEntity(x,y,z)
     Instance.lookupTable[_e.model.id] = _e.model
   end
 
-  _e.step = function()
-    _step(_e)
+  _e.step = function(dt)
+    _step(_e, dt)
   end
 
   _e.draw = function()
