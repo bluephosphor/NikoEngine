@@ -23,7 +23,7 @@ function CallStack(type)
       local _inst = Instance.lookupTable[value]
       if _inst then
         if string.find(value, "_MODEL") then
-          _inst:draw()
+          _inst:draw(_inst.spshader and _inst.spshader or nil)
         else
           if _inst[type] then _inst[type]() end
         end

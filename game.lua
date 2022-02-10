@@ -84,12 +84,12 @@ end
 function Render3D()
   love.graphics.setCanvas(WorldSurface)
   love.graphics.clear()
+  DrawOrder.world3D.eval()
   love.graphics.setWireframe(Debug.ShowWire)
   if Room.current then
-    Room.current.model:draw()
+    Room.current.draw()
   end
   love.graphics.setWireframe(false)
-  DrawOrder.world3D.eval()
   love.graphics.setCanvas()
   love.graphics.draw(WorldSurface[1])
 end

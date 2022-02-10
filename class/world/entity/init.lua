@@ -56,6 +56,7 @@ function NewEntity(x,y,z)
     )
     _e.model.surface = love.graphics.newCanvas(_e.width, _e.height)
     _e.model.id = _e.id .. '_MODEL'
+    _e.model.name = _e.name .. ' (model)'
     _e.model.myDrawOrder = DrawOrder.world3D
     _e.model.myDrawOrder.add(_e.model)
     Instance.lookupTable[_e.model.id] = _e.model

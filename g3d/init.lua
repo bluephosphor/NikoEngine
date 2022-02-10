@@ -43,7 +43,7 @@ g3d = {
     ]],
     path = ...,
     vshaderpath = ... .. "/g3d.vert",
-    fshaderpath = ... .. "/niko.frag",
+    fshaderpath = ... .. "/main.frag",
 }
 
 -- the shader is what does the heavy lifting, displaying 3D meshes on your 2D monitor

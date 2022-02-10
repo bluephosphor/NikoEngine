@@ -3,7 +3,9 @@ Room = {
 }
 DefineRoom = function(folder)
   local _r = Instance.create({
-    model = G3D.newModel('asset/room/'.. folder .. '/mesh.obj')
+    model = G3D.newModel('asset/room/'.. folder .. '/mesh.obj'),
+    name = 'Room -> ' .. folder,
+    obj = {}
   }, StepOrder.world, DrawOrder.world)
 
   --get image
@@ -21,6 +23,22 @@ DefineRoom = function(folder)
   --apply it to model
   _r.model.mesh:setTexture(_r.surface)
   love.graphics.setCanvas(_surf)
+
+  --load objects
+  local _i = 0
+  while love.filesystem.getInfo('asset/room/' .. folder .. '/obj_' .. _i .. '.obj') do
+    local _mod = G3D.newModel('asset/room/' .. folder .. '/obj_' .. _i .. '.obj', _r.surface)
+    _mod.spshader = Shader.trans
+    table.insert(_r.obj, _mod)
+    _i = _i + 1
+  end
+
+  _r.draw = function()
+    _r.model:draw()
+    for i, obj in ipairs(_r.obj) do
+      obj:draw(obj.spshader and obj.spshader or nil)
+    end
+  end
 
   return _r
 end
