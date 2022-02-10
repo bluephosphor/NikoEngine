@@ -2,6 +2,15 @@ local function move_commit(_e, dt)
   --reset movement vector
   _e.vec = nil
 
+  --interpolate changes in maxSpeeds so they aren't so sudden
+  local _amt = 0.5
+  if _e.trueMaxSpeed ~= _e.maxSpeed then
+    _e.trueMaxSpeed = lerp(_e.trueMaxSpeed, _e.maxSpeed, _amt)
+  end
+  if _e.trueMaxFallSpeed ~= _e.maxFallSpeed then
+    _e.trueMaxFallSpeed = lerp(_e.trueMaxFallSpeed, _e.maxFallSpeed, _amt)
+  end
+
   if _e.inf.x ~= 0 or _e.inf.y ~= 0 then
     --apply initial speed
     _e.hsp = _e.hsp + (_e.inf.x * (_e.accel))
@@ -10,9 +19,9 @@ local function move_commit(_e, dt)
     --do math so we don't go faster diagonally
     _e.vec = MovementVector(0,0, _e.hsp,_e.vsp)
 
-    if _e.vec.distance >= _e.maxSpeed then
-      _e.hsp = lengthdir_x(_e.maxSpeed, _e.vec.dirRad)
-      _e.vsp = lengthdir_y(_e.maxSpeed, _e.vec.dirRad)
+    if _e.vec.distance >= _e.trueMaxSpeed then
+      _e.hsp = lengthdir_x(_e.trueMaxSpeed, _e.vec.dirRad)
+      _e.vsp = lengthdir_y(_e.trueMaxSpeed, _e.vec.dirRad)
     end
   end
 
@@ -26,7 +35,7 @@ local function move_commit(_e, dt)
   end
 
   --gravity
-  _e.zsp = math.max(_e.zsp - _e.grav, -_e.maxFallSpeed)
+  _e.zsp = math.max(_e.zsp - _e.grav, -_e.trueMaxFallSpeed)
 
   --rounding
   _e.hsp = floorToPrecision(_e.hsp, 2)

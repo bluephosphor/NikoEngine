@@ -1,6 +1,6 @@
 
 view = enum{
-  'player',
+  'Camera.follow',
   'free'
 }
 
@@ -10,16 +10,16 @@ Camera = {
   z = 0,
   speed = .6,
   mode = view.player,
-  target = nil
+  follow = nil
 }
 
 Camera.update = function()
   if Camera.mode == view.player then
-    Camera.x = Player.x
-    Camera.y = lerp(Camera.y, Player.y - 5, Camera.speed)
-    Camera.z = lerp(Camera.z, Player.z + 2, Camera.speed)
+    Camera.x = Camera.follow.x
+    Camera.y = lerp(Camera.y, Camera.follow.y - 5, Camera.speed)
+    Camera.z = lerp(Camera.z, Camera.follow.z + 2, Camera.speed)
 
-    G3D.camera.target = {Player.x, Player.y, Player.z + 0.5}
+    G3D.camera.target = {Camera.follow.x, Camera.follow.y, Camera.follow.z + 0.5}
     G3D.camera.position = {Camera.x, Camera.y, Camera.z}
     G3D.camera.updateViewMatrix()
   elseif Camera.mode == view.free then
