@@ -5,6 +5,9 @@ function Sprite(path, frameWidth)
     framedata  = {},
     frame      = 1,
     frameWidth = frameWidth,
+    animations = {
+      current = {}
+    },
     animation  = {
       frames  = {},
       index   = 1,
@@ -37,9 +40,6 @@ function Sprite(path, frameWidth)
   end
 
   _s.defineAnimation = function(name, anim)
-    if _s.animations == nil then
-      _s.animations = {}
-    end
     _s.animations[name] = anim;
   end
 
@@ -58,8 +58,19 @@ function Sprite(path, frameWidth)
     _s.frame = anim.frames[1]
   end
 
+  _s.setFrame = function(index)
+    if _s.animations.current[1] == index and _s.animations.length == 1 then return end
+    _s.animations.current = {index}
+
+    _s.animation.frames = {index}
+    _s.animation.index  = 1
+    _s.animation.timer  = 1
+    _s.animation.length = 1
+    _s.frame = index
+  end
+
   _s.animate = function()
-    if _s.animation.length == nil then return end
+    if _s.animation.length <= 1 then return end
 
     _s.animation.timer = _s.animation.timer - 1
     if _s.animation.timer > 0 then

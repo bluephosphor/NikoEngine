@@ -6,7 +6,7 @@ local rollingAverage = {}
 
 function love.load()
   Game.Initialize()
-  Room.current = DefineRoom('test')
+  Room.current = DefineRoom('arena')
   Player = NewPlayer()
   Room.spawn(Player,0,-5)
 end

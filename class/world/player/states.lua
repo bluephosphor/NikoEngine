@@ -6,7 +6,7 @@ local _state = {
       _p.accel = 2
       _p.fric = 0.2
       _p.grav = 0.5
-      _p.sprite.setAnimation(_p.sprite.animations.idle)
+      _p.sprite.setFrame(1)
 
       _p.currentState = _p.states.normal.step
     end,
@@ -27,7 +27,21 @@ local _state = {
       if _p.inf.x ~= 0 or _p.inf.y ~= 0 then
         _p.sprite.setAnimation(_p.sprite.animations.walk)
       else
-        _p.sprite.setAnimation(_p.sprite.animations.idle)
+        _p.sprite.setFrame(1)
+      end
+
+      if not _p.onGround then
+        local _val = _p.zsp
+        local threshhold = 0.99
+        local frame
+        if _val > threshhold then
+          frame = 4
+        elseif _val < -threshhold then
+          frame = 2
+        else
+          frame = 3
+        end
+        _p.sprite.setFrame(frame)
       end
 
       if _p.facing == -_p.inf.x then
