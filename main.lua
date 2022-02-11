@@ -1,12 +1,8 @@
 require "game"
 
-local accumulator = 0
-local frametime = 1/60
-local rollingAverage = {}
-
 function love.load()
   Game.Initialize()
-  Room.current = DefineRoom('arena')
+  Room.current = Room.define('arena')
   Player = NewPlayer()
   Room.spawn(Player,0,-5)
 end
@@ -27,7 +23,10 @@ function love.draw()
   Render3D()
   DrawOrder.UI.eval()
   Controller.reset()
+  Color.set(Color.menuBack)
+  love.graphics.rectangle("fill",0,0,100,32)
+  Color.reset()
   love.graphics.print('fps: ' .. love.timer.getFPS())
-  love.graphics.print('delta: ' .. love.timer.getDelta(), 0, 8)
-  love.graphics.print('stepTime: ' .. love.timer.step(), 0, 16)
+  love.graphics.print('delta: ' .. floorToPrecision(love.timer.getDelta(),4), 0, 8)
+  love.graphics.print('stepTime: ' .. floorToPrecision(love.timer.step(),4), 0, 16)
 end

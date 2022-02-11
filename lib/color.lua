@@ -22,5 +22,5 @@ Color.purple  = Color.define(1,0,1,1)
 Color.orange  = Color.define(1,1,0,1)
 Color.ice     = Color.define(0.5,1,1,1)
 
-Color.menuBack = Color.define(1,1,1,0.2)
+Color.menuBack = Color.define(0,0,0,0.5)
 Color.menuOutline = Color.white

@@ -93,7 +93,7 @@ InitShell = function()
 
   Shell.draw = function()
     if not Shell.open then return end
-    love.graphics.setColor(0,0,0,0.5)
+    Color.set(Color.menuBack)
     love.graphics.rectangle(
       "fill",
       Shell.x + Shell.margin,

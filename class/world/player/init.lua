@@ -29,6 +29,10 @@ function NewPlayer(x,y)
 
   _p.currentState = _p.states.normal.set
 
+  _p.onVoidOut = function()
+    _p.x, _p.y, _p.z = _p.xStart, _p.yStart, _p.zStart
+  end
+
   _p.step = function(dt)
     _p.currentState(_p, _step_inherited, dt)
     if Game.State ~= 'GAMEPLAY' then

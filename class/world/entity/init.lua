@@ -5,21 +5,24 @@ function NewEntity(x,y,z)
   local _e = Instance.create({
     name = 'Entity',
 
-    x = x and x or 0,
-    y = y and y or 0,
-    z = z and z or 0.95,
-    width = 32,
+    x      = x and x or 0,
+    y      = y and y or 0,
+    z      = z and z or 0.95,
+    xStart = x and x or 0,
+    yStart = y and y or 0,
+    zStart = z and z or 0.95,
+    width  = 32,
     height = 32,
 
     direction = nil,
-    dirRad = nil,
-    distance = 0;
+    dirRad    = nil,
+    distance  = 0;
 
     vec = nil,
 
     sprite = nil,
-    scale = 3,
-    angle = 0,
+    scale  = 3,
+    angle  = 0,
     facing = 1,
     radius = 0.2,
 
@@ -31,8 +34,8 @@ function NewEntity(x,y,z)
     maxFallSpeed = 10,
     trueMaxFallSpeed = 10,
     accel = 2,
-    fric = 0.2,
-    grav = 0.5,
+    fric  = 0.2,
+    grav  = 0.5,
 
     onGround = false,
     collisionModels = {},
@@ -61,16 +64,24 @@ function NewEntity(x,y,z)
     Instance.lookupTable[_e.model.id] = _e.model
   end
 
+  _e.preDestroy = function()
+    _e.sprite.free()
+  end
+
+  _e.onVoidOut = function()
+    _e.preDestroy()
+    Instance.destroy(_e)
+  end
+
   _e.step = function(dt)
     _step(_e, dt)
+    if _e.z < Room.zDeadZone then
+      _e.onVoidOut()
+    end
   end
 
   _e.draw = function()
     _draw(_e)
-  end
-
-  _e.preDestroy = function()
-    _e.sprite.free()
   end
 
   return _e
