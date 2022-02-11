@@ -2,7 +2,8 @@ Room = {
   current = nil,
   zDeadZone = -32
 }
-Room.define = function(folder)
+Room.load = function(room)
+  local folder = room.name
   local _r = Instance.create({
     model = G3D.newModel('asset/room/'.. folder .. '/mesh.obj'),
     name = 'Room -> ' .. folder,
@@ -27,6 +28,7 @@ Room.define = function(folder)
     end
   end
 
+  Room.current = _r
   return _r
 end
 

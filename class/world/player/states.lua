@@ -13,7 +13,7 @@ local _state = {
     step = function(_p, _inherited, dt)
       _inherited(dt)
 
-      if Game.State == 'GAMEPLAY' then
+      if Engine.State == 'GAMEPLAY' then
         _p.inf.x = Controller.direction.x
         _p.inf.y = Controller.direction.y
         if Controller.key['x'] and _p.onGround then
@@ -68,7 +68,7 @@ local _state = {
     step = function(_p, _inherited, dt)
       _inherited(dt)
 
-      if Game.State == 'GAMEPLAY' then
+      if Engine.State == 'GAMEPLAY' then
         _p.inf.x = Controller.direction.x
         _p.inf.y = Controller.direction.y
         if Controller.key['x'] and _p.onGround then

@@ -1,4 +1,4 @@
-Game = {
+Engine = {
   State = "GAMEPLAY",
   Fullscreen = false,
   Resolution = {
@@ -7,7 +7,7 @@ Game = {
   }
 }
 
-Game.Initialize = function()
+Engine.Initialize = function()
   require "lib.core"
   require "lib.math"
   require "lib.color"
@@ -37,15 +37,15 @@ Game.Initialize = function()
   InitShell()
 end
 
-Game.Update = function(dt)
+Engine.Update = function(dt)
   Camera.update(dt)
   if Controller.key['escape'] then
     if Shell.open then
       Shell.open = false
       return
     end
-    if Game.State ~= "GAMEPLAY" then
-      Game.State = 'GAMEPLAY'
+    if Engine.State ~= "GAMEPLAY" then
+      Engine.State = 'GAMEPLAY'
       return
     end
     if Camera.mode == view.free then
@@ -60,8 +60,8 @@ function InitWindow()
   love.graphics.setDefaultFilter("nearest", "nearest", 0);
   love.graphics.setBackgroundColor(0.3,0.2,0.5)
   love.window.setMode(
-    Game.Resolution.width,
-    Game.Resolution.height,
+    Engine.Resolution.width,
+    Engine.Resolution.height,
     {
       highdpi = true,
     --usedpiscale = false
@@ -74,8 +74,8 @@ function Init3D()
   require('class.world.camera')
   WorldSurface = {
     love.graphics.newCanvas(
-      Game.Resolution.width,
-      Game.Resolution.height
+      Engine.Resolution.width,
+      Engine.Resolution.height
     ),
     depth = true,
   }

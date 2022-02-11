@@ -1,21 +1,19 @@
 require "game"
 
 function love.load()
+  Engine.Initialize()
   Game.Initialize()
-  Room.current = Room.define('arena')
-  Player = NewPlayer()
-  Room.spawn(Player,0,-5)
 end
 
 function love.update(dt)
   Controller.getInputState()
 
-  if Game.State ~= "PAUSED" then
+  if Engine.State ~= "PAUSED" then
     StepOrder.world.eval(dt)
   end
 
   StepOrder.UI.eval()
-  Game.Update(dt)
+  Engine.Update(dt)
 end
 
 function love.draw()

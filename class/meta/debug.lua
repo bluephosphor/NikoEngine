@@ -41,11 +41,11 @@ Command = {
       Debug.ShowWire = not Debug.ShowWire
 
     elseif args[2] == 'fs' then
-      Game.Fullscreen = not Game.Fullscreen
-      love.window.setFullscreen(Game.Fullscreen)
+      Engine.Fullscreen = not Engine.Fullscreen
+      love.window.setFullscreen(Engine.Fullscreen)
       local width, height, flags = love.window.getMode()
-      Game.Resolution.width = width
-      Game.Resolution.height = height
+      Engine.Resolution.width = width
+      Engine.Resolution.height = height
       WorldSurface[1]:release()
       WorldSurface = {
         love.graphics.newCanvas(
@@ -74,3 +74,9 @@ Command = {
     end
   end
 }
+
+function love.resize(w, h)
+  -- for when toggle fs changes the aspect
+  G3D.camera.aspectRatio = w / h
+  G3D.camera.updateProjectionMatrix()
+end

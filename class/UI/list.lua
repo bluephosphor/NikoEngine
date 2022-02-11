@@ -1,5 +1,5 @@
 UI.List = function(x,y,data,options)
-  Game.State = 'MENU'
+  Engine.State = 'MENU'
 
   local _l       = UI.Element(x,y)
   _l.name        = _l.name .. "-> List"
@@ -43,7 +43,7 @@ UI.List = function(x,y,data,options)
   end
 
   _l.preDestroy = function ()
-    Game.State = 'GAMEPLAY'
+    Engine.State = 'GAMEPLAY'
   end
 
   return _l

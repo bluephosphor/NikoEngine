@@ -35,7 +35,7 @@ function NewPlayer(x,y)
 
   _p.step = function(dt)
     _p.currentState(_p, _step_inherited, dt)
-    if Game.State ~= 'GAMEPLAY' then
+    if Engine.State ~= 'GAMEPLAY' then
       _p.inf.x = 0
       _p.inf.y = 0
       return

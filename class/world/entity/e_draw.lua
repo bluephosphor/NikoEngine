@@ -41,7 +41,7 @@ local function draw(_e)
       _e.scale, -- * -_e.facing,
       _e.scale
     )
-    --love.graphics.setCanvas(WorldSurface)
+    love.graphics.setCanvas(WorldSurface)
     _e.model.mesh:setTexture(_e.model.surface)
   elseif _e.sprite ~= nil then
     _e.sprite.draw(

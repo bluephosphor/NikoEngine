@@ -1,0 +1,3 @@
+Room.Arena = {
+  name = "arena"
+}

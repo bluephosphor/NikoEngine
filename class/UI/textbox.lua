@@ -1,5 +1,5 @@
 UI.Textbox = function(data, x, y)
-  Game.State = 'DIALOGUE'
+  Engine.State = 'DIALOGUE'
 
   local _t    = UI.Element(x,y)
   _t.name     = '-> Textbox'
@@ -31,8 +31,8 @@ UI.Textbox = function(data, x, y)
     table.insert(_t.children, _item)
   end
 
-  if not x then _t.x = Game.Resolution.width/2  - _t.width/2 end
-  if not y then _t.y = Game.Resolution.height/2 - _t.height/2 end
+  if not x then _t.x = Engine.Resolution.width/2  - _t.width/2 end
+  if not y then _t.y = Engine.Resolution.height/2 - _t.height/2 end
 
   _t.step = function()
     _t.nextSprite.visible = false
@@ -70,7 +70,7 @@ UI.Textbox = function(data, x, y)
 
   _t.preDestroy = function()
     _t.nextSprite:free()
-    Game.State = 'GAMEPLAY'
+    Engine.State = 'GAMEPLAY'
   end
 
   return _t
