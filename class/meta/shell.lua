@@ -2,7 +2,8 @@ InitShell = function()
   Shell = Instance.create({
     name        = '-> Shell',
     open        = false,
-    data        = {},
+    history     = {},
+    histIndex   = 1,
     anchor      = Direction.LEFT,
     width       = 300,
     height      = Game.Resolution.height,
@@ -46,7 +47,6 @@ InitShell = function()
     love.graphics.draw(Shell.surface2,0, 0)
 
     love.graphics.setCanvas()
-    table.insert(Shell.data,str)
     --print(str)
   end
 
@@ -67,7 +67,8 @@ InitShell = function()
     local _data = strsplit(str)
 
     if pcall(function() Command[_data[1]](_data) end) then
-
+      table.insert(Shell.history,str)
+      Shell.histIndex = #Shell.history + 1
     else
       Shell.log('error running command "' .. str .. '"')
     end
@@ -78,13 +79,29 @@ InitShell = function()
     if Shell.open then
       Shell.blinkTimer = wrap(Shell.blinkTimer - 1, 0, 32)
       Shell.cursor = Shell.blinkTimer < 16 and '|' or ''
+      --logging
       if Controller.key['return'] and Shell.inputString ~= '' then
         Shell.log('> ' .. Shell.inputString)
         Shell.call(Shell.inputString)
         Shell.inputString = ''
       end
+      --backspace
       if Controller.key['backspace'] then
         Shell.inputString = string.sub(Shell.inputString, 1, string.len(Shell.inputString)-1)
+      end
+      --line history indexing
+      if #Shell.history > 0  then
+        local _yy = bin(Controller.key['down']) - bin(Controller.key['up'])
+        if _yy ~= 0 then
+          local _len = #Shell.history
+          local _last = Shell.histIndex
+          Shell.histIndex   = clamp(Shell.histIndex + _yy, 1, _len)
+          Shell.inputString = Shell.history[Shell.histIndex]
+          if _last == Shell.histIndex then
+            Shell.inputString = ''
+          end
+          Shell.log(Shell.histIndex)
+        end
       end
     else
       if Controller.key[Input.key.shell] then Shell.open = true end
