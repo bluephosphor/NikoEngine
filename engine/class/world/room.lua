@@ -13,13 +13,26 @@ Room.load = function(room)
   _r.surface = Room.applyTexture(_r, folder)
 
   --load objects
-  local _i = 0
-  while love.filesystem.getInfo('asset/room/' .. folder .. '/obj_' .. _i .. '.obj') do
-    local _mod = G3D.newModel('asset/room/' .. folder .. '/obj_' .. _i .. '.obj', _r.surface)
-    _mod.spshader = Shader.trans
-    table.insert(_r.obj, _mod)
-    _i = _i + 1
+  for _i, _obj in ipairs(room.objects) do
+    local _load
+    if type(_obj.model == 'table') then
+      _load = _obj.model
+    else
+      --load an obj file
+      _load = 'asset/room/' .. folder .. '/' .. _obj.model .. '.obj'
+    end
+    local _mod = G3D.newModel(
+      _load,
+      _r.surface,
+      _obj.pos and _obj.pos or {0,0,0},
+      {0,0,0},
+      _obj.scale and _obj.scale or {1,1,1}
+    )
+    _mod.spshader = _obj.shader
+    _mod.colType = _obj.colType
+    _r.obj[_i] = _mod
   end
+
 
   _r.draw = function()
     _r.model:draw()
@@ -39,11 +52,14 @@ Room.spawn = function(entity, x, y, z)
   entity.xStart = x and x or 0
   entity.yStart = y and y or 0
   entity.zStart = z and z or 0.85
+  entity.loadPosition = x and {x,y,z} or {0,0,0.85}
 
   table.insert(Room.current.children, entity)
   table.insert(entity.collisionModels, Room.current.model)
   for i, obj in ipairs(Room.current.obj) do
-    table.insert(entity.collisionModels, obj)
+    if obj.colType == CollisionType.SOLID then
+      table.insert(entity.collisionModels, obj)
+    end
   end
 end
 

@@ -4,7 +4,6 @@ Debug = {
   ShowWire = false,
   ShowEntityInfo = false,
   ShowCollisionData = false,
-  playerLoadPosition = {0,0,1}
 }
 
 Command = {
@@ -61,14 +60,14 @@ Command = {
   end,
   pos = function(args)
     if args[2] == 's' then
-      Debug.playerLoadPosition = {Player.x, Player.y, Player.z}
+      Player.loadPosition = {Player.x, Player.y, Player.z}
       Shell.log('Player position saved at x:' .. Player.x .. ' y:' .. Player.y .. ' z:' .. Player.z)
     elseif args[2] == 'l' then
       Player.x,   Player.y,   Player.z,
       Player.hsp, Player.vsp, Player.zsp
-      = Debug.playerLoadPosition[1],
-        Debug.playerLoadPosition[2],
-        Debug.playerLoadPosition[3],
+      = Player.loadPosition[1],
+        Player.loadPosition[2],
+        Player.loadPosition[3],
         0,0,0
       Shell.log('loaded player position')
     end

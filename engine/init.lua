@@ -29,6 +29,7 @@ Engine.Initialize = function()
   require "engine.class.world.entity"
   require "engine.class.world.actor"
   require "engine.class.world.player"
+  require "engine.class.world.water"
 
   InitWindow()
   InitFonts()
@@ -54,6 +55,19 @@ Engine.Update = function(dt)
     end
     love.event.push "quit"
   end
+end
+
+Engine.draw = function()
+  DrawOrder.world.eval()
+  Render3D()
+  DrawOrder.UI.eval()
+  Controller.reset()
+  Color.set(Color.menuBack)
+  love.graphics.rectangle("fill",0,0,100,32)
+  Color.reset()
+  love.graphics.print('fps: ' .. love.timer.getFPS())
+  love.graphics.print('delta: ' .. floorToPrecision(love.timer.getDelta(),4), 0, 8)
+  love.graphics.print('stepTime: ' .. floorToPrecision(love.timer.step(),4), 0, 16)
 end
 
 function InitWindow()
