@@ -12,5 +12,5 @@ CollisionType = enum{
 }
 
 Shader = {
-  trans = love.graphics.newShader('g3d/g3d.vert', 'lib/shader/transluscent.frag'),
+  trans = love.graphics.newShader('engine/g3d/g3d.vert', 'engine/lib/shader/transluscent.frag'),
 }

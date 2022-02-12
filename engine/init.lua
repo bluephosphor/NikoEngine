@@ -8,27 +8,27 @@ Engine = {
 }
 
 Engine.Initialize = function()
-  require "lib.core"
-  require "lib.math"
-  require "lib.color"
-  require "lib.definitions"
+  require "engine.lib.core"
+  require "engine.lib.math"
+  require "engine.lib.color"
+  require "engine.lib.definitions"
 
-  require "class.meta.controller"
-  require "class.meta.callstack"
-  require "class.meta.instance"
-  require "class.meta.sprite"
-  require "class.meta.debug"
-  require "class.meta.shell"
+  require "engine.class.meta.controller"
+  require "engine.class.meta.callstack"
+  require "engine.class.meta.instance"
+  require "engine.class.meta.sprite"
+  require "engine.class.meta.debug"
+  require "engine.class.meta.shell"
 
-  require "class.UI.element"
-  require "class.UI.typography"
-  require "class.UI.list"
-  require "class.UI.textbox"
+  require "engine.class.UI.element"
+  require "engine.class.UI.typography"
+  require "engine.class.UI.list"
+  require "engine.class.UI.textbox"
 
-  require "class.world.room"
-  require "class.world.entity"
-  require "class.world.actor"
-  require "class.world.player"
+  require "engine.class.world.room"
+  require "engine.class.world.entity"
+  require "engine.class.world.actor"
+  require "engine.class.world.player"
 
   InitWindow()
   InitFonts()
@@ -70,8 +70,8 @@ function InitWindow()
 end
 
 function Init3D()
-  G3D = require('g3d')
-  require('class.world.camera')
+  G3D = require('engine.g3d')
+  require('engine.class.world.camera')
   WorldSurface = {
     love.graphics.newCanvas(
       Engine.Resolution.width,

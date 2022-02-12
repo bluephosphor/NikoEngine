@@ -1,5 +1,5 @@
-local _step  = require "class.world.entity.e_step"
-local _draw  = require "class.world.entity.e_draw"
+local _step  = require "engine.class.world.entity.e_step"
+local _draw  = require "engine.class.world.entity.e_draw"
 
 function NewEntity(x,y,z)
   local _e = Instance.create({

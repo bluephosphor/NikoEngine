@@ -3,7 +3,7 @@ function NewPlayer(x,y)
   local _step_inherited = _p.step
   _p.lastSpeed = {}
   _p.name = _p.name .. "-> Player"
-  _p.states = require('class.world.player.states')
+  _p.states = require('engine.class.world.player.states')
   _p.jump = 8
 
   _p.maxSpinDuration  = 30

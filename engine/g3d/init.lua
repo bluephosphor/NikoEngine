@@ -41,9 +41,9 @@ g3d = {
         OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
         SOFTWARE.
     ]],
-    path = ...,
-    vshaderpath = ... .. "/g3d.vert",
-    fshaderpath = ... .. "/main.frag",
+    path = 'engine/g3d',
+    vshaderpath = "engine/g3d/g3d.vert",
+    fshaderpath = "engine/g3d/main.frag",
 }
 
 -- the shader is what does the heavy lifting, displaying 3D meshes on your 2D monitor
