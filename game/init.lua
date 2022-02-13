@@ -5,7 +5,7 @@ Game.Initialize = function()
   InitRooms()
   Player = NewPlayer()
   Room.load(Room.Test)
-  Room.spawn(Player, 0,-4,0.85)
+  Room.spawn(Player, 0,15,0.85)
 end
 
 function InitRooms()
