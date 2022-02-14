@@ -19,6 +19,7 @@ Engine.Initialize = function()
   require "engine.class.meta.sprite"
   require "engine.class.meta.debug"
   require "engine.class.meta.shell"
+  require "engine.class.meta.particle"
 
   require "engine.class.UI.element"
   require "engine.class.UI.typography"
@@ -97,8 +98,8 @@ end
 function Render3D()
   love.graphics.setCanvas(WorldSurface)
   love.graphics.clear()
-  DrawOrder.world3D.eval()
   love.graphics.setWireframe(Debug.ShowWire)
+  DrawOrder.world3D.eval()
   if Room.current then
     Room.current.draw()
   end

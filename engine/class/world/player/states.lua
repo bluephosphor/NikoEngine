@@ -62,7 +62,7 @@ local _state = {
         _p.zsp = _p.zsp + _p.jump/2
         _p.maxSpeed = 10
       end
-
+      Particles.emit('test', {_p.x,_p.y,_p.z})
       _p.currentState = _p.states.spin.step
     end,
     step = function(_p, _inherited, dt)
