@@ -2,7 +2,7 @@ require "game"
 
 function love.load()
   Engine.Initialize()
-  Game.Initialize() 
+  Game.Initialize()
 end
 
 function love.update(dt)
@@ -17,5 +17,6 @@ function love.update(dt)
 end
 
 function love.draw()
+  Background.draw()
   Engine.draw()
 end

@@ -110,7 +110,7 @@ InitShell = function()
 
   Shell.draw = function()
     if not Shell.open then return end
-    Color.set(Color.menuBack)
+    Color.set('black', 0.8)
     love.graphics.rectangle(
       "fill",
       Shell.x + Shell.margin,
@@ -118,7 +118,7 @@ InitShell = function()
       Shell.width - (Shell.margin*2),
       Shell.height - (Shell.margin*2)
     )
-    Color.set(Color.menuOutline)
+    Color.set('white')
     love.graphics.rectangle(
       "line",
       Shell.x + Shell.margin,

@@ -1,26 +1,33 @@
 Color = {}
 
 Color.define = function(r,g,b,a)
-  return { r=r , g=g , b=b , a=a }
+  return { r, g, b, a }
 end
 
-Color.set = function(c)
-  love.graphics.setColor(c.r,c.g,c.b, c.a)
+Color.set = function(color, alpha)
+  local c = Color[color]
+  love.graphics.setColor(c[1],c[2],c[3], alpha and alpha or 1)
+end
+
+Color.get = function(color, alpha)
+  local c = Color[color]
+  return {c[1],c[2],c[3], alpha and alpha or 1}
 end
 
 Color.reset = function()
   love.graphics.setColor(1,1,1)
 end
 
-Color.red     = Color.define(1,0,0,1)
-Color.white   = Color.define(1,1,1,1)
-Color.black   = Color.define(0,0,0,1)
-Color.green   = Color.define(0,1,0,1)
-Color.blue    = Color.define(0,0,1,1)
-Color.yellow  = Color.define(1,1,0,1)
-Color.purple  = Color.define(1,0,1,1)
-Color.orange  = Color.define(1,1,0,1)
-Color.ice     = Color.define(0.5,1,1,1)
 
-Color.menuBack = Color.define(0,0,0,0.5)
-Color.menuOutline = Color.white
+Color.red     = { 1, 0, 0 }
+Color.white   = { 1, 1, 1 }
+Color.black   = { 0, 0, 0 }
+Color.green   = { 0, 1, 0 }
+Color.blue    = { 0, 0, 1 }
+Color.yellow  = { 1, 1, 0 }
+Color.purple  = { 1, 0, 1 }
+Color.orange  = { 1, 1, 0 }
+Color.ice     = { 0, 5, 1 }
+
+Color.dkgray   = merge_color(Color.white, Color.black, 0.9)
+Color.dkpurple = merge_color(Color.purple, Color.black, 0.5)

@@ -62,7 +62,7 @@ Engine.draw = function()
   Render3D()
   DrawOrder.UI.eval()
   Controller.reset()
-  Color.set(Color.menuBack)
+  Color.set('black', 0.8)
   love.graphics.rectangle("fill",0,0,100,32)
   Color.reset()
   love.graphics.print('fps: ' .. love.timer.getFPS())
@@ -72,7 +72,6 @@ end
 
 function InitWindow()
   love.graphics.setDefaultFilter("nearest", "nearest", 0);
-  love.graphics.setBackgroundColor(0.3,0.2,0.5)
   love.window.setMode(
     Engine.Resolution.width,
     Engine.Resolution.height,

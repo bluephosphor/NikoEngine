@@ -16,9 +16,9 @@ UI.Element = function(x, y)
   }, StepOrder.UI, DrawOrder.UI)
 
   _u.drawBox = function()
-    Color.set(Color.menuBack)
+    Color.set('black', 0.8)
     love.graphics.rectangle('fill',_u.x,_u.y,_u.width,_u.height)
-    Color.set(Color.menuOutline)
+    Color.set('white')
     love.graphics.rectangle('line',_u.x,_u.y,_u.width,_u.height)
   end
 

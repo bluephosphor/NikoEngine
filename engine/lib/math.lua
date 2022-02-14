@@ -41,3 +41,33 @@ function MovementVector(x1,y1,x2,y2)
 
   return _v
 end
+
+
+function merge_number(num1, num2, amount)
+
+	local diff = num1 - num2;
+	local merged = num1 - (diff * amount);
+
+	return merged;
+end
+
+function merge_color(col1,col2,amt)
+
+  local r1,r2,g1,g2,b1,b2 =
+  col1[1], col2[1],
+  col1[2], col2[2],
+  col1[3], col2[3]
+  local a1 = col1[4] and col1[4] or 1
+  local a2 = col2[4] and col2[4] or 1
+  
+  local rdiff = r1 - r2;
+  local gdiff = g1 - g2;
+  local bdiff = b1 - b2;
+  local adiff = a1 - a2;
+	local rmerged = r1 - (rdiff * amt);
+	local gmerged = g1 - (gdiff * amt);
+	local bmerged = b1 - (bdiff * amt);
+	local amerged = a1 - (adiff * amt);
+
+	return {rmerged,gmerged,bmerged,amerged};
+end
