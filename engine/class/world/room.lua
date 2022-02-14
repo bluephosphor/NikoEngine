@@ -8,29 +8,32 @@ Room.load = function(room)
     model = G3D.newModel('asset/room/'.. folder .. '/mesh.obj'),
     name = 'Room -> ' .. folder,
     obj = {},
+    defaultSpawn = room.defaultSpawn
   }, StepOrder.world, DrawOrder.world)
 
   _r.surface = Room.applyTexture(_r, folder)
 
   --load objects
-  for _i, _obj in ipairs(room.objects) do
-    local _load
-    if type(_obj.model == 'table') then
-      _load = _obj.model
-    else
-      --load an obj file
-      _load = 'asset/room/' .. folder .. '/' .. _obj.model .. '.obj'
+  if room.objects then
+    for _i, _obj in ipairs(room.objects) do
+      local _load
+      if type(_obj.model) == 'table' then
+        _load = _obj.model
+      else
+        --load an obj file
+        _load = 'asset/room/' .. folder .. '/' .. _obj.model .. '.obj'
+      end
+      local _mod = G3D.newModel(
+        _load,
+        _obj.texture and _obj.texture or _r.surface,
+        _obj.pos and _obj.pos or {0,0,0},
+        {0,0,0},
+        _obj.scale and _obj.scale or {1,1,1}
+      )
+      _mod.spshader = _obj.shader
+      _mod.colType = _obj.colType
+      _r.obj[_i] = _mod
     end
-    local _mod = G3D.newModel(
-      _load,
-      _r.surface,
-      _obj.pos and _obj.pos or {0,0,0},
-      {0,0,0},
-      _obj.scale and _obj.scale or {1,1,1}
-    )
-    _mod.spshader = _obj.shader
-    _mod.colType = _obj.colType
-    _r.obj[_i] = _mod
   end
 
 
@@ -46,13 +49,13 @@ Room.load = function(room)
 end
 
 Room.spawn = function(entity, x, y, z)
-  entity.x      = x and x or 0
-  entity.y      = y and y or 0
-  entity.z      = z and z or 0.85
-  entity.xStart = x and x or 0
-  entity.yStart = y and y or 0
-  entity.zStart = z and z or 0.85
-  entity.loadPosition = x and {x,y,z} or {0,0,0.85}
+  entity.x      = x and x or Room.current.defaultSpawn[1]
+  entity.y      = y and y or Room.current.defaultSpawn[2]
+  entity.z      = z and z or Room.current.defaultSpawn[3]
+  entity.xStart = x and x or Room.current.defaultSpawn[1]
+  entity.yStart = y and y or Room.current.defaultSpawn[2]
+  entity.zStart = z and z or Room.current.defaultSpawn[3]
+  entity.loadPosition = x and {x,y,z} or Room.current.defaultSpawn
 
   table.insert(Room.current.children, entity)
   table.insert(entity.collisionModels, Room.current.model)

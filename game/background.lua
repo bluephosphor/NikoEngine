@@ -1,5 +1,6 @@
 Background = {
-  surface = love.graphics.newCanvas(Engine.Resolution.width, Engine.Resolution.height)
+  surface = love.graphics.newCanvas(Engine.Resolution.width, Engine.Resolution.height),
+  current = nil
 }
 
 Background.Sky = function(sprite, amt, colors)
@@ -10,7 +11,7 @@ Background.Sky = function(sprite, amt, colors)
 
   for i = 1, amt, 1 do
     local _c = Background.BlendColors(colors,amt,i)
-    
+
     local _len = #sprite.framedata
     local _frame = clamp(math.ceil(i / amt * _len), 1, _len)
 
@@ -26,6 +27,7 @@ Background.Sky = function(sprite, amt, colors)
   end
   Color.reset()
   love.graphics.setCanvas(_surf)
+  Background.lastSettings = {sprite,amt,colors}
 end
 
 
@@ -39,4 +41,10 @@ end
 
 Background.draw = function()
   love.graphics.draw(Background.surface)
+end
+
+Background.Rerender = function()
+  Background.surface:release()
+  Background.surface = love.graphics.newCanvas(Engine.Resolution.width, Engine.Resolution.height)
+  Background.current(unpack(Background.lastSettings))
 end

@@ -5,8 +5,8 @@ Game.Initialize = function()
   InitRooms()
   InitBGs()
   Player = NewPlayer()
-  Room.load(Room.Test)
-  Room.spawn(Player, 0,15,0.85)
+  Room.load(Room.Arena)
+  Room.spawn(Player)
 end
 
 function InitRooms()
@@ -29,4 +29,5 @@ function InitBGs()
     Color.get('white', 0.5),
     Color.get('white')
   })
+  Background.current = Background.Sky
 end

@@ -78,4 +78,5 @@ function love.resize(w, h)
   -- for when toggle fs changes the aspect
   G3D.camera.aspectRatio = w / h
   G3D.camera.updateProjectionMatrix()
+  Background.Rerender()
 end
