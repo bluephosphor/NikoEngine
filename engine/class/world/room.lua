@@ -30,8 +30,7 @@ Room.load = function(room)
         {0,0,0},
         _obj.scale and _obj.scale or {1,1,1}
       )
-      _mod.spshader = _obj.shader
-      _mod.colType = _obj.colType
+      _mod.props = _obj
       _r.obj[_i] = _mod
     end
   end
@@ -40,7 +39,12 @@ Room.load = function(room)
   _r.draw = function()
     _r.model:draw()
     for i, obj in ipairs(_r.obj) do
-      obj:draw(obj.spshader and obj.spshader or nil)
+      if obj.props.shader then
+        obj.props.shader:send('transparency', obj.props.alpha)
+        obj:draw(obj.props.shader)
+      else
+        obj:draw()
+      end
     end
   end
 
@@ -60,7 +64,7 @@ Room.spawn = function(entity, x, y, z)
   table.insert(Room.current.children, entity)
   table.insert(entity.collisionModels, Room.current.model)
   for i, obj in ipairs(Room.current.obj) do
-    if obj.colType == CollisionType.SOLID then
+    if obj.props.colType == CollisionType.SOLID then
       table.insert(entity.collisionModels, obj)
     end
   end

@@ -45,11 +45,15 @@ end
 
 function merge_number(num1, num2, amount)
 
+  if num1 == nil then return 0 end
+  if num2 == nil then return 0 end
+
 	local diff = num1 - num2;
 	local merged = num1 - (diff * amount);
 
 	return merged;
 end
+
 
 function merge_color(col1,col2,amt)
 
@@ -59,7 +63,7 @@ function merge_color(col1,col2,amt)
   col1[3], col2[3]
   local a1 = col1[4] and col1[4] or 1
   local a2 = col2[4] and col2[4] or 1
-  
+
   local rdiff = r1 - r2;
   local gdiff = g1 - g2;
   local bdiff = b1 - b2;
@@ -70,4 +74,12 @@ function merge_color(col1,col2,amt)
 	local amerged = a1 - (adiff * amt);
 
 	return {rmerged,gmerged,bmerged,amerged};
+end
+
+function BlendNumbers(numbers, steps, i)
+  local cc = i / steps * #numbers
+  local c1 = numbers[math.max(math.floor(cc), 1)]
+  local c2 = numbers[math.ceil(cc)]
+
+  return merge_number(c1,c2, cc - math.max(math.floor(cc), 1))
 end

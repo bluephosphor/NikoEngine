@@ -4,7 +4,19 @@ Room.Arena = {
   name = "arena",
   defaultSpawn = {0,-35,0.85},
   objects = {
-    {model="crystal", colType=CollisionType.SOLID, shader=Shader.trans, pos={0,0,0}},
-    {model=_lake, shader=Shader.trans, pos={0,-36,-1.5}, texture="asset/sprite/water.png"}
+    {
+      model="crystal", 
+      colType=CollisionType.SOLID,
+      shader=Shader.trans,
+      alpha = 0.5,
+      pos={0,0,0}
+    },
+    {
+      model=_lake,
+      shader=Shader.trans,
+      pos={0,-36,-1.5},
+      alpha = 0.3,
+      texture="asset/sprite/water.png"
+    }
   }
 }

@@ -102,6 +102,7 @@ function Render3D()
   DrawOrder.world3D.eval()
   if Room.current then
     Room.current.draw()
+    Particles.render()
   end
   love.graphics.setWireframe(false)
   love.graphics.setCanvas()

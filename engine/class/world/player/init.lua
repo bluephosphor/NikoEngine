@@ -28,10 +28,13 @@ function NewPlayer(x,y)
   })
 
   Particles.define('spinpixel', 'asset/sprite/parts/p_pixel.png', {
-    lifetime = 30,
+    lifetime = 32,
     size     = 0.05,
     speed    = {0,0,0.01},
-    shader   = Shader.trans
+    shader   = Shader.trans,
+    alphaSteps = {
+      0,1,0,1,0
+    }
   })
 
   _p.currentState = _p.states.normal.set

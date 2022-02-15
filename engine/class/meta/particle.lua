@@ -2,7 +2,7 @@ function ParticleEnvironment()
   local _p = Instance.create({
     types = {},
     parts = {},
-    buffer = 5
+    buffer = 5,
   },StepOrder.world, DrawOrder.world3D)
 
   _p.define = function(name, sprite, props)
@@ -15,6 +15,9 @@ function ParticleEnvironment()
     }
 
     local _t = props
+    if not props.alphaSteps then
+      _t.alphaSteps = {0,1,1,0}
+    end
     _t.sprite = sprite
     _t.model = G3D.newModel(
       _tri,
@@ -36,6 +39,7 @@ function ParticleEnvironment()
       maxtime       = _t.lifetime,
       age           = 0,
       normalizedAge = 0,
+      alpha         = 0,
       pos           = pos,
       speed         = _t.speed and {
         math.random() * _t.speed[1],
@@ -52,6 +56,7 @@ function ParticleEnvironment()
       part.age      = part.age + 1
       part.lifetime = part.lifetime - 1
       part.normalizedAge = part.age / part.maxtime * 1
+      part.alpha = BlendNumbers(part.type.alphaSteps, part.maxtime, part.age)
       if part.type.speed then
         part.pos[1] = part.pos[1] + part.speed[1]
         part.pos[2] = part.pos[2] + part.speed[2]
@@ -66,10 +71,15 @@ function ParticleEnvironment()
     end
   end
 
-  _p.draw = function()
+  _p.render = function()
     for i, part in ipairs(_p.parts) do
       part.model:setTranslation(unpack(part.pos))
-      part.model:draw()
+      if part.type.shader then
+        part.type.shader:send('transparency', part.alpha)
+        part.model:draw(part.type.shader)
+      else
+        part.model:draw()
+      end
     end
   end
 
