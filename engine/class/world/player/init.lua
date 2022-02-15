@@ -27,6 +27,13 @@ function NewPlayer(x,y)
     speed = 3
   })
 
+  Particles.define('spinpixel', 'asset/sprite/parts/p_pixel.png', {
+    lifetime = 30,
+    size     = 0.05,
+    speed    = {0,0,0.01},
+    shader   = Shader.trans
+  })
+
   _p.currentState = _p.states.normal.set
 
   _p.onVoidOut = function()

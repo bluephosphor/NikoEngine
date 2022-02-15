@@ -62,7 +62,6 @@ local _state = {
         _p.zsp = _p.zsp + _p.jump/2
         _p.maxSpeed = 10
       end
-      Particles.emit('test', {_p.x,_p.y,_p.z})
       _p.currentState = _p.states.spin.step
     end,
     step = function(_p, _inherited, dt)
@@ -78,6 +77,12 @@ local _state = {
           _p.currentState = _p.states.normal.set
         end
       end
+
+      Particles.emit('spinpixel', {
+        _p.x + (math.random() - 0.5)*2,
+        _p.y + (math.random() - 0.5)*2,
+        _p.z + (math.random() - 0.5)*2
+      })
 
       _p.spinTimer = approach(_p.spinTimer, 0 , 1)
       if _p.spinTimer <= 0 then

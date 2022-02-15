@@ -4,10 +4,9 @@ Game = {}
 Game.Initialize = function()
   InitRooms()
   InitBGs()
-  Player = NewPlayer()
   Particles = ParticleEnvironment()
-  Particles.define('test', 'asset/sprite/parts/p_pixel.png', {lifetime = 30})
-  Room.load(Room.Test)
+  Player = NewPlayer()
+  Room.load(Room.Arena)
   Room.spawn(Player)
 end
 
