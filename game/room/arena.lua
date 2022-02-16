@@ -5,12 +5,19 @@ Room.Arena = {
   defaultSpawn = {0,-35,0.85},
   objects = {
     {
-      model="crystal",
-      colType=CollisionType.SOLID,
-      shader=Shader.trans,
-      alpha = 0.5,
-      pos={0,0,0}
+      model   = "crystal",
+      colType = CollisionType.SOLID,
+      shader  = Shader.trans,
+      alpha   = 0.5,
+      pos     = {0,0,0}
     },
-    Water(0,-36,-1.8,16,8)
+    {
+      model   = "crystal",
+      colType = CollisionType.SOLID,
+      shader  = Shader.trans,
+      alpha   = 0.5,
+      pos     = {71,-28,-2}
+    },
+    Water(0,-36,-1.8,16,5)
   }
 }
