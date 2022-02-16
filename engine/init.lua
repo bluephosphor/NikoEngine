@@ -12,6 +12,7 @@ Engine.Initialize = function()
   require "engine.lib.math"
   require "engine.lib.color"
   require "engine.lib.definitions"
+  require "engine.lib.gameplay"
 
   require "engine.class.meta.controller"
   require "engine.class.meta.callstack"
@@ -27,10 +28,10 @@ Engine.Initialize = function()
   require "engine.class.UI.textbox"
 
   require "engine.class.world.room"
+  require "engine.class.world.object"
   require "engine.class.world.entity"
   require "engine.class.world.actor"
   require "engine.class.world.player"
-  require "engine.class.world.water"
 
   InitWindow()
   InitFonts()
@@ -69,6 +70,7 @@ Engine.draw = function()
   love.graphics.print('fps: ' .. love.timer.getFPS())
   love.graphics.print('delta: ' .. floorToPrecision(love.timer.getDelta(),4), 0, 8)
   love.graphics.print('stepTime: ' .. floorToPrecision(love.timer.step(),4), 0, 16)
+  love.graphics.print(Player.inWater and 'inWater: true' or 'inWater: false',0, 24)
 end
 
 function InitWindow()

@@ -66,6 +66,8 @@ Room.spawn = function(entity, x, y, z)
   for i, obj in ipairs(Room.current.obj) do
     if obj.props.colType == CollisionType.SOLID then
       table.insert(entity.collisionModels, obj)
+    elseif obj.props.colType == CollisionType.WATER and entity.waterCoords then
+      table.insert(entity.waterCoords, obj)
     end
   end
 end

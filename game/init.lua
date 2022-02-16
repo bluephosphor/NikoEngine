@@ -2,6 +2,7 @@ require "engine"
 Game = {}
 
 Game.Initialize = function()
+  require "game.object.water"
   InitRooms()
   InitBGs()
   Particles = ParticleEnvironment()
