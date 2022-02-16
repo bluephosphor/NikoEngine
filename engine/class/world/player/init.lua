@@ -37,6 +37,16 @@ function NewPlayer(x,y)
     }
   })
 
+  Particles.define('bubble', 'asset/sprite/parts/p_bubble.png', {
+    lifetime = 128,
+    size     = 0.2,
+    speed    = {0,0,0.02},
+    shader   = Shader.trans,
+    alphaSteps = {
+      0,1,0
+    }
+  })
+
   _p.currentState = _p.states.normal.set
 
   _p.onVoidOut = function()

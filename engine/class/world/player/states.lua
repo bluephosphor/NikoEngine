@@ -99,7 +99,7 @@ _state.spin = {
 
 _state.swim = {
   set  = function(_p, _, _)
-    _p.maxSpeed = 2
+    _p.maxSpeed = 3
     _p.maxFallSpeed = 2
     _p.accel = 1
     _p.fric = 0.1
@@ -136,6 +136,15 @@ _state.swim = {
 
     if _p.facing == -_p.inf.x then
       _p.facing = _p.inf.x
+    end
+
+    local _n = math.random(5)
+    if _n == 5 then
+      Particles.emit('bubble', {
+      _p.x + (math.random() - 0.5)*4,
+      _p.y + (math.random() - 0.5)*4,
+      _p.z + (math.random() - 0.5)*4
+    })
     end
   end,
 }

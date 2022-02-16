@@ -65,12 +65,18 @@ Engine.draw = function()
   DrawOrder.UI.eval()
   Controller.reset()
   Color.set('black', 0.8)
-  love.graphics.rectangle("fill",0,0,100,32)
+  love.graphics.rectangle("fill",0,0,100,48)
   Color.reset()
   love.graphics.print('fps: ' .. love.timer.getFPS())
   love.graphics.print('delta: ' .. floorToPrecision(love.timer.getDelta(),4), 0, 8)
   love.graphics.print('stepTime: ' .. floorToPrecision(love.timer.step(),4), 0, 16)
   love.graphics.print(Player.inWater and 'inWater: true' or 'inWater: false',0, 24)
+  love.graphics.print(
+    Player.x and
+    'x: '  .. floorToPrecision(Player.x, 2) ..
+    ' y: ' .. floorToPrecision(Player.y, 2) ..
+    ' z: ' .. floorToPrecision(Player.z, 2), 0, 32
+  )
 end
 
 function InitWindow()

@@ -9,8 +9,8 @@ function NewActor(_x,_y)
       _a.inWater = pointIntersectingCube(
         {_a.x,_a.y,_a.z},
         water.props.pos,
-        water.props.width*4,
-        water.props.height*4,
+        water.props.width,
+        water.props.height,
         water.props.depth
       )
     end

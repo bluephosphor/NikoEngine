@@ -22,8 +22,8 @@ function createPlane(width, height, cols, rows, depth, resolution)
     x_off = x_off + resolution
   end
   local _plane = {}
-  for y = 1, cols, 1 do
-    for x = 1, rows, 1 do
+  for x = 1, cols, 1 do
+    for y = 1, rows, 1 do
       table.insert(_plane,{  x*width,     y*height,    terrain[x][y]     ,1,0,0,0,1})
       table.insert(_plane,{ (x-1)*width, (y-1)*height, terrain[x-1][y-1] ,0,1,0,0,1})
       table.insert(_plane,{  x*width,    (y-1)*height, terrain[x][y-1]   ,0,0,0,0,1})
