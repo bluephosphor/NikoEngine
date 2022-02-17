@@ -17,6 +17,6 @@ function love.update(dt)
 end
 
 function love.draw()
-  Background.draw()
+  if not Debug.ShowWire then Background.draw() end
   Engine.draw()
 end

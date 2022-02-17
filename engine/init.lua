@@ -106,8 +106,8 @@ end
 function Render3D()
   love.graphics.setCanvas(WorldSurface)
   love.graphics.clear()
-  love.graphics.setWireframe(Debug.ShowWire)
   DrawOrder.world3D.eval()
+  love.graphics.setWireframe(Debug.ShowWire)
   if Room.current then
     Room.current.draw()
     Particles.render()

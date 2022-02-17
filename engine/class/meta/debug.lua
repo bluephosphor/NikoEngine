@@ -33,17 +33,17 @@ Command = {
     if     args[2] == 'boxes' then
       Debug.ShowBoxes = not Debug.ShowBoxes
 
-    elseif args[2] == 'freecam' then
+    elseif args[2] == 'fc' then
       Camera.mode = Camera.mode == view.player and view.free or view.player
 
-    elseif args[2] == 'wireframe' then
+    elseif args[2] == 'wire' then
       Debug.ShowWire = not Debug.ShowWire
 
     elseif args[2] == 'fs' then
       Engine.Fullscreen = not Engine.Fullscreen
       love.window.setFullscreen(Engine.Fullscreen)
       local width, height, flags = love.window.getMode()
-      Engine.Resolution.width = width
+      Engine.Resolution.width  = width
       Engine.Resolution.height = height
       WorldSurface[1]:release()
       WorldSurface = {
