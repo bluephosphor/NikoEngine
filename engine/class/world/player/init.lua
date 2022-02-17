@@ -60,8 +60,9 @@ function NewPlayer(x,y)
       _p.inf.y = 0
       return
     end
+    G3D.shader:send('lightPos', {_p.x,_p.y-1,_p.z+0.5})
+    G3D.shader:send('lightInt', {0.3,0.3,0.3})
   end
-
   Camera.follow = _p
   return _p
 end

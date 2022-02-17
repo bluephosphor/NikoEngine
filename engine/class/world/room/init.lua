@@ -13,6 +13,12 @@ Room.load = function(room)
 
   _r.surface = Room.applyTexture(_r, folder)
 
+  --apply lighting
+  for index, value in ipairs(room.lights) do
+    G3D.shader:send('lightPos', value[1]);
+    G3D.shader:send('lightInt', value[2]);
+  end
+
   --load objects
   if room.objects then
     for _i, _obj in ipairs(room.objects) do

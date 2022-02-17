@@ -2,6 +2,7 @@
 // september 2021
 // MIT license
 
+
 // this vertex shader is what projects 3d vertices in models onto your 2d screen
 
 uniform mat4 projectionMatrix; // handled by the camera
@@ -18,6 +19,7 @@ varying vec4 viewPosition;
 varying vec4 screenPosition;
 varying vec3 vertexNormal;
 varying vec4 vertexColor;
+varying mat4 model;
 
 vec4 position(mat4 transformProjection, vec4 vertexPosition) {
     // calculate the positions of the transformed coordinates on the screen
@@ -29,6 +31,7 @@ vec4 position(mat4 transformProjection, vec4 vertexPosition) {
     // save some data from this vertex for use in fragment shaders
     vertexNormal = VertexNormal;
     vertexColor  = VertexColor;
+    model = modelMatrix;
 
     // for some reason models are flipped vertically when rendering to a canvas
     // so we need to detect when this is being rendered to a canvas, and flip it back

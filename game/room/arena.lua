@@ -3,6 +3,9 @@ local _lake = createPlane(4,4,7,8,0,0)
 Room.Arena = {
   name = "arena",
   defaultSpawn = {0,-35,0.85},
+  lights = {
+    --{ {0,0,100}, Color.white }
+  },
   objects = {
     {
       model   = "crystal",
