@@ -18,6 +18,7 @@ function NewPlayer(x,y)
   _p.light.name = _p.name .. ' (light)'
   _p.light.myDrawOrder = DrawOrder.world3D
   _p.light.myDrawOrder.add(_p.light)
+  _p.light.spshader = Shader.whiteout
   Instance.lookupTable[_p.light.id] = _p.light
 
   _p.sprite.defineAnimation('idle', {
@@ -68,16 +69,12 @@ function NewPlayer(x,y)
       _p.inf.y = 0
       return
     end
-    local _lightPos = {_p.x,_p.y,_p.z + 1}
+    local _lightPos = {_p.x,_p.y + 0.5,_p.z + 1.5}
     _p.light:setTranslation(unpack(_lightPos))
     G3D.shader:send('lightPos', _lightPos)
     G3D.shader:send('lightColor', {1,1,1})
   end
 
-  _p.draw = function()
-    _p.light:draw()
-    _draw_inherited()
-  end
   Camera.follow = _p
   return _p
 end
