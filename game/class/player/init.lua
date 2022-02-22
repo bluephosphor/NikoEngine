@@ -4,7 +4,7 @@ function NewPlayer(x,y)
   local _draw_inherited = _p.draw
   _p.lastSpeed = {}
   _p.name = _p.name .. "-> Player"
-  _p.states = require('engine.class.world.player.states')
+  _p.states = require('game.class.player.states')
   _p.jump = 8
 
   _p.maxSpinDuration = 30

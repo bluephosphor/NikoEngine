@@ -1,0 +1,7 @@
+Mobtype = enum{
+  'ghost'
+}
+
+MobData = {
+  
+}

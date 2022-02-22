@@ -42,7 +42,7 @@ local function move_commit(_e, dt)
   --_e.vsp = floorToPrecision(_e.vsp, 2)
   --_e.zsp = floorToPrecision(_e.zsp, 2)
 
-  return _e.hsp*dt, _e.vsp*dt, _e.zsp*dt, dt
+  return _e.hsp, _e.vsp, _e.zsp
 end
 
 local function collision_test(_e, mx,my,mz)
@@ -92,7 +92,7 @@ local function slide_collision(_e, mx,my,mz)
       local xPush, yPush, zPush = nx * dot, ny * dot, nz * dot
 
       -- modify output vector based on normal
-      mz = -(zNorm - zPush) * speedLength
+      mz = (zNorm + zPush) * speedLength
       if ignoreSlopes then mz = 0 end
 
       if not ignoreSlopes then
@@ -124,15 +124,15 @@ local function slide_collision(_e, mx,my,mz)
 end
 
 local function step(_e, dt)
-  local mx, my, mz, div = move_commit(_e, dt)
+  local mx, my, mz = move_commit(_e, dt)
 
   --vertical movement and collision
-  local fx, fy, fz, nx, ny, nz = slide_collision(_e, 0, 0, mz)
-  _e.zsp = fz/div
+  local fx, fy, fz, nx, ny, nz = slide_collision(_e, 0, 0, mz*dt)
+  _e.zsp = fz/dt
 
   -- ground check
   local wasOnGround = _e.onGround
-  _e.onGround = nz and nz > -0.7
+  _e.onGround = nz and nz > 0
 
   -- smoothly walk down slopes
   local stepDownSize = -0.075
@@ -161,9 +161,10 @@ local function step(_e, dt)
       _e.onGround = true
     end
   end
+
   -- x/y collisions
-  local mx, my = slide_collision(_e, mx, my, 0)
-  _e.hsp, _e.vsp = mx/div, my/div
+  local fx, fy = slide_collision(_e, mx*dt, my*dt, 0)
+  _e.hsp, _e.vsp = fx/dt, fy/dt
 
   if _e.sprite ~= nil then
     _e.sprite.animate()

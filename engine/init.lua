@@ -31,7 +31,6 @@ Engine.Initialize = function()
   require "engine.class.world.object"
   require "engine.class.world.entity"
   require "engine.class.world.actor"
-  require "engine.class.world.player"
 
   InitWindow()
   InitFonts()

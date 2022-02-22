@@ -2,12 +2,13 @@ require "engine"
 Game = {}
 
 Game.Initialize = function()
-  require "game.object.water"
+  require "game.class.player"
+  require "game.class.water"
   InitRooms()
   InitBGs()
   Particles = ParticleEnvironment()
   Player = NewPlayer()
-  Room.load(Room.LightTest)
+  Room.load(Room.Test)
   Room.spawn(Player)
 end
 
