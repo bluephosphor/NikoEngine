@@ -7,7 +7,7 @@ function NewActor(_x,_y)
   _a.waterCollision = function()
     for index, water in ipairs(_a.waterCoords) do
       _a.inWater = pointIntersectingCube(
-        {_a.x,_a.y,_a.z},
+        {_a.x,_a.y,_a.z-0.5},
         water.props.pos,
         water.props.width,
         water.props.height,

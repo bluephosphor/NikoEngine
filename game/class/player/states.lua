@@ -90,7 +90,15 @@ _state.spin = {
       _p.z + (math.random() - 0.5)*2
     })
 
-    _p.spinTimer = approach(_p.spinTimer, 0 , 1)
+    local _timerInc = 1
+
+    if _p.inWater then
+      _p.gravity = 0
+      _p.zsp = 0.5
+      _timerInc = 0.5
+    end
+
+    _p.spinTimer = approach(_p.spinTimer, 0 , _timerInc)
     if _p.spinTimer <= 0 then
       _p.currentState = _p.states.normal.set
     end
