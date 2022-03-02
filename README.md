@@ -4,7 +4,7 @@ Creating an ~Engine~ that can serve as a starting point for future game projects
 
 The goal is to have something organized exactly how I want, since I've been getting more picky with game engines by the minute
 
-![Example GIF](asset/example.gif)
+![Example GIF](asset/misc/example.gif)
 
 ## Features:
   
@@ -42,7 +42,7 @@ The goal is to have something organized exactly how I want, since I've been gett
 ### "Shell city"
   - Integrated terminal in which you can call user-defined functions in-game
 
-![Example GIF](asset/example2.gif)
+![Example GIF](asset/misc/example2.gif)
 
 
 ## Planned:
