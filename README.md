@@ -47,7 +47,7 @@ The goal is to have something organized exactly how I want, since I've been gett
 
   ### "Love3D???"
 
-  - It turned out to be not that difficult to leverage the power of vertex shaders to make a 3D game with Love. Ove of my favorite things about working with such a minimalist framework is that there is a lot of freedom to expand in ways you may not have initially expected.
+  - It turned out to be not that difficult to leverage the power of vertex shaders to make a 3D game with Love. One of my favorite things about working with such a minimalist framework is that there is a lot of freedom to expand in ways you may not have initially expected.
 
   ![Example GIF](asset/misc/example10.gif)
 
