@@ -4,7 +4,7 @@ Creating an ~Engine~ that can serve as a starting point for future game projects
 
 The goal is to have something organized exactly how I want, since I've been getting more picky with game engines by the minute
 
-![Example GIF](asset/misc/example.gif)
+![Example GIF](asset/misc/example18.gif)
 
 ## Features:
   
@@ -39,24 +39,28 @@ The goal is to have something organized exactly how I want, since I've been gett
   })
   ```
 
-### "Shell city"
+  ### "Shell city"
   - Integrated terminal in which you can call user-defined functions in-game
 
-![Example GIF](asset/misc/example2.gif)
+  ![Example GIF](asset/misc/example2.gif)
 
 
-## Planned:
-- Collisions (lol)
-- Rooms
-- Cutscenes
-- Depth sorting via callback function for Draw Order
-- Expanded debug system
-- Lots more
+  ### "Love3D???"
 
----
+  - It turned out to be not that difficult to leverage the power of vertex shaders to make a 3D game with Love. Ove of my favorite things about working with such a minimalist framework is that there is a lot of freedom to expand in ways you may not have initially expected.
 
-Q: Why Lua?
+  ![Example GIF](asset/misc/example10.gif)
 
-A: Because I hate myself apparently.
+## Gallery
 
-A (for real): [Love2d](https://love2d.org) has the exact tooling that I want and not too much else. and Lua isn't THAT bad.... (Maybe I can still pivit to MoonScript...)
+A small showcase of the fun things i've been able to build while working on NikoEngine:
+
+![Example GIF](asset/misc/example.gif)
+![Example GIF](asset/misc/example3.gif)
+![Example GIF](asset/misc/example5.gif)
+![Example GIF](asset/misc/example8.gif)
+![Example GIF](asset/misc/example12.gif)
+![Example GIF](asset/misc/example13.gif)
+![Example GIF](asset/misc/example15.gif)
+![Example GIF](asset/misc/example16.gif)
+![Example GIF](asset/misc/example18.gif)
