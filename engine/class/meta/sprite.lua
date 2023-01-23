@@ -70,7 +70,7 @@ function Sprite(path, frameWidth)
   end
 
   _s.animate = function()
-    if _s.animation.length <= 1 then return end
+    if _s.animation.length == nil or _s.animation.length <= 1 then return end
 
     _s.animation.timer = _s.animation.timer - 1
     if _s.animation.timer > 0 then

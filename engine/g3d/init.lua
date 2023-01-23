@@ -43,7 +43,7 @@ g3d = {
     ]],
     path = 'engine/g3d',
     vshaderpath = "engine/g3d/g3d.vert",
-    fshaderpath = "engine/lib/shader/fog.frag",
+    fshaderpath = "engine/lib/shader/light.frag",
 }
 
 -- the shader is what does the heavy lifting, displaying 3D meshes on your 2D monitor
