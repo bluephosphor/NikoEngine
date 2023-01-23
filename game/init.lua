@@ -16,7 +16,6 @@ function InitRooms()
   require "game.room.arena"
   require "game.room.test"
   require "game.room.lighttest"
-  require "game.room.mc"
 end
 
 function InitBGs()

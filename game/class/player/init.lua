@@ -72,7 +72,7 @@ function NewPlayer(x,y)
     local _lightPos = {_p.x,_p.y + 0.5,_p.z + 1.5}
     _p.light:setTranslation(unpack(_lightPos))
     G3D.shader:send('lightPos', _lightPos)
-    G3D.shader:send('lightColor', {1,1,1})
+    G3D.shader:send('lightColor', {0.1,1,0.1})
   end
 
   Camera.follow = _p
