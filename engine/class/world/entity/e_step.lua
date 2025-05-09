@@ -168,7 +168,7 @@ local function step(_e, dt)
   _e.hsp, _e.vsp = fx, fy
 
   if _e.sprite ~= nil then
-    _e.sprite.animate()
+    _e.sprite.animate(dt)
   end
 
   if _e.model ~= nil then

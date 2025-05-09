@@ -50,11 +50,11 @@ function ParticleEnvironment()
 
   end
 
-  _p.step = function()
+  _p.step = function(dt)
     local deleteIndicies = {}
     for i, part in ipairs(_p.parts) do
-      part.age      = part.age + 1
-      part.lifetime = part.lifetime - 1
+      part.age      = part.age + dt
+      part.lifetime = part.lifetime - dt
       part.normalizedAge = part.age / part.maxtime * 1
       part.alpha = BlendNumbers(part.type.alphaSteps, part.maxtime, part.age)
       if part.type.speed then

@@ -5,7 +5,7 @@ function NewPlayer(x,y)
   _p.lastSpeed = {}
   _p.name = _p.name .. "-> Player"
   _p.states = require('game.class.player.states')
-  _p.jump = 0.07
+  _p.jump = 0.06
   _p.swimjump = 0.03
 
   _p.maxSpinDuration = 0.5
@@ -29,16 +29,16 @@ function NewPlayer(x,y)
 
   _p.sprite.defineAnimation('walk',{
     frames = range(1,4),
-    speed = 5
+    speed = 0.05
   })
 
   _p.sprite.defineAnimation('spin',{
     frames = range(5,14),
-    speed = 3
+    speed = 0.03
   })
 
   Particles.define('spinpixel', 'asset/sprite/parts/p_pixel.png', {
-    lifetime = 32,
+    lifetime = 0.5,
     size     = 0.05,
     speed    = {0,0,0.01},
     shader   = Shader.trans,
@@ -48,7 +48,7 @@ function NewPlayer(x,y)
   })
 
   Particles.define('bubble', 'asset/sprite/parts/p_bubble.png', {
-    lifetime = 128,
+    lifetime = 1,
     size     = 0.2,
     speed    = {0,0,0.02},
     shader   = Shader.trans,

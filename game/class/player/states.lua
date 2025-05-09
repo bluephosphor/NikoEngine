@@ -2,11 +2,11 @@ local _state = {}
 
 _state.normal = {
   set  = function(_p, _, _)
-    _p.maxSpeed = 12
+    _p.maxSpeed = 7
     _p.maxFallSpeed = 20
     _p.accel = 1
     _p.fric = 15
-    _p.grav = 0.5
+    _p.grav = 0.3
     _p.sprite.setFrame(1)
 
     _p.currentState = _p.states.normal.step
@@ -33,7 +33,7 @@ _state.normal = {
 
     if not _p.onGround then
       local _val = _p.zsp
-      local threshhold = 0.99
+      local threshhold = 0.01
       local frame
       if _val > threshhold then
         frame = 4
@@ -57,7 +57,7 @@ _state.normal = {
 
 _state.spin = {
   set = function(_p, _, _)
-    _p.maxSpeed = 30
+    _p.maxSpeed = 16
     _p.maxFallSpeed = 7
     _p.accel = 0.5
     _p.fric = 0.5

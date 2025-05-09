@@ -50,7 +50,7 @@ function Sprite(path, frameWidth)
     _s.animation.frames = anim.frames
     _s.animation.speed  = anim.speed
     _s.animation.index  = 1
-    _s.animation.timer  = 1
+    _s.animation.timer  = anim.speed
     for index, value in ipairs(anim.frames) do
       _s.animation.frames[index] = value
       _s.animation.length = index
@@ -69,10 +69,10 @@ function Sprite(path, frameWidth)
     _s.frame = index
   end
 
-  _s.animate = function()
+  _s.animate = function(dt)
     if _s.animation.length == nil or _s.animation.length <= 1 then return end
 
-    _s.animation.timer = _s.animation.timer - 1
+    _s.animation.timer = _s.animation.timer - dt
     if _s.animation.timer > 0 then
       return
     else
