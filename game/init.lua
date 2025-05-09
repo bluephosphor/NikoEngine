@@ -8,7 +8,7 @@ Game.Initialize = function()
   InitBGs()
   Particles = ParticleEnvironment()
   Player = NewPlayer()
-  Room.load(Room.LightTest)
+  Room.load(Room.Test)
   Room.spawn(Player)
 end
 

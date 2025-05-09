@@ -5,10 +5,11 @@ function NewPlayer(x,y)
   _p.lastSpeed = {}
   _p.name = _p.name .. "-> Player"
   _p.states = require('game.class.player.states')
-  _p.jump = 8
+  _p.jump = 0.07
+  _p.swimjump = 0.03
 
-  _p.maxSpinDuration = 40
-  _p.spinTimer       = 30
+  _p.maxSpinDuration = 0.5
+  _p.spinTimer       = 0.5
 
   _p.setSprite('asset/sprite/player/player.png', 32)
   _p.setModel('asset/model/plane.obj')
@@ -72,7 +73,7 @@ function NewPlayer(x,y)
     local _lightPos = {_p.x,_p.y + 0.5,_p.z + 1.5}
     _p.light:setTranslation(unpack(_lightPos))
     G3D.shader:send('lightPos', _lightPos)
-    G3D.shader:send('lightColor', {0.1,1,0.1})
+    G3D.shader:send('lightColor', {1,1,1})
   end
 
   Camera.follow = _p

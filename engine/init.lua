@@ -70,6 +70,10 @@ Engine.draw = function()
   love.graphics.print('delta: ' .. floorToPrecision(love.timer.getDelta(),4), 0, 8)
   love.graphics.print('stepTime: ' .. floorToPrecision(love.timer.step(),4), 0, 16)
   love.graphics.print(Player.inWater and 'inWater: true' or 'inWater: false',0, 24)
+  love.graphics.print('hsp' .. floorToPrecision(Player.hsp, 2),0,40)
+  love.graphics.print('vsp' .. floorToPrecision(Player.vsp, 2),0,48)
+  love.graphics.print('zsp' .. floorToPrecision(Player.zsp, 2),0,56)
+  love.graphics.print('maxSpeed' .. floorToPrecision(Player.maxSpeed, 2), 0 , 62)
   love.graphics.print(
     Player.x and
     'x: '  .. floorToPrecision(Player.x, 2) ..

@@ -3,9 +3,10 @@ local function move_commit(_e, dt)
   _e.vec = nil
 
   --interpolate changes in maxSpeeds so they aren't so sudden
-  local _amt = 0.5
+  local _amt = 5 * dt
   if _e.trueMaxSpeed ~= _e.maxSpeed then
     _e.trueMaxSpeed = lerp(_e.trueMaxSpeed, _e.maxSpeed, _amt)
+    --_e.trueMaxSpeed = _e.maxSpeed
   end
   if _e.trueMaxFallSpeed ~= _e.maxFallSpeed then
     _e.trueMaxFallSpeed = lerp(_e.trueMaxFallSpeed, _e.maxFallSpeed, _amt)
@@ -13,36 +14,36 @@ local function move_commit(_e, dt)
 
   if _e.inf.x ~= 0 or _e.inf.y ~= 0 then
     --apply initial speed
-    _e.hsp = _e.hsp + (_e.inf.x * (_e.accel))
-    _e.vsp = _e.vsp + (-_e.inf.y * (_e.accel))
+    _e.hsp = _e.hsp + (_e.inf.x * (_e.accel * dt))
+    _e.vsp = _e.vsp + (-_e.inf.y * (_e.accel * dt))
 
     --do math so we don't go faster diagonally
-    _e.vec = MovementVector(0,0, _e.hsp,_e.vsp)
+    _e.vec = MovementVector(0,0, _e.hsp, _e.vsp)
 
-    if _e.vec.distance >= _e.trueMaxSpeed then
-      _e.hsp = lengthdir_x(_e.trueMaxSpeed, _e.vec.dirRad)
-      _e.vsp = lengthdir_y(_e.trueMaxSpeed, _e.vec.dirRad)
+    if _e.vec.distance >= (_e.trueMaxSpeed * dt) then
+      _e.hsp = lengthdir_x(_e.trueMaxSpeed * dt, _e.vec.dirRad)
+      _e.vsp = lengthdir_y(_e.trueMaxSpeed * dt, _e.vec.dirRad)
     end
   end
 
   --friction
   if _e.inf.x == 0 then
-    _e.hsp = lerp(_e.hsp, 0, _e.fric)
+    _e.hsp = lerp(_e.hsp, 0, _e.fric * dt)
   end
 
   if _e.inf.y == 0 then
-    _e.vsp = lerp(_e.vsp, 0, _e.fric)
+    _e.vsp = lerp(_e.vsp, 0, _e.fric * dt)
   end
 
   --gravity
-  _e.zsp = math.max(_e.zsp - _e.grav, -_e.trueMaxFallSpeed)
+  _e.zsp = math.max(_e.zsp - _e.grav * dt, -_e.trueMaxFallSpeed * dt)
 
   --rounding
   --_e.hsp = floorToPrecision(_e.hsp, 2)
   --_e.vsp = floorToPrecision(_e.vsp, 2)
   --_e.zsp = floorToPrecision(_e.zsp, 2)
 
-  return _e.hsp, _e.vsp, _e.zsp
+  return _e.hsp, _e.vsp, _e.zsp 
 end
 
 local function collision_test(_e, mx,my,mz)
@@ -127,8 +128,8 @@ local function step(_e, dt)
   local mx, my, mz = move_commit(_e, dt)
 
   --vertical movement and collision
-  local fx, fy, fz, nx, ny, nz = slide_collision(_e, 0, 0, mz*dt)
-  _e.zsp = fz/dt
+  local fx, fy, fz, nx, ny, nz = slide_collision(_e, 0, 0, mz)
+  _e.zsp = fz
 
   -- ground check
   local wasOnGround = _e.onGround
@@ -163,8 +164,8 @@ local function step(_e, dt)
   end
 
   -- x/y collisions
-  local fx, fy = slide_collision(_e, mx*dt, my*dt, 0)
-  _e.hsp, _e.vsp = fx/dt, fy/dt
+  local fx, fy = slide_collision(_e, mx, my, 0)
+  _e.hsp, _e.vsp = fx, fy
 
   if _e.sprite ~= nil then
     _e.sprite.animate()

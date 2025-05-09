@@ -2,10 +2,10 @@ local _state = {}
 
 _state.normal = {
   set  = function(_p, _, _)
-    _p.maxSpeed = 5
-    _p.maxFallSpeed = 10
-    _p.accel = 2
-    _p.fric = 0.2
+    _p.maxSpeed = 12
+    _p.maxFallSpeed = 20
+    _p.accel = 1
+    _p.fric = 15
     _p.grav = 0.5
     _p.sprite.setFrame(1)
 
@@ -57,15 +57,15 @@ _state.normal = {
 
 _state.spin = {
   set = function(_p, _, _)
-    _p.maxSpeed = 15
+    _p.maxSpeed = 30
     _p.maxFallSpeed = 7
     _p.accel = 0.5
-    _p.fric = 0.01
-    _p.grav = 0.4
+    _p.fric = 0.5
+    _p.grav = 0.2
     _p.sprite.setAnimation(_p.sprite.animations.spin)
     _p.spinTimer = _p.maxSpinDuration
     if not _p.onGround then 
-      _p.zsp = _p.zsp + _p.jump/2
+      _p.zsp = _p.zsp + _p.jump/4
       _p.maxSpeed = 10
     end
     _p.currentState = _p.states.spin.step
@@ -90,12 +90,12 @@ _state.spin = {
       _p.z + (math.random() - 0.5)*2
     })
 
-    local _timerInc = 1
+    local _timerInc = dt
 
     if _p.inWater then
       _p.gravity = 0
-      _p.zsp = 0.5
-      _timerInc = 0.5
+      _p.zsp = 0.01
+      _timerInc = 0.5 * dt
     end
 
     _p.spinTimer = approach(_p.spinTimer, 0 , _timerInc)
@@ -107,11 +107,11 @@ _state.spin = {
 
 _state.swim = {
   set  = function(_p, _, _)
-    _p.maxSpeed = 3
-    _p.maxFallSpeed = 2
-    _p.accel = 1
-    _p.fric = 0.1
-    _p.grav = 0.1
+    _p.maxSpeed = 5
+    _p.maxFallSpeed = 5
+    _p.accel = 0.5
+    _p.fric = 0.2
+    _p.grav = 0.05
     _p.sprite.setFrame(1)
     _p.zsp = 0
 
@@ -124,7 +124,7 @@ _state.swim = {
       _p.inf.x = Controller.direction.x
       _p.inf.y = Controller.direction.y
       if Controller.key['x'] then
-        _p.zsp = _p.zsp + 3
+        _p.zsp = _p.zsp + _p.swimjump
       end
       -- if Controller.key['z'] then
       --   someday a cool swimming dash
