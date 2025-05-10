@@ -1,53 +1,86 @@
-Queue = {}
-function Queue.new()
-  return {first = 1, last = 0}
+local function reverse(tb)
+	local ret = {}
+	for i = #tb, 1, -1 do
+		table.insert(ret, tb[i])
+	end
+	return ret
 end
 
---Now, we can insert or remove an element at both ends in constant time:
 
-function Queue.pushleft(list, value)
-  local first = list.first - 1
-  list.first = first
-  list[first] = value
+--##############################################################################
+local Node = {}
+function Node.create(val, prev)
+	return {val = val, prev = prev}
 end
 
-function Queue.pushright(list, value)
-  local last = list.last + 1
-  list.last = last
-  list[last] = value
+
+--##############################################################################
+queue = {}
+
+function queue.create()
+	local mt =
+	{
+		__index = queue,
+		__tostring = queue.show,
+	}
+
+	local q =
+	{
+		init = nil,
+		last = nil,
+	}
+
+	return setmetatable(q, mt)
 end
 
-function Queue.popleft(list)
-  local first = list.first
-  if first > list.last then error("list is empty") end
-  local value = list[first]
-  list[first] = nil        -- to allow garbage collection
-  list.first = first + 1
-  return value
+function queue.insert(q, val)
+	local node = Node.create(val)
+	if q.init == nil then -- => queue is empty
+		q.last = node
+	else
+		q.init.prev = node
+	end
+	q.init = node
+
+	return q
 end
 
-function Queue.popright(list)
-  local last = list.last
-  if list.first > last then error("list is empty") end
-  local value = list[last]
-  list[last] = nil         -- to allow garbage collection
-  list.last = last - 1
-  return value
+function queue.pop(q)
+	local ret = q.last.val
+	q.last = q.last.prev
+	return ret
 end
 
-function Queue.size(list)
-  --return list.last
-  local s = 0
-  for index, value in ipairs(list) do
-    s = s + 1
-  end
-  return s
+function queue.show(q)
+	local nodes = {}
+	local it = q.last
+	while it ~= nil do
+		table.insert(nodes, it.val)
+		it = it.prev
+	end
+	nodes = reverse(nodes)
+	for i, node in ipairs(nodes) do
+		nodes[i] = '{'.. tostring(node) .. '}'
+	end
+	return table.concat(nodes, '<-')
 end
 
-function Queue.display(list)
-  local str = '{'
-  for key, value in ipairs(list) do  
-    str = str .. key .. ":" .. value .. ','
-  end
-  print(str .. '}')
+function queue.getAsList(q)
+	local nodes = {}
+	local it = q.last
+	while it ~= nil do
+		table.insert(nodes, it.val)
+		it = it.prev
+	end
+	return reverse(nodes)
+end
+
+--##############################################################################
+function showtable(tb)
+	local aux = {}
+	for i, v in ipairs(tb) do
+		table.insert(aux, tostring(v))
+	end
+	local parts = {'[', table.concat(aux, ', '), ']'}
+	return table.concat(parts)
 end

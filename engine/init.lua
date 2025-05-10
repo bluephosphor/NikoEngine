@@ -13,8 +13,8 @@ Engine.Initialize = function()
   require "engine.lib.math"
   require "engine.lib.color"
   require "engine.lib.definitions"
-  require "engine.lib.gameplay"
   require "engine.lib.queue"
+  require "engine.lib.gameplay"
 
   require "engine.class.meta.controller"
   require "engine.class.meta.callstack"
