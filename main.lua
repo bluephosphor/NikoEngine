@@ -8,7 +8,7 @@ end
 function love.update(dt)
   Controller.getInputState()
 
-  if Engine.State ~= "PAUSED" then
+  if Engine.State ~= "PAUSED" and dt < 0.2 then
     StepOrder.world.eval(dt)
   end
 

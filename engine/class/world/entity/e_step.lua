@@ -5,11 +5,12 @@ local function move_commit(_e, dt)
   --interpolate changes in maxSpeeds so they aren't so sudden
   local _amt = 5 * dt
   if _e.trueMaxSpeed ~= _e.maxSpeed then
-    _e.trueMaxSpeed = lerp(_e.trueMaxSpeed, _e.maxSpeed, _amt)
+    _e.trueMaxSpeed = lerp(_e.trueMaxSpeed, _e.maxSpeed, _amt, true)
     --_e.trueMaxSpeed = _e.maxSpeed
   end
   if _e.trueMaxFallSpeed ~= _e.maxFallSpeed then
-    _e.trueMaxFallSpeed = lerp(_e.trueMaxFallSpeed, _e.maxFallSpeed, _amt)
+    _e.trueMaxFallSpeed = lerp(_e.trueMaxFallSpeed, _e.maxFallSpeed, _amt, true)
+    --_e.trueMaxFallSpeed = _e.maxFallSpeed
   end
 
   if _e.inf.x ~= 0 or _e.inf.y ~= 0 then
@@ -36,7 +37,8 @@ local function move_commit(_e, dt)
   end
 
   --gravity
-  _e.zsp = math.max(_e.zsp - _e.grav * dt, -_e.trueMaxFallSpeed * dt)
+  --_e.zsp = math.max(_e.zsp - _e.grav * dt, -_e.trueMaxFallSpeed * dt)
+  _e.zsp = lerp(_e.zsp, -_e.trueMaxFallSpeed * dt, _e.grav * dt, true)
 
   --rounding
   --_e.hsp = floorToPrecision(_e.hsp, 2)
