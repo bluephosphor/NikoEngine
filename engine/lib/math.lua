@@ -5,7 +5,7 @@ function lerp(a, b, t, nosnap)
   if nosnap then
     return _v
   else
-    return math.abs(_v) > 0.01 and _v or b
+    return math.abs(_v) > 0.0001 and _v or b
   end
 end
 
@@ -35,9 +35,7 @@ function MovementVector(x1,y1,x2,y2)
     a = x1-x2,
     b = y1-y2,
   }
-  --_v.dirRad     = floorToPrecision(math.atan2(_v.b, _v.a), 2)
   _v.dirRad     = math.atan2(_v.b, _v.a), 2
-  --_v.direction  = floorToPrecision(math.deg(-_v.dirRad) + 180)
   _v.direction  = math.deg(-_v.dirRad) + 180
   _v.distance   = math.sqrt(_v.a*_v.a + _v.b*_v.b)
 

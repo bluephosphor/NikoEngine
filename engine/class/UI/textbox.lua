@@ -34,12 +34,12 @@ UI.Textbox = function(data, x, y)
   if not x then _t.x = Engine.Resolution.width/2  - _t.width/2 end
   if not y then _t.y = Engine.Resolution.height/2 - _t.height/2 end
 
-  _t.step = function()
+  _t.step = function(dt)
     _t.nextSprite.visible = false
     _t.finished = _t.data[_t.index]:typewriter()
     if _t.finished then
       _t.nextSprite.visible = true
-      _t.nextSprite.animate()
+      _t.nextSprite.animate(dt)
 
       _t.index = _t.index + bin(Controller.key[Input.key.action])
       if _t.index > _t.size then

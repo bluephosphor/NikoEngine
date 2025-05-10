@@ -2,8 +2,8 @@ Engine = {
   State = "GAMEPLAY",
   Fullscreen = false,
   Resolution = {
-    width  = 854,
-    height = 480
+    width  = 1280,
+    height = 720
   }
 }
 

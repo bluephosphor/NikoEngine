@@ -110,7 +110,7 @@ _state.swim = {
     _p.maxSpeed = 5
     _p.maxFallSpeed = 5
     _p.accel = 0.5
-    _p.fric = 0.2
+    _p.fric = 1
     _p.grav = 0.05
     _p.sprite.setFrame(1)
     _p.zsp = 0
@@ -133,7 +133,7 @@ _state.swim = {
 
     if _p.inf.x ~= 0 or _p.inf.y ~= 0 then
       _p.sprite.setAnimation(_p.sprite.animations.walk)
-      _p.sprite.animation.speed = 10
+      _p.sprite.animation.speed = 0.1
     else
       _p.sprite.setFrame(1)
     end

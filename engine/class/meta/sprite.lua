@@ -72,7 +72,7 @@ function Sprite(path, frameWidth)
   _s.animate = function(dt)
     if _s.animation.length == nil or _s.animation.length <= 1 then return end
 
-    _s.animation.timer = _s.animation.timer - dt
+    _s.animation.timer = _s.animation.timer - (dt and dt or 1)
     if _s.animation.timer > 0 then
       return
     else

@@ -33,13 +33,13 @@ Command = {
     if     args[2] == 'boxes' then
       Debug.ShowBoxes = not Debug.ShowBoxes
 
-    elseif args[2] == 'fc' then
+    elseif args[2] == 'fc' or args[2] == 'freecam' then
       Camera.mode = Camera.mode == view.player and view.free or view.player
 
     elseif args[2] == 'wire' then
       Debug.ShowWire = not Debug.ShowWire
 
-    elseif args[2] == 'fs' then
+    elseif args[2] == 'fs' or args[2] == 'fullscreen' then
       Engine.Fullscreen = not Engine.Fullscreen
       love.window.setFullscreen(Engine.Fullscreen)
       local width, height, flags = love.window.getMode()
@@ -54,7 +54,7 @@ Command = {
         depth = true,
       }
       Shell.align()
-    elseif args[2] == 'col' then
+    elseif args[2] == 'col' or args[2] == 'collisions' then
       Debug.ShowCollisionData = not Debug.ShowCollisionData
     end
   end,
