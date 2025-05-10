@@ -39,6 +39,7 @@ local function move_commit(_e, dt)
   --gravity
   --_e.zsp = math.max(_e.zsp - _e.grav * dt, -_e.trueMaxFallSpeed * dt)
   _e.zsp = lerp(_e.zsp, -_e.trueMaxFallSpeed * dt, _e.grav * dt, true)
+  --_e.zsp = lerp(_e.zsp, -0.1, 0.01, true)
 
   --rounding
   --_e.hsp = floorToPrecision(_e.hsp, 2)
@@ -138,7 +139,7 @@ local function step(_e, dt)
   _e.onGround = nz and nz > 0
 
   -- smoothly walk down slopes
-  local stepDownSize = -0.075
+  local stepDownSize = -7 * dt    -- -0.075
 
   if not _e.onGround and wasOnGround and _e.zsp < 0 then
     local len,x,y,z,nx,ny,nz = collision_test(_e,0,0,stepDownSize)

@@ -3,10 +3,10 @@ local _state = {}
 _state.normal = {
   set  = function(_p, _, _)
     _p.maxSpeed = 7
-    _p.maxFallSpeed = 20
+    _p.maxFallSpeed = 25
     _p.accel = 1
     _p.fric = 15
-    _p.grav = 1.5
+    _p.grav = 2
     _p.sprite.setFrame(1)
 
     _p.currentState = _p.states.normal.step
@@ -61,11 +61,11 @@ _state.spin = {
     _p.maxFallSpeed = 7
     _p.accel = 0.5
     _p.fric = 0.5
-    _p.grav = 0.3
+    _p.grav = 0.5
     _p.sprite.setAnimation(_p.sprite.animations.spin)
     _p.spinTimer = _p.maxSpinDuration
     if not _p.onGround then 
-      _p.zsp = _p.zsp + (_p.jump * dt)/4
+      _p.zsp = _p.zsp + (_p.initSpinJump * dt)
       _p.maxSpeed = 10
     end
     _p.currentState = _p.states.spin.step
@@ -77,7 +77,7 @@ _state.spin = {
       _p.inf.x = Controller.direction.x
       _p.inf.y = Controller.direction.y
       if Controller.key['x'] and _p.onGround then
-        _p.zsp = _p.jump
+        _p.zsp = _p.jump * dt
       end
       if Controller.key['z'] then
         _p.currentState = _p.states.normal.set
@@ -111,7 +111,7 @@ _state.swim = {
     _p.maxFallSpeed = 5
     _p.accel = 0.5
     _p.fric = 1
-    _p.grav = 0.05
+    _p.grav = 0.1
     _p.sprite.setFrame(1)
     _p.zsp = 0
 

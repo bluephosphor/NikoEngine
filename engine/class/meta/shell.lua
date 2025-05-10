@@ -6,7 +6,7 @@ InitShell = function()
     histIndex   = 1,
     anchor      = Direction.LEFT,
     width       = 300,
-    height      = Engine.Resolution.height,
+    height      = Engine.Resolution.height / Engine.UIScale,
     margin      = 8,
     padding     = 8,
     inputString = '',
@@ -21,7 +21,7 @@ InitShell = function()
   Shell.surface2 = love.graphics.newCanvas(Shell.width, Shell.height)
 
   Shell.align = function()
-    Shell.x = Engine.Resolution.width - Shell.width
+    Shell.x = (Engine.Resolution.width / Engine.UIScale) - Shell.width
     Shell.y = 0
     Shell.origin = {
       x = Shell.margin + Shell.padding,

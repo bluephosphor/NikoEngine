@@ -4,7 +4,8 @@ Engine = {
   Resolution = {
     width  = 1280,
     height = 720
-  }
+  },
+  UIScale = 2
 }
 
 Engine.Initialize = function()
@@ -13,6 +14,7 @@ Engine.Initialize = function()
   require "engine.lib.color"
   require "engine.lib.definitions"
   require "engine.lib.gameplay"
+  require "engine.lib.queue"
 
   require "engine.class.meta.controller"
   require "engine.class.meta.callstack"
@@ -61,10 +63,10 @@ end
 Engine.draw = function()
   DrawOrder.world.eval()
   Render3D()
+  love.graphics.push()
+  love.graphics.scale(Engine.UIScale,Engine.UIScale)
   DrawOrder.UI.eval()
   Controller.reset()
-  Color.set('black', 0.8)
-  love.graphics.rectangle("fill",0,0,100,48)
   Color.reset()
   love.graphics.print('fps: ' .. love.timer.getFPS())
   love.graphics.print('delta: ' .. floorToPrecision(love.timer.getDelta(),4), 0, 8)
@@ -80,6 +82,7 @@ Engine.draw = function()
     ' y: ' .. floorToPrecision(Player.y, 2) ..
     ' z: ' .. floorToPrecision(Player.z, 2), 0, 32
   )
+  love.graphics.pop()
 end
 
 function InitWindow()
