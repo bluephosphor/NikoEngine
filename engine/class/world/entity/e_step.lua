@@ -85,7 +85,7 @@ local function slide_collision(_e, mx,my,mz,dt)
   _e.y = _e.y + my
   _e.z = _e.z + mz
 
-  local ignoreSlopes = nz and nz > 100 * dt
+  local ignoreSlopes = nz and nz > 0.5
 
   if len then
     local speedLength = math.sqrt(mx^2 + my^2 + mz^2)
@@ -93,7 +93,7 @@ local function slide_collision(_e, mx,my,mz,dt)
     if speedLength > 0 then
       local xNorm, yNorm, zNorm = mx / speedLength, my / speedLength, mz / speedLength
       local dot = xNorm*nx + yNorm*ny + zNorm*nz
-      local xPush, yPush, zPush = nx * dot, ny * dot, nz * dot
+      local xPush, yPush, zPush = nx * dot, ny * dot , nz * dot * dt
 
       -- modify output vector based on normal
       mz = (zNorm + zPush) * speedLength
@@ -102,6 +102,15 @@ local function slide_collision(_e, mx,my,mz,dt)
       if not ignoreSlopes then
         mx = (xNorm - xPush) * speedLength
         my = (yNorm - yPush) * speedLength
+      end
+      if Debug.ShowCollisionData and nz then
+        Shell.log('speedLength: ' .. speedLength)
+        Shell.log('zNorm: ' .. zNorm)
+        Shell.log('dot: ' .. dot)
+        Shell.log('zPush: ' .. zPush)
+        if Shell.logBuffer <= 0 then
+          Shell.logBuffer = 5
+        end
       end
     end
 
@@ -139,7 +148,7 @@ local function step(_e, dt)
   _e.onGround = nz and nz > 0
 
   -- smoothly walk down slopes
-  local stepDownSize = -7 * dt    -- -0.075
+  local stepDownSize = -7 * dt -- -0.075
 
   if not _e.onGround and wasOnGround and _e.zsp < 0 then
     local len,x,y,z,nx,ny,nz = collision_test(_e,0,0,stepDownSize)
@@ -148,7 +157,7 @@ local function step(_e, dt)
       -- do the position change only if a collision was actually detected
       _e.z = _e.z + mz
 
-      local speedLength = math.sqrt(mx^2 + my^2 + mz^2)
+      local speedLength = math.sqrt(mx^2 + my^2 + mz^2) * dt
 
       if speedLength > 0 then
         local xNorm, yNorm, zNorm = mx / speedLength, my / speedLength, mz / speedLength
