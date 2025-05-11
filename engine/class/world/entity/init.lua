@@ -38,6 +38,7 @@ function NewEntity(x,y,z)
     grav  = 0.5,
 
     onGround = false,
+    wasOnGround = false,
     collisionModels = {},
 
     inf = { x = 0, y = 0 }

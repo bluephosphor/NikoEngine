@@ -70,6 +70,11 @@ function NewPlayer(x,y)
       _p.inf.y = 0
       return
     end
+
+    _p.coyoteTime = approach(_p.coyoteTime, 0 , dt)
+    if not _p.onGround and _p.wasOnGround  and _p.zsp <= 0 then
+      _p.coyoteTime = 0.1
+    end
     --local _lightPos = {_p.x,_p.y + 0.5,_p.z + 1.5}
     --_p.light:setTranslation(unpack(_lightPos))
     --G3D.shader:send('lightPos', _lightPos)

@@ -144,13 +144,13 @@ local function step(_e, dt)
   _e.zsp = fz
 
   -- ground check
-  local wasOnGround = _e.onGround
+  _e.wasOnGround = _e.onGround
   _e.onGround = nz and nz > 0
 
   -- smoothly walk down slopes
   local stepDownSize = -7 * dt -- -0.075
 
-  if not _e.onGround and wasOnGround and _e.zsp < 0 then
+  if not _e.onGround and _e.wasOnGround and _e.zsp < 0 then
     local len,x,y,z,nx,ny,nz = collision_test(_e,0,0,stepDownSize)
     local mx, my, mz = 0,0,stepDownSize
     if len then

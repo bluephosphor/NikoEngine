@@ -18,9 +18,12 @@ _state.normal = {
     if Engine.State == 'GAMEPLAY' then
       _p.inf.x = Controller.direction.x
       _p.inf.y = Controller.direction.y
-      if Controller.key['x'] and _p.onGround then
+      --handle jump
+      if Controller.key['x'] and (_p.onGround or _p.coyoteTime > 0) then
         _p.zsp = _p.jump * dt
+        _p.coyoteTime = 0
       end
+      --handle spin
       if Controller.key['z'] then
         _p.currentState = _p.states.spin.set
       end
@@ -78,9 +81,12 @@ _state.spin = {
     if Engine.State == 'GAMEPLAY' then
       _p.inf.x = Controller.direction.x
       _p.inf.y = Controller.direction.y
-      if Controller.key['x'] and _p.onGround then
+      --handle jump
+      if Controller.key['x'] and (_p.onGround or _p.coyoteTime > 0) then
         _p.zsp = _p.jump * dt
+        _p.coyoteTime = 0
       end
+      --early cancel
       if Controller.key['z'] then
         _p.currentState = _p.states.normal.set
       end
