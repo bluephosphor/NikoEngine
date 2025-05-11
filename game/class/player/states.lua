@@ -7,7 +7,7 @@ _state.normal = {
     _p.jump = 12
     _p.accel = 1
     _p.fric = 15
-    _p.grav = 3
+    _p.grav = 2
     _p.sprite.setFrame(1)
 
     _p.currentState = _p.states.normal.step
@@ -63,7 +63,7 @@ _state.spin = {
     _p.jump = 5
     _p.accel = 0.5
     _p.fric = 0.5
-    _p.grav = 0.6
+    _p.grav = 1
     _p.sprite.setAnimation(_p.sprite.animations.spin)
     _p.spinTimer = _p.maxSpinDuration
     if not _p.onGround then 

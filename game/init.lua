@@ -10,6 +10,7 @@ Game.Initialize = function()
   Player = NewPlayer()
   Room.load(Room.Test)
   Room.spawn(Player)
+  _box = UI.EntityStatBox(Player)
 end
 
 function InitRooms()
