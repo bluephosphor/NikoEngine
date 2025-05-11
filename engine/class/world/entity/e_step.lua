@@ -78,14 +78,14 @@ local function collision_test(_e, mx,my,mz)
   return bestLength, bx,by,bz, bnx,bny,bnz
 end
 
-local function slide_collision(_e, mx,my,mz)
+local function slide_collision(_e, mx,my,mz,dt)
   local len,x,y,z,nx,ny,nz = collision_test(_e,mx,my,mz)
 
   _e.x = _e.x + mx
   _e.y = _e.y + my
   _e.z = _e.z + mz
 
-  local ignoreSlopes = nz and nz > 0.7
+  local ignoreSlopes = nz and nz > 100 * dt
 
   if len then
     local speedLength = math.sqrt(mx^2 + my^2 + mz^2)
@@ -131,7 +131,7 @@ local function step(_e, dt)
   local mx, my, mz = move_commit(_e, dt)
 
   --vertical movement and collision
-  local fx, fy, fz, nx, ny, nz = slide_collision(_e, 0, 0, mz)
+  local fx, fy, fz, nx, ny, nz = slide_collision(_e, 0, 0, mz, dt)
   _e.zsp = fz
 
   -- ground check
@@ -167,7 +167,7 @@ local function step(_e, dt)
   end
 
   -- x/y collisions
-  local fx, fy = slide_collision(_e, mx, my, 0)
+  local fx, fy = slide_collision(_e, mx, my, 0, dt)
   _e.hsp, _e.vsp = fx, fy
 
   if _e.sprite ~= nil then

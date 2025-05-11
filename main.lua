@@ -9,8 +9,8 @@ function love.update(dt)
   Controller.getInputState()
   
   DTQueue.insert(dt)
-  adt = DTQueue.getAverage()
-
+  local adt = DTQueue.getAverage()
+  
   if Engine.State ~= "PAUSED" and dt < 0.2 then
     StepOrder.world.eval(adt)
   end

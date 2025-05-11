@@ -4,6 +4,7 @@ _state.normal = {
   set  = function(_p, _, _)
     _p.maxSpeed = 7
     _p.maxFallSpeed = 25
+    _p.jump = 9
     _p.accel = 1
     _p.fric = 15
     _p.grav = 2
@@ -59,9 +60,10 @@ _state.spin = {
   set = function(_p, _, dt)
     _p.maxSpeed = 16
     _p.maxFallSpeed = 7
+    _p.jump = 5
     _p.accel = 0.5
     _p.fric = 0.5
-    _p.grav = 0.5
+    _p.grav = 0.6
     _p.sprite.setAnimation(_p.sprite.animations.spin)
     _p.spinTimer = _p.maxSpinDuration
     if not _p.onGround then 

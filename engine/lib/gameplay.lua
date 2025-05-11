@@ -12,7 +12,7 @@ end
 DTQueue = {}
 DTQueue.data = queue.create()
 DTQueue.currentSize = 0
-DTQueue.maxSize = 5
+DTQueue.maxSize = 10
 DTQueue.insert = function(value)
   DTQueue.data:insert(value)
   DTQueue.currentSize = DTQueue.currentSize + 1

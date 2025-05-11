@@ -1,8 +1,7 @@
-- fix state issue
-- shell?
-- collisions
-- actors and flesh out state mechanics
-- rooms
+## fixes
+- steep slope issue
+- 
+## todo
+- other actors and flesh out state mechanics
 - cutscenes
 - ???
-- make ghost story?
