@@ -3,7 +3,7 @@ local function move_commit(_e, dt)
   _e.vec = nil
 
   --interpolate changes in maxSpeeds so they aren't so sudden
-  local _amt = 5 * dt
+  local _amt = 10 * dt
   if _e.trueMaxSpeed ~= _e.maxSpeed then
     _e.trueMaxSpeed = lerp(_e.trueMaxSpeed, _e.maxSpeed, _amt, true)
     --_e.trueMaxSpeed = _e.maxSpeed

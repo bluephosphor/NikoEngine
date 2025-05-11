@@ -5,9 +5,7 @@ function NewPlayer(x,y)
   _p.lastSpeed = {}
   _p.name = _p.name .. "-> Player"
   _p.states = require('game.class.player.states')
-  _p.jump = 9
   _p.initSpinJump = 1
-  _p.swimjump = 2
 
   _p.maxSpinDuration = 0.5
   _p.spinTimer       = 0.5

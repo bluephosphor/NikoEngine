@@ -31,8 +31,8 @@ UI.Textbox = function(data, x, y)
     table.insert(_t.children, _item)
   end
 
-  if not x then _t.x = Engine.Resolution.width/2  - _t.width/2 end
-  if not y then _t.y = Engine.Resolution.height/2 - _t.height/2 end
+  if not x then _t.x = (Engine.Resolution.width/2) / Engine.UIScale - _t.width/2 end
+  if not y then _t.y = (Engine.Resolution.height/2) / Engine.UIScale - _t.height/2 end
 
   _t.step = function(dt)
     _t.nextSprite.visible = false
