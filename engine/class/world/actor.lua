@@ -19,6 +19,19 @@ function NewActor(_x,_y)
   local _step_inherited = _a.step
   _a.step = function(dt)
     _step_inherited(dt)
+
+    -- paper mario style flip
+    if _a.model ~= nil then
+      
+      _a.model.rotation[1] = lerp(
+        _a.model.rotation[1],
+        math.pi + ((math.pi/2) * _a.facing),
+        dt * 15
+      )
+      _a.model:updateMatrix()
+  
+    end
+
     _a.waterCollision()
   end
 

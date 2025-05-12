@@ -13,12 +13,12 @@ UI.Textbox = function(data, x, y)
 
   _t.nextSprite.defineAnimation('nextPage', {
     frames = range(1,7),
-    speed = 4
+    speed = 0.1
   })
 
   _t.nextSprite.defineAnimation('lastPage', {
     frames = range(8,14),
-    speed = 6
+    speed = 0.1
   })
 
   for index, value in ipairs(data) do

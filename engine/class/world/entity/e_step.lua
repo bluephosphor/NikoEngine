@@ -189,14 +189,7 @@ local function step(_e, dt)
       _e.y,
       _e.z
     }
-    _e.model.rotation[1] = lerp(
-      _e.model.rotation[1],
-      math.pi + ((math.pi/2) * _e.facing),
-      0.15,
-      true
-    )
     _e.model:updateMatrix()
-
   end
 end
 

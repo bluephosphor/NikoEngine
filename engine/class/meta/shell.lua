@@ -74,10 +74,10 @@ InitShell = function()
     end
   end
 
-  Shell.step = function()
+  Shell.step = function(dt)
     Shell.logBuffer = approach(Shell.logBuffer, 0, 1)
     if Shell.open then
-      Shell.blinkTimer = wrap(Shell.blinkTimer - 1, 0, 32)
+      Shell.blinkTimer = wrap(Shell.blinkTimer - (dt * 100), 0, 32)
       Shell.cursor = Shell.blinkTimer < 16 and '|' or ''
       --logging
       if Controller.key['return'] and Shell.inputString ~= '' then

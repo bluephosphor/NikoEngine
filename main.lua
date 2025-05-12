@@ -15,7 +15,7 @@ function love.update(dt)
     StepOrder.world.eval(adt)
   end
 
-  StepOrder.UI.eval()
+  StepOrder.UI.eval(dt)
   Engine.Update(dt)
 end
 
