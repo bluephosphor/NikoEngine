@@ -32,6 +32,22 @@ UI.StatBox = function(x,y)
     return _sb
 end
 
+UI.EngineStatBox = function(x, y)
+    local _eb = UI.StatBox(x, y)
+
+    local _step_inherited = _eb.step
+
+    _eb.step = function(dt)
+        _eb.drawList = {'[---engine info---]'}
+        table.insert(_eb.drawList, 'fps: ' .. love.timer.getFPS())
+        table.insert(_eb.drawList, 'delta: ' .. floorToPrecision(love.timer.getDelta(), 4))
+        table.insert(_eb.drawList, 'stepTime: ' .. floorToPrecision(love.timer.step(), 4))
+        _step_inherited(dt)
+    end
+    
+    return _eb
+end
+
 UI.EntityStatBox = function(entity, x, y)
     local _eb = UI.StatBox(x,y)
     _eb.propsToDraw = {'x','y','z','hsp','vsp','zsp', 'coyoteTime'}
