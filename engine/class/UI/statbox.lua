@@ -50,7 +50,7 @@ end
 
 UI.EntityStatBox = function(entity, x, y)
     local _eb = UI.StatBox(x,y)
-    _eb.propsToDraw = {'x','y','z','hsp','vsp','zsp', 'coyoteTime'}
+    _eb.propsToDraw = {'x','y','z','hsp','vsp','zsp', 'coyoteTime', 'onGround'}
 
     local _step_inherited = _eb.step
 
@@ -58,7 +58,13 @@ UI.EntityStatBox = function(entity, x, y)
         _eb.drawList = {'[' .. entity.name .. ']'}
         for i,v in ipairs(_eb.propsToDraw) do
             if entity[v] then
-                _str = v .. ": " .. floorToPrecision(entity[v], 4) 
+                local _drawValue = entity[v]
+                if type(entity[v]) == "number" then
+                    _drawValue = floorToPrecision(entity[v], 4)
+                elseif type(entity[v]) == "boolean" then
+                    _drawValue = entity[v] and 'true' or 'false'
+                end
+                _str = v .. ": " .. _drawValue
                 table.insert(_eb.drawList, _str)
             end
         end
